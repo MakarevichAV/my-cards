@@ -1,12 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { increment, decrement } from './redux/actions/actions';
-import StyledButton from './components/Button';
 import LoginPage from './pages/LoginPage'; // Добавьте импорт
 
 const App = () => {
-  const count = useSelector((state) => state.sample.count);
-  const dispatch = useDispatch();
 
   return (
     <div>
