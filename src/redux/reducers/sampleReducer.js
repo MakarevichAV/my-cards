@@ -1,15 +1,28 @@
-import { INCREMENT, DECREMENT } from '../actions/actionTypes';
+import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  count: 0,
+  user: null,
+  error: null,
 };
 
 const sampleReducer = (state = initialState, action) => {
   switch (action.type) {
-    case INCREMENT:
-      return { ...state, count: state.count + 1 };
-    case DECREMENT:
-      return { ...state, count: state.count - 1 };
+    case actionTypes.LOGIN_SUCCESS:
+    case actionTypes.REGISTER_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+        error: null,
+      };
+
+    case actionTypes.LOGIN_FAILURE:
+    case actionTypes.REGISTER_FAILURE:
+      return {
+        ...state,
+        user: null,
+        error: action.payload,
+      };
+
     default:
       return state;
   }
