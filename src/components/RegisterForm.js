@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from '../redux/actions/authActions';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = ({ onSubmit }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const dispatch = useDispatch();
-  const history = useHistory(); // Initialize useHistory hook to manage navigation
+  const navigate = useNavigate();
   const error = useSelector((state) => state.auth.error);
   const successMessage = useSelector((state) => state.auth.successMessage);
 
@@ -19,9 +19,9 @@ const RegisterForm = ({ onSubmit }) => {
       console.log(successMessage);
 
       // Redirect the user to the login page
-      history.push('/login');
+      navigate('/login');
     }
-  }, [successMessage, history]);
+  }, [successMessage, navigate]);
 
   const handleRegister = () => {
     // Check if the password and confirmation password match
@@ -30,8 +30,8 @@ const RegisterForm = ({ onSubmit }) => {
       // Call the onSubmit callback with the data
       onSubmit({ username, password });
     } else {
-      // Handle the error if passwords do not match
-      dispatch({ type: 'LOGIN_FAILURE', payload: 'Passwords do not match' });
+      // Handle the error if passwords do not match for registration
+      dispatch({ type: 'REGISTER_FAILURE', payload: 'Passwords do not match' });
     }
   };
 
