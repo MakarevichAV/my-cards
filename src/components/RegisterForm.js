@@ -17,11 +17,22 @@ const RegisterForm = ({ onSubmit }) => {
     if (successMessage) {
       // Display a success message (you can use a toast or any other UI element)
       console.log(successMessage);
-
+  
       // Redirect the user to the login page
       navigate('/login');
+  
+      // Dispatch an action to set a success message
+      dispatch({ type: 'SET_SUCCESS_MESSAGE', payload: successMessage });
+  
+      // Clear the success message after 3 seconds (adjust the timeout as needed)
+      const timeoutId = setTimeout(() => {
+        dispatch({ type: 'CLEAR_SUCCESS_MESSAGE' });
+      }, 3000);
+  
+      // Clean up the timeout to avoid memory leaks
+      return () => clearTimeout(timeoutId);
     }
-  }, [successMessage, navigate]);
+  }, [successMessage, navigate, dispatch]);
 
   const handleRegister = () => {
     // Check if the password and confirmation password match

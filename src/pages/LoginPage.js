@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
 import '../styles/LoginForm.css';
@@ -6,6 +7,7 @@ import '../styles/LoginForm.css';
 const LoginPage = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({});
+  const successMessage = useSelector((state) => state.auth.successMessage);
 
   const toggleMode = () => {
     setIsLogin((prev) => !prev);
@@ -36,6 +38,9 @@ const LoginPage = () => {
           <h3>Form Data:</h3>
           <pre>{JSON.stringify(formData, null, 2)}</pre>
         </div>
+      )}
+      {successMessage && (
+        <div style={{ color: 'green', margin: '10px 0' }}>{successMessage}</div>
       )}
     </div>
   );
