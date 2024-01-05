@@ -11,12 +11,19 @@ const LoginPage = () => {
   const [formData, setFormData] = useState({});
   const successMessage = useSelector((state) => state.auth.successMessage);
   const navigate = useNavigate();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   useEffect(() => {
     if (successMessage && isLogin) {
       navigate('/home');
     }
   }, [successMessage, isLogin, navigate]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/home');
+    }
+  }, [isAuthenticated, navigate]);
 
   const toggleMode = () => {
     dispatch({ type: 'SET_IS_LOGIN', payload: !isLogin });
