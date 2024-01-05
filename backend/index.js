@@ -57,19 +57,35 @@ passport.use(new LocalStrategy((username, password, done) => {
 }));
 
 // Registration route
-app.post('/register', async (req, res) => {
-    const { username, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
+// app.post('/register', async (req, res) => {
+//     const { username, password } = req.body;
+//     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = new User({ username, password: hashedPassword });
-    newUser.save((err) => {
-        if (err) {
-            return res.status(500).send(err.message);
-        }
+//     const newUser = new User({ username, password: hashedPassword });
+//     newUser.save((err) => {
+//         if (err) {
+//             return res.status(500).send(err.message);
+//         }
+
+//         // Send a response with a success message
+//         res.status(200).json({ message: 'Registration successful! Please log in.' });
+//     });
+// });
+
+app.post('/register', async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const newUser = new User({ username, password: hashedPassword });
+        await newUser.save();
 
         // Send a response with a success message
         res.status(200).json({ message: 'Registration successful! Please log in.' });
-    });
+    } catch (err) {
+        // Handle errors
+        res.status(500).send(err.message);
+    }
 });
 
 // Login route
