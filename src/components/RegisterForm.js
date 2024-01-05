@@ -19,6 +19,7 @@ const RegisterForm = ({ onSubmit }) => {
       console.log(successMessage);
   
       // Redirect the user to the login page
+      dispatch({ type: 'SET_IS_LOGIN', payload: true }); // Dispatch action to set isLogin to true
       navigate('/login');
   
       // Dispatch an action to set a success message

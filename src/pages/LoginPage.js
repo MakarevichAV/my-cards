@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
 import '../styles/LoginForm.css';
 
 const LoginPage = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  const dispatch = useDispatch();
+  // const [isLogin, setIsLogin] = useState(true);
+  const isLogin = useSelector((state) => state.auth.isLogin);
   const [formData, setFormData] = useState({});
   const successMessage = useSelector((state) => state.auth.successMessage);
 
   const toggleMode = () => {
-    setIsLogin((prev) => !prev);
+    // setIsLogin((prev) => !prev);
+    dispatch({ type: 'SET_IS_LOGIN', payload: !isLogin });
   };
 
   const handleFormSubmit = (data) => {
