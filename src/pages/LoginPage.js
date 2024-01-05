@@ -1,23 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
 import '../styles/LoginForm.css';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
-  // const [isLogin, setIsLogin] = useState(true);
   const isLogin = useSelector((state) => state.auth.isLogin);
   const [formData, setFormData] = useState({});
   const successMessage = useSelector((state) => state.auth.successMessage);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (successMessage && isLogin) {
+      navigate('/home');
+    }
+  }, [successMessage, isLogin, navigate]);
 
   const toggleMode = () => {
-    // setIsLogin((prev) => !prev);
     dispatch({ type: 'SET_IS_LOGIN', payload: !isLogin });
   };
 
   const handleFormSubmit = (data) => {
-    // Обновляем состояние с данными
     setFormData(data);
   };
 
@@ -27,9 +32,9 @@ const LoginPage = () => {
         <img src="/logo.svg" alt="Logo" />
       </div>
       <div className="login-container">
-      {successMessage && (
-        <div className="success-message">{successMessage}</div>
-      )}
+        {successMessage && (
+          <div className="success-message">{successMessage}</div>
+        )}
         <h2>{isLogin ? 'Login' : 'Register'}</h2>
         {isLogin ? (
           <LoginForm onSubmit={handleFormSubmit} />
