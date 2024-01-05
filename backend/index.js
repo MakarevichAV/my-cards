@@ -41,49 +41,34 @@ passport.deserializeUser((id, done) => {
     });
 });
 
-passport.use(new LocalStrategy((username, password, done) => {
-    User.findOne({ username: username }, (err, user) => {
-        if (err) { return done(err); }
-        if (!user) { return done(null, false, { message: 'Incorrect username.' }); }
+passport.use(new LocalStrategy(async (username, password, done) => {
+    try {
+        const user = await User.findOne({ username: username });
 
-        bcrypt.compare(password, user.password, (err, res) => {
-            if (res) {
-                return done(null, user);
-            } else {
-                return done(null, false, { message: 'Incorrect password.' });
-            }
-        });
-    });
+        if (!user) {
+            return done(null, false, { message: 'Incorrect username.' });
+        }
+
+        const passwordMatch = await bcrypt.compare(password, user.password);
+
+        if (passwordMatch) {
+            return done(null, user);
+        } else {
+            return done(null, false, { message: 'Incorrect password.' });
+        }
+    } catch (err) {
+        return done(err);
+    }
 }));
-
-// Registration route
-// app.post('/register', async (req, res) => {
-//     const { username, password } = req.body;
-//     const hashedPassword = await bcrypt.hash(password, 10);
-
-//     const newUser = new User({ username, password: hashedPassword });
-//     newUser.save((err) => {
-//         if (err) {
-//             return res.status(500).send(err.message);
-//         }
-
-//         // Send a response with a success message
-//         res.status(200).json({ message: 'Registration successful! Please log in.' });
-//     });
-// });
 
 app.post('/register', async (req, res) => {
     try {
         const { username, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
-
         const newUser = new User({ username, password: hashedPassword });
         await newUser.save();
-
-        // Send a response with a success message
         res.status(200).json({ message: 'Registration successful! Please log in.' });
     } catch (err) {
-        // Handle errors
         res.status(500).send(err.message);
     }
 });
