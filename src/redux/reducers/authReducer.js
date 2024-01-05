@@ -2,6 +2,7 @@ const initialState = {
   user: null,
   error: null,
   successMessage: null,
+  isLogin: true,
 };
 
 const authReducer = (state = initialState, action) => {

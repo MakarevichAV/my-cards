@@ -20,10 +20,12 @@ const RegisterForm = ({ onSubmit }) => {
   
       // Redirect the user to the login page
       dispatch({ type: 'SET_IS_LOGIN', payload: true }); // Dispatch action to set isLogin to true
-      navigate('/login');
+      // navigate('/login');
   
       // Dispatch an action to set a success message
       dispatch({ type: 'SET_SUCCESS_MESSAGE', payload: successMessage });
+
+      navigate('/login');
   
       // Clear the success message after 3 seconds (adjust the timeout as needed)
       const timeoutId = setTimeout(() => {
