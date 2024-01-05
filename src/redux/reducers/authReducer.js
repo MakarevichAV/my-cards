@@ -2,17 +2,20 @@ const initialState = {
   user: null,
   error: null,
   successMessage: null,
-  isAuthenticated: false,
+  isAuthenticated: localStorage.getItem('isAuthenticated') === 'true',
   isLogin: true,
 };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'LOGIN_SUCCESS':
+      localStorage.setItem('isAuthenticated', 'true');
       return { ...state, user: action.payload, error: null, isAuthenticated: true };
     case 'LOGIN_FAILURE':
+      localStorage.setItem('isAuthenticated', 'false');
       return { ...state, user: null, error: action.payload, isAuthenticated: false };
     case 'LOGOUT':
+      localStorage.setItem('isAuthenticated', 'false');
       return { ...state, user: null, error: null, isAuthenticated: false };
     case 'REGISTER_SUCCESS':
       return {
