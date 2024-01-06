@@ -3,7 +3,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 20px;
-    background-color: #f0f0f0;
+    background-color: #3A4F58;
   }
   
   .logo {
@@ -15,9 +15,38 @@ header {
   }
   
   .page-title {
+    color: aliceblue;
+    font-size: 18px;
+    font-weight: bold;
     /* Стили для названия страницы */
   }
   
   .add-directory {
-    /* Стили для кнопки добавления директории */
+    background-color: #40B72D;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    position: relative;
+  }
+
+  .gor-line {
+    width: 65%;
+    height: 6px;
+    background-color: aliceblue;
+    border-radius: 2px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .ver-line {
+    width: 6px;
+    height: 65%;
+    background-color: aliceblue;
+    border-radius: 2px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }

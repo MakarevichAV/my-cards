@@ -13,10 +13,13 @@ const Header = () => {
       </nav>
 
       {/* Название текущей страницы */}
-      <div className="page-title">Домашняя страница</div>
+      <div className="page-title">Directories</div>
 
       {/* Кнопка добавления новой директории */}
-      <button className="add-directory">Добавить директорию</button>
+      <div className="add-directory">
+        <div className="gor-line"></div>
+        <div className="ver-line"></div>
+      </div>
     </header>
   );
 };

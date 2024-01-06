@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { useSelector } from 'react-redux';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
+import './App.css';
 
 const App = () => {
   const isUserAuthenticated = useSelector((state) => state.auth.isAuthenticated);

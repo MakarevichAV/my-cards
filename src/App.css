@@ -1,8 +1,9 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
+  flex: 1;
 }
 
-.App-logo {
+/* .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
@@ -26,4 +27,4 @@
 
 .App-link {
   color: #61dafb;
-}
+} */

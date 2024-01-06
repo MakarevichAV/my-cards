@@ -4,7 +4,6 @@
 }
 
 .content {
-    display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
 }
@@ -13,25 +12,32 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid #ccc;
-    margin: 10px;
+    border: 1px solid #e5e5e5;
+    margin: 10px auto;
     padding: 10px;
+    max-width: 400px;
+    border-radius: 8px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.1);
+    background-color: rgb(255, 255, 255);
 }
 
-.directory-image img {
-    max-width: 50px;
-    /* Регулируйте размер изображения папки по вашему усмотрению */
-    margin-right: 10px;
+.directory-info {
+    flex: 1;
 }
 
 .sets-count {
-    /* Стили для количества наборов карточек */
+    font-size: 10px;
+    color: #C2C2C2;
 }
 
 .directory-name {
-    /* Стили для названия директории */
+    font-size: 16px;
+    color: #3A4F58;
 }
 
 .edit-directory {
-    /* Стили для кнопки редактирования директории */
+    width: 15px;
+    height: 15px;
+    background: url('../images/icon/edit.svg') no-repeat;
+    cursor: pointer;
 }
