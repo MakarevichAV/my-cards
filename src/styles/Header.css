@@ -1,0 +1,23 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f0f0f0;
+  }
+  
+  .logo {
+    /* Стили для логотипа или названия сайта */
+  }
+  
+  .menu {
+    /* Стили для меню */
+  }
+  
+  .page-title {
+    /* Стили для названия страницы */
+  }
+  
+  .add-directory {
+    /* Стили для кнопки добавления директории */
+  }
