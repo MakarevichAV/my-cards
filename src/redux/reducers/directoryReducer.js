@@ -38,6 +38,21 @@ const directoryReducer = (state = initialState, action) => {
         case 'DELETE_DIRECTORY':
             return state.filter((directory) => directory.id !== action.payload.id);
 
+        case 'ADD_DIRECTORY':
+            // Добавляем новую директорию в режиме редактирования
+            return [
+                ...state,
+                {
+                    id: state.length + 1, // Просто для примера, можете использовать вашу логику присвоения ID
+                    name: '',
+                    image: '',
+                    setsCount: 0,
+                    isEditing: true,
+                    editedName: '',
+                    editedImage: '',
+                },
+            ];
+
         default:
             return state;
     }

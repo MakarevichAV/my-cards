@@ -1,12 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { addDirectory } from '../redux/actions/directoryActions';
 import '../styles/Header.css';
 
-const Header = () => {
+const Header = ({ onAddDirectory }) => {
   return (
     <header>
-      {/* Логотип или название сайта
-      <div className="logo">MyCards</div> */}
-
       {/* Меню */}
       <nav className="menu">
         {/* Здесь добавьте пункты меню */}
@@ -16,7 +15,7 @@ const Header = () => {
       <div className="page-title">Directories</div>
 
       {/* Кнопка добавления новой директории */}
-      <div className="add-directory">
+      <div className="add-directory" onClick={onAddDirectory}>
         <div className="gor-line"></div>
         <div className="ver-line"></div>
       </div>
@@ -24,4 +23,10 @@ const Header = () => {
   );
 };
 
-export default Header;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAddDirectory: () => dispatch(addDirectory()),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Header);
