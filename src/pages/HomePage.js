@@ -1,26 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Header from '../components/Header';
 import DirectoryTile from '../components/DirectoryTile';
 import Footer from '../components/Footer';
 import '../styles/HomePage.css';
 
-const HomePage = () => {
-  // Пример данных для тестирования
-  const directories = [
-    {
-      id: 1,
-      image: '',
-      setsCount: 6,
-      directoryName: 'Hebrew',
-    },
-    {
-        id: 2,
-        image: '',
-        setsCount: 4,
-        directoryName: 'English',
-      },
-  ];
-
+const HomePage = ({ directories }) => {
   return (
     <div className="home-page page">
       <Header />
@@ -31,9 +16,16 @@ const HomePage = () => {
         ))}
       </div>
 
-      <Footer /> 
+      <Footer />
     </div>
   );
 };
 
-export default HomePage;
+// Используем mapStateToProps для передачи данных из Redux store в компонент
+const mapStateToProps = (state) => {
+  return {
+    directories: state.directory,
+  };
+};
+
+export default connect(mapStateToProps)(HomePage);
