@@ -2,7 +2,7 @@ const initialState = [
     {
         id: 1,
         name: 'Directory 1',
-        image: 'path/to/image1.jpg',
+        image: '',
         setsCount: 5,
         isEditing: false,
         editedName: '',
@@ -11,7 +11,7 @@ const initialState = [
     {
         id: 2,
         name: 'Directory 2',
-        image: 'path/to/image2.jpg',
+        image: '',
         setsCount: 3,
         isEditing: false,
         editedName: '',

@@ -34,7 +34,16 @@ import { editDirectory, saveDirectory, deleteDirectory } from '../redux/actions/
 const DirectoryTile = ({ id, isEditing, name, image, setsCount, editedName, editedImage, onEdit, onSave, onDelete }) => {
     const [localEditedName, setLocalEditedName] = useState(editedName || '');
     const [localEditedImage, setLocalEditedImage] = useState(editedImage || '');
-
+    const defaultImage = process.env.PUBLIC_URL + '/images/folder.png';
+    const imageStyle = {
+        backgroundImage: `url(${image || defaultImage})`,
+        backgroundSize: 'contain',
+        backgroundPosition: 'center',
+        width: '50px',
+        height: '50px',
+        marginRight: '15px',
+        cursor: 'pointer'
+    };
     const handleSave = () => {
         onSave(id, localEditedName, localEditedImage);
     };
@@ -44,8 +53,8 @@ const DirectoryTile = ({ id, isEditing, name, image, setsCount, editedName, edit
     };
 
     return (
-        <div className="directory-tile" style={{ backgroundImage: `url(${image})` }}>
-            <div className="directory-image" style={{ backgroundImage: `url(${image})` }}></div>
+        <div className="directory-tile">
+            <div className="directory-image" style={imageStyle}></div>
 
             {isEditing ? (
                 <div className="directory-info">
@@ -64,24 +73,18 @@ const DirectoryTile = ({ id, isEditing, name, image, setsCount, editedName, edit
                 </div>
             ) : (
                 <div className="directory-info">
-                    <div className="sets-count">{setsCount} наборов карточек</div>
                     <div className="directory-name">{name}</div>
+                    <div className="sets-count">{setsCount} наборов карточек</div>
                 </div>
             )}
 
             {isEditing ? (
                 <>
-                    <button className="save-directory" onClick={handleSave}>
-                        Сохранить
-                    </button>
-                    <button className="delete-directory" onClick={handleDelete}>
-                        Удалить
-                    </button>
+                    <div className="save-directory btns" onClick={handleSave}></div>
+                    <div className="delete-directory btns" onClick={handleDelete}></div>
                 </>
             ) : (
-                <button className="edit-directory" onClick={() => onEdit(id)}>
-                    Редактировать
-                </button>
+                <div className="edit-directory btns" onClick={() => onEdit(id)}></div>
             )}
         </div>
     );

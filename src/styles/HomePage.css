@@ -35,9 +35,23 @@
     color: #3A4F58;
 }
 
-.edit-directory {
-    width: 15px;
-    height: 15px;
-    background: url('../images/icon/edit.svg') no-repeat;
+.btns {
+    width: 20px;
+    height: 20px;
     cursor: pointer;
+}
+
+.edit-directory {
+    background: url('../images/icon/edit.svg') no-repeat;
+}
+
+.delete-directory {
+    background: url('../images/icon/delete.svg') no-repeat;
+}
+
+.save-directory {
+    width: 20px;
+    height: 20px;
+    background: url('../images/icon/save.svg') no-repeat;
+    margin-right: 10px;
 }
