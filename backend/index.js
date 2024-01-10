@@ -4,6 +4,7 @@ const passport = require('passport');
 const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('./models/User');
+const Directory = require('./models/Directory');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const app = express();
@@ -11,7 +12,10 @@ const cors = require('cors');
 const port = process.env.PORT || 3001;
 
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -76,6 +80,75 @@ app.post('/register', async (req, res) => {
 // Login route
 app.post('/login', passport.authenticate('local'), (req, res) => {
     res.sendStatus(200);
+});
+
+app.post('/addDirectory', async (req, res) => {
+    try {
+        const { name, image, setsCount } = req.body;
+        const newDirectory = new Directory({ name, image, setsCount });
+        await newDirectory.save();
+        res.status(200).json(newDirectory);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
+
+// app.put('/editDirectory/:id', async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//         const { name, image, setsCount } = req.body;
+
+//         console.log('Request received for /editDirectory/:id with ID:', id);
+
+//         // Преобразование строки id в ObjectId
+//         const objectId = mongoose.Types.ObjectId(id);
+
+//         const updatedDirectory = await Directory.findByIdAndUpdate(
+//             objectId,
+//             { name, image, setsCount },
+//             { new: true }
+//         );
+
+//         console.log('Updated Directory:', updatedDirectory);
+
+//         if (!updatedDirectory) {
+//             return res.status(404).json({ message: 'Directory not found' });
+//         }
+
+//         res.status(200).json(updatedDirectory);
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).send(err.message);
+//     }
+// });
+
+app.put('/editDirectory/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { editedName, editedImage, setsCount } = req.body;
+
+        console.log('Request received for /editDirectory/:id with ID:', id);
+
+        // Преобразование строки id в ObjectId
+        const objectId = new mongoose.Types.ObjectId(id);
+
+        const updatedDirectory = await Directory.findByIdAndUpdate(
+            objectId,
+            { name: editedName, image: editedImage, setsCount },
+            { new: true }
+        );
+
+        console.log('Updated Directory:', updatedDirectory);
+
+        if (!updatedDirectory) {
+            return res.status(404).json({ message: 'Directory not found' });
+        }
+
+        res.status(200).json(updatedDirectory);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send(err.message);
+    }
 });
 
 // Запуск сервера

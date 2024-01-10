@@ -1,22 +1,69 @@
-export const editDirectory = (id, editedName, editedImage) => ({
-    type: 'EDIT_DIRECTORY',
-    payload: { id, editedName, editedImage },
-});
+import * as actionTypes from './actionTypes';
+import axios from 'axios';
 
-export const saveDirectory = (id, editedName, editedImage) => ({
-    type: 'SAVE_DIRECTORY',
-    payload: { id, editedName, editedImage },
-});
-
-export const deleteDirectory = (id) => ({
-    type: 'DELETE_DIRECTORY',
-    payload: { id },
-});
-
-export const ADD_DIRECTORY = 'ADD_DIRECTORY';
+const serverUrl = 'http://localhost:3001';
 
 export const addDirectory = () => {
+    return async (dispatch, getState) => {
+        try {
+            const newDirectory = {
+                name: '',
+                image: '',
+                setsCount: 0,
+            };
+
+            // Отправка запроса к серверу для сохранения данных в базе данных
+            const response = await axios.post(`${serverUrl}/addDirectory`, newDirectory);
+
+            dispatch({
+                type: actionTypes.ADD_DIRECTORY,
+                payload: response.data,
+            });
+        } catch (error) {
+            console.error('Ошибка при добавлении директории:', error);
+            console.error('Response data:', error.response?.data);
+            console.error('Response status:', error.response?.status);
+            console.error('Response headers:', error.response?.headers);
+            throw error;
+        }
+    };
+};
+
+export const editDirectory = (id, editedName, editedImage) => {
     return {
-        type: ADD_DIRECTORY,
+        type: actionTypes.EDIT_DIRECTORY,
+        payload: { id, editedName, editedImage },
+    };
+};
+
+export const saveDirectory = (id, editedName, editedImage) => {
+    return async (dispatch, getState) => {
+        try {
+            // Отправка запроса к серверу для сохранения отредактированных данных в базе данных
+            await axios.put(`${serverUrl}/editDirectory/${id}`, { editedName, editedImage });
+
+            dispatch({
+                type: actionTypes.SAVE_DIRECTORY,
+                payload: { id, editedName, editedImage },
+            });
+        } catch (error) {
+            console.error('Ошибка при сохранении директории:', error);
+        }
+    };
+};
+
+export const deleteDirectory = (id) => {
+    return async (dispatch, getState) => {
+        try {
+            // Отправка запроса к серверу для удаления данных из базы данных
+            await axios.delete(`/deleteDirectory/${id}`);
+
+            dispatch({
+                type: actionTypes.DELETE_DIRECTORY,
+                payload: { id },
+            });
+        } catch (error) {
+            console.error('Ошибка при удалении директории:', error);
+        }
     };
 };

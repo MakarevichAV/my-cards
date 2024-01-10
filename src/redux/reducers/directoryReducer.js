@@ -1,23 +1,4 @@
-const initialState = [
-    {
-        id: 1,
-        name: 'Directory 1',
-        image: '',
-        setsCount: 5,
-        isEditing: false,
-        editedName: '',
-        editedImage: '',
-    },
-    {
-        id: 2,
-        name: 'Directory 2',
-        image: '',
-        setsCount: 3,
-        isEditing: false,
-        editedName: '',
-        editedImage: '',
-    },
-];
+const initialState = [];
 
 const directoryReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -43,7 +24,7 @@ const directoryReducer = (state = initialState, action) => {
             return [
                 ...state,
                 {
-                    id: state.length + 1, // Просто для примера, можете использовать вашу логику присвоения ID
+                    id: action.payload._id, // Используем возвращенный ID от сервера
                     name: '',
                     image: '',
                     setsCount: 0,
