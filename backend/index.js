@@ -127,8 +127,6 @@ app.put('/editDirectory/:id', async (req, res) => {
         const { id } = req.params;
         const { editedName, editedImage, setsCount } = req.body;
 
-        console.log('Request received for /editDirectory/:id with ID:', id);
-
         // Преобразование строки id в ObjectId
         const objectId = new mongoose.Types.ObjectId(id);
 
@@ -137,8 +135,6 @@ app.put('/editDirectory/:id', async (req, res) => {
             { name: editedName, image: editedImage, setsCount },
             { new: true }
         );
-
-        console.log('Updated Directory:', updatedDirectory);
 
         if (!updatedDirectory) {
             return res.status(404).json({ message: 'Directory not found' });
