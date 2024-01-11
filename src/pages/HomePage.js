@@ -1,25 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import DirectoryTile from '../components/DirectoryTile';
 import Footer from '../components/Footer';
-import { addDirectory } from '../redux/actions/directoryActions';
+import { getDirectories } from '../redux/actions/directoryActions';
 import '../styles/HomePage.css';
 
-const HomePage = ({ directories, onAddDirectory }) => {
+const HomePage = ({ directories, onGetDirectories }) => {
   const [isAddingDirectory, setIsAddingDirectory] = useState(false);
+
+  useEffect(() => {
+    // Вызываем getDirectories при монтировании компонента
+    onGetDirectories();
+  }, [onGetDirectories]);
+
   const handleAddDirectory = () => {
     setIsAddingDirectory(true);
-    onAddDirectory(); // Вызываем action для добавления новой директории в store
   };
-  const reversedDirectories = [...directories].reverse();
+
+  // const reversedDirectories = [...directories].reverse();
+  const reversedDirectories = Array.isArray(directories) ? [...directories].reverse() : [];
+
   return (
     <div className="home-page page">
       <Header />
 
       <div className="content">
         {reversedDirectories.map((directory) => (
-          <DirectoryTile key={directory.id} {...directory} />
+          <DirectoryTile key={directory._id} {...directory} />
         ))}
       </div>
 
@@ -50,7 +58,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onAddDirectory: () => dispatch(addDirectory()),
+    onGetDirectories: () => dispatch(getDirectories()),
   };
 };
 

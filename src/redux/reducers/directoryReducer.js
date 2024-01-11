@@ -33,7 +33,12 @@ const directoryReducer = (state = initialState, action) => {
                     editedImage: '',
                 },
             ];
-
+        case 'GET_DIRECTORIES':
+            // return {
+            //     ...state,
+            //     directory: action.payload,
+            // };
+            return action.payload;
         default:
             return state;
     }

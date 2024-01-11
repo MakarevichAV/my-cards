@@ -67,3 +67,18 @@ export const deleteDirectory = (id) => {
         }
     };
 };
+
+export const getDirectories = () => {
+    return async (dispatch, getState) => {
+        try {
+            const response = await axios.get(`${serverUrl}/directories`);
+            const directories = response.data;
+            dispatch({
+                type: actionTypes.GET_DIRECTORIES,
+                payload: directories,
+            });
+        } catch (error) {
+            console.error('Error getting directories:', error);
+        }
+    };
+};

@@ -142,7 +142,15 @@ app.put('/editDirectory/:id', async (req, res) => {
 
         res.status(200).json(updatedDirectory);
     } catch (err) {
-        console.error(err);
+        res.status(500).send(err.message);
+    }
+});
+
+app.get('/directories', async (req, res) => {
+    try {
+        const directories = await Directory.find();
+        res.status(200).json(directories);
+    } catch (err) {
         res.status(500).send(err.message);
     }
 });
