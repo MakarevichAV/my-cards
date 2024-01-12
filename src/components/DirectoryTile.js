@@ -16,7 +16,6 @@ const DirectoryTile = ({ id, isEditing, name, image, setsCount, editedName, edit
         cursor: 'pointer'
     };
     const handleSave = () => {
-        console.log('Saving with ID:', id);
         onSave(id, localEditedName, localEditedImage);
     };
 
