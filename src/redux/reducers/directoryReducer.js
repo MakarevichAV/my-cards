@@ -9,12 +9,19 @@ const directoryReducer = (state = initialState, action) => {
         //             : directory
         //     );
 
+        // case 'SAVE_DIRECTORY':
+        //     return state.map((directory) =>
+        //         directory.id === action.payload.id
+        //             ? { ...directory, isEditing: false, name: action.payload.editedName, image: action.payload.editedImage } 
+        //             : directory
+        //     );
         case 'SAVE_DIRECTORY':
-            return state.map((directory) =>
-                directory.id === action.payload.id
-                    ? { ...directory, isEditing: false, name: action.payload.editedName, image: action.payload.editedImage } 
+            const updatedState = state.map((directory) =>
+                directory._id === action.payload.id
+                    ? { ...directory, isEditing: false, name: action.payload.editedName, image: action.payload.editedImage }
                     : directory
             );
+            return updatedState;
 
         case 'DELETE_DIRECTORY':
             return state.filter((directory) => directory.id !== action.payload.id);

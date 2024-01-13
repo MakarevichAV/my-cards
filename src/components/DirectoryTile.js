@@ -82,7 +82,6 @@ const mapStateToProps = (state, ownProps) => {
         isEditing: ownProps.isEditing || false,
         editedName: ownProps.editedName || '',
         editedImage: ownProps.editedImage || '',
-        // Дополните этот объект, если у вас есть другие свойства для передачи
     };
 };
 

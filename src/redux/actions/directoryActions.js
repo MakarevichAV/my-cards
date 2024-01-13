@@ -37,6 +37,7 @@ export const editDirectory = (id, editedName, editedImage) => {
 };
 
 export const saveDirectory = (id, editedName, editedImage) => {
+    console.log(editedName, editedImage);
     return async (dispatch, getState) => {
         try {
             // Отправка запроса к серверу для сохранения отредактированных данных в базе данных
