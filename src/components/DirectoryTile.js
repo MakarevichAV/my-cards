@@ -6,6 +6,7 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
     const [isEditing, setIsEditing] = useState(false);
     const [localEditedName, setLocalEditedName] = useState(editedName || '');
     const [localEditedImage, setLocalEditedImage] = useState(editedImage || '');
+    const defaultImage = process.env.PUBLIC_URL + '/images/folder.png';
     useEffect(() => {
         // Вызывается при изменении isEditing или editedName или editedImage
         if (isEditing) {
@@ -13,8 +14,7 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
             setLocalEditedName(name || '');
             setLocalEditedImage(image || '');
         }
-    }, [isEditing, editedName, editedImage]);
-    const defaultImage = process.env.PUBLIC_URL + '/images/folder.png';
+    }, [isEditing, editedName, editedImage, name, image]);
     const imageStyle = {
         backgroundImage: `url(${image || defaultImage})`,
         backgroundSize: 'contain',
@@ -89,7 +89,10 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onEdit: (id) => dispatch(editDirectory(id)),
-        onSave: (id, editedName, editedImage) => dispatch(saveDirectory(id, editedName, editedImage)),
+        onSave: (id, editedName, editedImage) => {
+            // console.log(editedName, editedImage);
+            dispatch(saveDirectory(id, editedName, editedImage));
+        },
         onDelete: (id) => dispatch(deleteDirectory(id)),
     };
 };

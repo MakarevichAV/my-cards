@@ -12,7 +12,7 @@ const directoryReducer = (state = initialState, action) => {
         case 'SAVE_DIRECTORY':
             return state.map((directory) =>
                 directory.id === action.payload.id
-                    ? { ...directory, isEditing: false, name: action.payload.editedName, image: action.payload.editedImage }
+                    ? { ...directory, isEditing: false, name: action.payload.editedName, image: action.payload.editedImage } 
                     : directory
             );
 
