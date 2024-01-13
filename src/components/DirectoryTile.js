@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { editDirectory, saveDirectory, deleteDirectory } from '../redux/actions/directoryActions';
 
-const DirectoryTile = ({ id, name, image, setsCount, editedName, editedImage, onSave, onDelete }) => {
+const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, onSave, onDelete }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [localEditedName, setLocalEditedName] = useState(editedName || '');
     const [localEditedImage, setLocalEditedImage] = useState(editedImage || '');
+    useEffect(() => {
+        // Вызывается при изменении isEditing или editedName или editedImage
+        if (isEditing) {
+            // При входе в режим редактирования устанавливаем значения инпутов
+            setLocalEditedName(name || '');
+            setLocalEditedImage(image || '');
+        }
+    }, [isEditing, editedName, editedImage]);
     const defaultImage = process.env.PUBLIC_URL + '/images/folder.png';
     const imageStyle = {
         backgroundImage: `url(${image || defaultImage})`,
@@ -18,12 +26,12 @@ const DirectoryTile = ({ id, name, image, setsCount, editedName, editedImage, on
     };
 
     const handleSave = () => {
-        onSave(id, localEditedName, localEditedImage);
+        onSave(_id, localEditedName, localEditedImage);
         setIsEditing(false);
     };
 
     const handleDelete = () => {
-        onDelete(id);
+        onDelete(_id);
     };
 
     const handleEdit = () => {
