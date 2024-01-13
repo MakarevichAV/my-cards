@@ -30,14 +30,20 @@ export const addDirectory = () => {
 };
 
 export const editDirectory = (id, editedName, editedImage) => {
-    return {
-        type: actionTypes.EDIT_DIRECTORY,
-        payload: { id, editedName, editedImage },
+    return (dispatch) => {
+        try {
+            dispatch({
+                type: actionTypes.EDIT_DIRECTORY,
+                payload: { id, editedName, editedImage },
+            });
+        } catch (error) {
+            console.error('Ошибка при редактировании директории:', error);
+        }
     };
 };
 
 export const saveDirectory = (id, editedName, editedImage) => {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         try {
             // Отправка запроса к серверу для сохранения отредактированных данных в базе данных
             await axios.put(`${serverUrl}/editDirectory/${id}`, { editedName, editedImage });
@@ -56,7 +62,7 @@ export const deleteDirectory = (id) => {
     return async (dispatch, getState) => {
         try {
             // Отправка запроса к серверу для удаления данных из базы данных
-            await axios.delete(`/deleteDirectory/${id}`);
+            await axios.delete(`${serverUrl}/deleteDirectory/${id}`);
 
             dispatch({
                 type: actionTypes.DELETE_DIRECTORY,

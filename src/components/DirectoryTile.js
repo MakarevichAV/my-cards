@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { editDirectory, saveDirectory, deleteDirectory } from '../redux/actions/directoryActions';
 
-const DirectoryTile = ({ id, isEditing, name, image, setsCount, editedName, editedImage, onEdit, onSave, onDelete }) => {
+const DirectoryTile = ({ _id, isEditing, name, image, setsCount, editedName, editedImage, onEdit, onSave, onDelete }) => {
+    console.log({ _id, isEditing, name, image, setsCount, editedName, editedImage, onEdit, onSave, onDelete });
     const [localEditedName, setLocalEditedName] = useState(editedName || '');
     const [localEditedImage, setLocalEditedImage] = useState(editedImage || '');
     const defaultImage = process.env.PUBLIC_URL + '/images/folder.png';
@@ -16,11 +17,15 @@ const DirectoryTile = ({ id, isEditing, name, image, setsCount, editedName, edit
         cursor: 'pointer'
     };
     const handleSave = () => {
-        onSave(id, localEditedName, localEditedImage);
+        onSave(_id, localEditedName, localEditedImage);
     };
 
     const handleDelete = () => {
-        onDelete(id);
+        onDelete(_id);
+    };
+
+    const handleEdit = () => {
+        onEdit(_id);
     };
 
     return (
@@ -55,7 +60,8 @@ const DirectoryTile = ({ id, isEditing, name, image, setsCount, editedName, edit
                     <div className="delete-directory btns" onClick={handleDelete}></div>
                 </>
             ) : (
-                <div className="edit-directory btns" onClick={() => onEdit(id)}></div>
+                // <div className="edit-directory btns" onClick={() => onEdit(id)}></div>
+                <div className="edit-directory btns" onClick={() => onEdit(_id)}></div>
             )}
         </div>
     );
