@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { editDirectory, saveDirectory, deleteDirectory } from '../redux/actions/directoryActions';
 
-const DirectoryTile = ({ id, isEditing, name, image, setsCount, editedName, editedImage, onEdit, onSave, onDelete }) => {
+const DirectoryTile = ({ id, name, image, setsCount, editedName, editedImage, onSave, onDelete }) => {
+    const [isEditing, setIsEditing] = useState(false);
     const [localEditedName, setLocalEditedName] = useState(editedName || '');
     const [localEditedImage, setLocalEditedImage] = useState(editedImage || '');
     const defaultImage = process.env.PUBLIC_URL + '/images/folder.png';
@@ -15,12 +16,18 @@ const DirectoryTile = ({ id, isEditing, name, image, setsCount, editedName, edit
         marginRight: '15px',
         cursor: 'pointer'
     };
+
     const handleSave = () => {
         onSave(id, localEditedName, localEditedImage);
+        setIsEditing(false);
     };
 
     const handleDelete = () => {
         onDelete(id);
+    };
+
+    const handleEdit = () => {
+        setIsEditing(true);
     };
 
     return (
@@ -55,7 +62,7 @@ const DirectoryTile = ({ id, isEditing, name, image, setsCount, editedName, edit
                     <div className="delete-directory btns" onClick={handleDelete}></div>
                 </>
             ) : (
-                <div className="edit-directory btns" onClick={() => onEdit(id)}></div>
+                <div className="edit-directory btns" onClick={handleEdit}></div>
             )}
         </div>
     );
@@ -64,9 +71,9 @@ const DirectoryTile = ({ id, isEditing, name, image, setsCount, editedName, edit
 const mapStateToProps = (state, ownProps) => {
     const directory = state.directory.find((dir) => dir.id === ownProps.id);
     return {
-        isEditing: directory.isEditing || false,
-        editedName: directory.editedName || '',
-        editedImage: directory.editedImage || '',
+        isEditing: ownProps.isEditing || false,
+        editedName: ownProps.editedName || '',
+        editedImage: ownProps.editedImage || '',
         // Дополните этот объект, если у вас есть другие свойства для передачи
     };
 };

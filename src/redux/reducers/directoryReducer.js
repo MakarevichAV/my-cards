@@ -2,12 +2,12 @@ const initialState = [];
 
 const directoryReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'EDIT_DIRECTORY':
-            return state.map((directory) =>
-                directory.id === action.payload.id
-                    ? { ...directory, isEditing: true, editedName: action.payload.editedName, editedImage: action.payload.editedImage }
-                    : directory
-            );
+        // case 'EDIT_DIRECTORY':
+        //     return state.map((directory) =>
+        //         directory.id === action.payload.id
+        //             ? { ...directory, isEditing: true, editedName: action.payload.editedName, editedImage: action.payload.editedImage }
+        //             : directory
+        //     );
 
         case 'SAVE_DIRECTORY':
             return state.map((directory) =>
