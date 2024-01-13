@@ -93,35 +93,6 @@ app.post('/addDirectory', async (req, res) => {
     }
 });
 
-// app.put('/editDirectory/:id', async (req, res) => {
-//     try {
-//         const { id } = req.params;
-//         const { name, image, setsCount } = req.body;
-
-//         console.log('Request received for /editDirectory/:id with ID:', id);
-
-//         // Преобразование строки id в ObjectId
-//         const objectId = mongoose.Types.ObjectId(id);
-
-//         const updatedDirectory = await Directory.findByIdAndUpdate(
-//             objectId,
-//             { name, image, setsCount },
-//             { new: true }
-//         );
-
-//         console.log('Updated Directory:', updatedDirectory);
-
-//         if (!updatedDirectory) {
-//             return res.status(404).json({ message: 'Directory not found' });
-//         }
-
-//         res.status(200).json(updatedDirectory);
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).send(err.message);
-//     }
-// });
-
 app.put('/editDirectory/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -150,6 +121,26 @@ app.get('/directories', async (req, res) => {
     try {
         const directories = await Directory.find();
         res.status(200).json(directories);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
+
+app.delete('/deleteDirectory/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Преобразование строки id в ObjectId
+        const objectId = new mongoose.Types.ObjectId(id);
+
+        // Удаление директории по id
+        const deletedDirectory = await Directory.findByIdAndDelete(objectId);
+
+        if (!deletedDirectory) {
+            return res.status(404).json({ message: 'Directory not found' });
+        }
+
+        res.status(200).json({ message: 'Directory deleted successfully' });
     } catch (err) {
         res.status(500).send(err.message);
     }

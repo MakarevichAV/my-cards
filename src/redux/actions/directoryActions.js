@@ -57,7 +57,7 @@ export const deleteDirectory = (id) => {
     return async (dispatch, getState) => {
         try {
             // Отправка запроса к серверу для удаления данных из базы данных
-            await axios.delete(`/deleteDirectory/${id}`);
+            await axios.delete(`${serverUrl}/deleteDirectory/${id}`);
 
             dispatch({
                 type: actionTypes.DELETE_DIRECTORY,
