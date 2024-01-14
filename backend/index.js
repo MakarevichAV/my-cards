@@ -79,14 +79,30 @@ app.post('/register', async (req, res) => {
 
 // Login route
 app.post('/login', passport.authenticate('local'), (req, res) => {
-    res.sendStatus(200);
+    res.json({ user: req.user });
 });
 
 app.post('/addDirectory', async (req, res) => {
+    // try {
+    //     const { name, image, setsCount } = req.body;
+    //     const owner = req.user.id;
+    //     const newDirectory = new Directory({ name, image, setsCount, owner });
+    //     await newDirectory.save();
+    //     res.status(200).json(newDirectory);
+    // } catch (err) {
+    //     res.status(500).send(err.message);
+    // }
     try {
-        const { name, image, setsCount } = req.body;
-        const newDirectory = new Directory({ name, image, setsCount });
+        const { name, image, setsCount, userId } = req.body;
+
+        // Проверка наличия userId в запросе
+        if (!userId) {
+            return res.status(400).json({ message: 'User ID is required.' });
+        }
+
+        const newDirectory = new Directory({ name, image, setsCount, userId });
         await newDirectory.save();
+
         res.status(200).json(newDirectory);
     } catch (err) {
         res.status(500).send(err.message);
@@ -100,6 +116,12 @@ app.put('/editDirectory/:id', async (req, res) => {
 
         // Преобразование строки id в ObjectId
         const objectId = new mongoose.Types.ObjectId(id);
+
+        // Проверка владельца перед редактированием
+        const directory = await Directory.findOne({ _id: objectId, owner: req.user.id });
+        if (!directory) {
+            return res.status(403).json({ message: 'You do not have permission to edit this directory' });
+        }
 
         const updatedDirectory = await Directory.findByIdAndUpdate(
             objectId,
@@ -132,6 +154,12 @@ app.delete('/deleteDirectory/:id', async (req, res) => {
 
         // Преобразование строки id в ObjectId
         const objectId = new mongoose.Types.ObjectId(id);
+
+        // Проверка владельца перед удалением
+        const directory = await Directory.findOne({ _id: objectId, owner: req.user.id });
+        if (!directory) {
+            return res.status(403).json({ message: 'You do not have permission to delete this directory' });
+        }
 
         // Удаление директории по id
         const deletedDirectory = await Directory.findByIdAndDelete(objectId);
