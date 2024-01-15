@@ -4,9 +4,8 @@ const directorySchema = new mongoose.Schema({
     name: String,
     image: String,
     setsCount: Number,
-    owner: {
-        userId: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
 });

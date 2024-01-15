@@ -13,12 +13,22 @@ export const addDirectory = () => {
             };
 
             // Получение информации о пользователе из состояния
-            const auth = getState().auth;
-console.log(auth);
+            const storedUser = localStorage.getItem('user');
+            console.log(storedUser);
+            // if (storedUser) {
+                const user = JSON.parse(storedUser);
+                // Используйте параметры user по необходимости
+                const userId = user.userId;
+                const username = user.username;
+            // }
             // Отправка запроса к серверу для сохранения данных в базе данных
             const response = await axios.post(`${serverUrl}/addDirectory`, {
                 ...newDirectory,
-                userId: auth.userId, // Передача ID пользователя в запросе
+                userId: userId,
+                // owner: {
+                //     userId: userId,
+                // },
+                // userId: id, // Передача ID пользователя в запросе
             });
 
             dispatch({
