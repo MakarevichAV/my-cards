@@ -14,15 +14,11 @@ export const addDirectory = () => {
 
             // Получение информации о пользователе из состояния
             const auth = getState().auth;
-            // console.log(auth);
+console.log(auth);
             // Отправка запроса к серверу для сохранения данных в базе данных
             const response = await axios.post(`${serverUrl}/addDirectory`, {
                 ...newDirectory,
-                owner: {
-                    userId: auth.userId, // Передача ID пользователя в запросе
-                    ref: 'User',
-                    required: true,
-                }
+                userId: auth.userId, // Передача ID пользователя в запросе
             });
 
             dispatch({
