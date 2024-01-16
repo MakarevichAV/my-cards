@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { editDirectory, saveDirectory, deleteDirectory } from '../redux/actions/directoryActions';
+import SearchPopup from './SearchPopup'; 
 
 const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, onSave, onDelete }) => {
+    const [isSearching, setIsSearching] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+
     const [isEditing, setIsEditing] = useState(false);
     const [localEditedName, setLocalEditedName] = useState(editedName || '');
     const [localEditedImage, setLocalEditedImage] = useState(editedImage || '');
@@ -24,6 +29,7 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
         marginRight: '15px'
     };
 
+    // BLL functions //
     const handleSave = () => {
         onSave(_id, localEditedName, localEditedImage);
         setIsEditing(false);
@@ -36,14 +42,39 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
     const handleEdit = () => {
         setIsEditing(true);
     };
+    // --- //
+
+    // PopUp functions //
+    const handleSearchClick = () => {
+        setIsSearching(true);
+    };
+
+    const handleSearchClose = () => {
+        setIsSearching(false);
+    };
+
+    const handleSearch = (query) => {
+        // Ваша логика поиска здесь
+        // Обновите searchResults с результатами поиска
+        // setSearchResults([...]); // Замените на ваш код поиска
+    };
+    // --- //
 
     return (
         <div className="directory-tile">
             <div className="directory-image" style={imageStyle}>
-            {isEditing && (
-                <div className="load-image"></div>
-            )}
+                {isEditing && (
+                    <div className="load-image" onClick={handleSearchClick}></div>
+                )}
             </div>
+
+            {isSearching && (
+                <SearchPopup
+                    onClose={handleSearchClose}
+                    onSearch={handleSearch}
+                    searchResults={searchResults}
+                />
+            )}
 
             {isEditing ? (
                 <div className="directory-info">
