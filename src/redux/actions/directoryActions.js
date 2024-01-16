@@ -14,13 +14,8 @@ export const addDirectory = () => {
 
             // Получение информации о пользователе из состояния
             const storedUser = localStorage.getItem('user');
-            console.log(storedUser);
-            // if (storedUser) {
                 const user = JSON.parse(storedUser);
-                // Используйте параметры user по необходимости
                 const userId = user.userId;
-                const username = user.username;
-            // }
             // Отправка запроса к серверу для сохранения данных в базе данных
             const response = await axios.post(`${serverUrl}/addDirectory`, {
                 ...newDirectory,
@@ -53,11 +48,13 @@ export const editDirectory = (id, editedName, editedImage) => {
 };
 
 export const saveDirectory = (id, editedName, editedImage) => {
-    console.log(editedName, editedImage);
     return async (dispatch, getState) => {
         try {
+            const storedUser = localStorage.getItem('user');
+            const user = JSON.parse(storedUser);
+            const userId = user.userId;
             // Отправка запроса к серверу для сохранения отредактированных данных в базе данных
-            await axios.put(`${serverUrl}/editDirectory/${id}`, { editedName, editedImage });
+            await axios.put(`${serverUrl}/editDirectory/${id}`, { editedName, editedImage, userId });
 
             dispatch({
                 type: actionTypes.SAVE_DIRECTORY,
@@ -72,8 +69,11 @@ export const saveDirectory = (id, editedName, editedImage) => {
 export const deleteDirectory = (id) => {
     return async (dispatch, getState) => {
         try {
+            const storedUser = localStorage.getItem('user');
+            const user = JSON.parse(storedUser);
+            const userId = user.userId;
             // Отправка запроса к серверу для удаления данных из базы данных
-            await axios.delete(`${serverUrl}/deleteDirectory/${id}`);
+            await axios.delete(`${serverUrl}/deleteDirectory/${id}?userId=${userId}`);
 
             dispatch({
                 type: actionTypes.DELETE_DIRECTORY,
@@ -88,7 +88,10 @@ export const deleteDirectory = (id) => {
 export const getDirectories = () => {
     return async (dispatch, getState) => {
         try {
-            const response = await axios.get(`${serverUrl}/directories`);
+            const storedUser = localStorage.getItem('user');
+            const user = JSON.parse(storedUser);
+            const userId = user.userId;
+            const response = await axios.get(`${serverUrl}/directories/${userId}`);
             const directories = response.data;
             dispatch({
                 type: actionTypes.GET_DIRECTORIES,

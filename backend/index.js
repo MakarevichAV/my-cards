@@ -112,20 +112,19 @@ app.post('/addDirectory', async (req, res) => {
 app.put('/editDirectory/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const { editedName, editedImage, setsCount } = req.body;
-
+        const { editedName, editedImage, userId } = req.body;
         // Преобразование строки id в ObjectId
         const objectId = new mongoose.Types.ObjectId(id);
-
         // Проверка владельца перед редактированием
-        const directory = await Directory.findOne({ _id: objectId, owner: req.user.id });
+        const directory = await Directory.findOne({ _id: objectId, userId: userId });
+        
         if (!directory) {
             return res.status(403).json({ message: 'You do not have permission to edit this directory' });
         }
 
         const updatedDirectory = await Directory.findByIdAndUpdate(
             objectId,
-            { name: editedName, image: editedImage, setsCount },
+            { name: editedName, image: editedImage },
             { new: true }
         );
 
@@ -139,9 +138,10 @@ app.put('/editDirectory/:id', async (req, res) => {
     }
 });
 
-app.get('/directories', async (req, res) => {
+app.get('/directories/:userId', async (req, res) => {
     try {
-        const directories = await Directory.find();
+        const userId = req.params.userId;
+        const directories = await Directory.find({ userId: userId });
         res.status(200).json(directories);
     } catch (err) {
         res.status(500).send(err.message);
@@ -151,12 +151,12 @@ app.get('/directories', async (req, res) => {
 app.delete('/deleteDirectory/:id', async (req, res) => {
     try {
         const { id } = req.params;
-
+        const { userId } = req.query;
         // Преобразование строки id в ObjectId
         const objectId = new mongoose.Types.ObjectId(id);
 
         // Проверка владельца перед удалением
-        const directory = await Directory.findOne({ _id: objectId, owner: req.user.id });
+        const directory = await Directory.findOne({ _id: objectId, userId: userId });
         if (!directory) {
             return res.status(403).json({ message: 'You do not have permission to delete this directory' });
         }
