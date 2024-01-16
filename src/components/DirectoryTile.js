@@ -21,8 +21,7 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
         backgroundPosition: 'center',
         width: '50px',
         height: '50px',
-        marginRight: '15px',
-        cursor: 'pointer'
+        marginRight: '15px'
     };
 
     const handleSave = () => {
@@ -40,7 +39,11 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
 
     return (
         <div className="directory-tile">
-            <div className="directory-image" style={imageStyle}></div>
+            <div className="directory-image" style={imageStyle}>
+            {isEditing && (
+                <div className="load-image"></div>
+            )}
+            </div>
 
             {isEditing ? (
                 <div className="directory-info">
@@ -50,12 +53,12 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
                         onChange={(e) => setLocalEditedName(e.target.value)}
                         placeholder="Название директории"
                     />
-                    <input
+                    {/* <input
                         type="text"
                         value={localEditedImage}
                         onChange={(e) => setLocalEditedImage(e.target.value)}
                         placeholder="URL изображения"
-                    />
+                    /> */}
                 </div>
             ) : (
                 <div className="directory-info">
