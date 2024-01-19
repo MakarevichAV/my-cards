@@ -29,9 +29,9 @@ const SearchPopup = ({ onClose, onImageSelect }) => {
                 <input
                     type="text"
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Поиск"
+                    placeholder="Searching image"
                 />
-                <button onClick={handleSearch}>Искать</button>
+                <div className="search-button" onClick={handleSearch}><p>SEARCH</p></div>
                 <div className="close-icon" onClick={onClose}></div>
             </div>
             <div className="search-results">
