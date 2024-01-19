@@ -1,27 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { editDirectory, saveDirectory, deleteDirectory } from '../redux/actions/directoryActions';
-import SearchPopup from './SearchPopup'; 
+import SearchPopup from './SearchPopup';
 
 const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, onSave, onDelete }) => {
     const [isSearching, setIsSearching] = useState(false);
-    const [searchQuery, setSearchQuery] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
-
     const [isEditing, setIsEditing] = useState(false);
     const [localEditedName, setLocalEditedName] = useState(editedName || '');
-    const [localEditedImage, setLocalEditedImage] = useState(editedImage || '');
+    const [localEditedImage, setLocalEditedImage] = useState(image || '');
+    const [selectedImage, setSelectedImage] = useState(''); // Новое состояние для хранения выбранного изображения
     const defaultImage = process.env.PUBLIC_URL + '/images/folder.png';
+
     useEffect(() => {
-        // Вызывается при изменении isEditing или editedName или editedImage
         if (isEditing) {
-            // При входе в режим редактирования устанавливаем значения инпутов
             setLocalEditedName(name || '');
-            setLocalEditedImage(image || '');
         }
     }, [isEditing, editedName, editedImage, name, image]);
+
+    useEffect(() => {
+        // Обновление локального изображения при выборе из SearchPopup
+        if (selectedImage) {
+            setLocalEditedImage(selectedImage);
+            setSelectedImage('');
+        }
+    }, [selectedImage]);
+
     const imageStyle = {
-        backgroundImage: `url(${image || defaultImage})`,
+        backgroundImage: `url(${localEditedImage || defaultImage})`,
         backgroundSize: 'contain',
         backgroundPosition: 'center',
         width: '50px',
@@ -53,10 +58,9 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
         setIsSearching(false);
     };
 
-    const handleSearch = (query) => {
-        // Ваша логика поиска здесь
-        // Обновите searchResults с результатами поиска
-        // setSearchResults([...]); // Замените на ваш код поиска
+    const handleImageSelect = (selectedImage) => {
+        // Обработка выбора изображения из SearchPopup
+        setLocalEditedImage(selectedImage);
     };
     // --- //
 
@@ -71,8 +75,7 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
             {isSearching && (
                 <SearchPopup
                     onClose={handleSearchClose}
-                    onSearch={handleSearch}
-                    searchResults={searchResults}
+                    onImageSelect={handleImageSelect}
                 />
             )}
 
@@ -84,17 +87,11 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
                         onChange={(e) => setLocalEditedName(e.target.value)}
                         placeholder="Название директории"
                     />
-                    {/* <input
-                        type="text"
-                        value={localEditedImage}
-                        onChange={(e) => setLocalEditedImage(e.target.value)}
-                        placeholder="URL изображения"
-                    /> */}
                 </div>
             ) : (
                 <div className="directory-info">
                     <div className="directory-name">{name}</div>
-                    <div className="sets-count">{setsCount} наборов карточек</div>
+                    <div className="sets-count">{setsCount} sets</div>
                 </div>
             )}
 
@@ -123,7 +120,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onEdit: (id) => dispatch(editDirectory(id)),
         onSave: (id, editedName, editedImage) => {
-            // console.log(editedName, editedImage);
             dispatch(saveDirectory(id, editedName, editedImage));
         },
         onDelete: (id) => dispatch(deleteDirectory(id)),

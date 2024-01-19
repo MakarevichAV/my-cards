@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/Popup.css';
 
-const SearchPopup = ({ onClose }) => {
+const SearchPopup = ({ onClose, onImageSelect }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
 
@@ -16,6 +16,11 @@ const SearchPopup = ({ onClose }) => {
         } catch (error) {
             console.error('Error searching images:', error);
         }
+    };
+
+    const handleImageSelect = (imageUrl) => {
+        onImageSelect(imageUrl);
+        onClose();
     };
 
     return (
@@ -32,12 +37,13 @@ const SearchPopup = ({ onClose }) => {
             <div className="search-results">
                 {searchResults.length > 0 ? (
                     searchResults.map((result) => (
-                        <div className="search-item" key={result.id} style={{
-                            backgroundImage: `url(${result.previewURL})`,
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center'
-                        }}>
-                            {/* <img src={result.previewURL} alt={result.tags} /> */}
+                        <div className="search-item" key={result.id}
+                            onClick={() => handleImageSelect(result.previewURL)}
+                            style={{
+                                backgroundImage: `url(${result.previewURL})`,
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center'
+                            }}>
                         </div>
                     ))
                 ) : (
