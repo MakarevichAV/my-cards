@@ -27,11 +27,12 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
 
     const imageStyle = {
         backgroundImage: `url(${localEditedImage || defaultImage})`,
-        backgroundSize: 'contain',
+        backgroundSize: 'cover',
         backgroundPosition: 'center',
         width: '50px',
         height: '50px',
-        marginRight: '15px'
+        marginRight: '15px',
+        borderRadius: '50%'
     };
 
     // BLL functions //
