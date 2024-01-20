@@ -119,9 +119,20 @@
     font-size: 20px;
     color: #8d8da6;
     border: 1px solid #8d8da6;
-    border-radius: 4px 
+    border-radius: 4px;
+    margin-bottom: 15px;
 }
 
 .directory-input:focus {
     border-color: #525266 !important;
+}
+
+.camera {
+    background-image: url(../images/icon/camera.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    width: 20px;
+    height: 34px;
+    margin-right: 8px;
 }

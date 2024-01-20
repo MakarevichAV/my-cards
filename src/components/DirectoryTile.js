@@ -67,11 +67,7 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
 
     return (
         <div className="directory-tile">
-            <div className="directory-image" style={imageStyle}>
-                {isEditing && (
-                    <div className="load-image" onClick={handleSearchClick}></div>
-                )}
-            </div>
+            <div className="directory-image" style={imageStyle}></div>
 
             {isSearching && (
                 <SearchPopup
@@ -89,6 +85,7 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
                         onChange={(e) => setLocalEditedName(e.target.value)}
                         placeholder="Название директории"
                     />
+                    <div className="btn-type2" onClick={handleSearchClick}><div className="camera"></div>picture</div>
                 </div>
             ) : (
                 <div className="directory-info">
