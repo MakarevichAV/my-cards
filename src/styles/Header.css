@@ -1,53 +1,70 @@
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #3A4F58;
-  }
-  
-  .logo {
-    /* Стили для логотипа или названия сайта */
-  }
-  
-  .menu {
-    /* Стили для меню */
-  }
-  
-  .page-title {
-    color: aliceblue;
-    font-size: 18px;
-    font-weight: bold;
-    /* Стили для названия страницы */
-  }
-  
-  .add-directory {
-    background-color: #77b255;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    position: relative;
-    cursor: pointer;
-  }
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 0 16px 0 rgba(123, 123, 140, 0.2); */
 
-  .gor-line {
-    width: 65%;
-    height: 6px;
-    background-color: aliceblue;
-    border-radius: 2px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 16px 2px rgb(82 82 96 / 30%);
+}
 
-  .ver-line {
-    width: 6px;
-    height: 65%;
-    background-color: aliceblue;
-    border-radius: 2px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+.page-title {
+  /* color: aliceblue; */
+  font-size: 18px;
+  font-weight: 600;
+  /* Стили для названия страницы */
+}
+
+.logout {
+  background: #f0f0f5 url(../images/icon/exit.svg) no-repeat center;
+  /* background-image: url(../images/icon/exit.svg); */
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  position: relative;
+  cursor: pointer;
+  margin-left: 16px;
+}
+
+.delimiter {
+  background-color: #f0f0f5;
+  width: 1px;
+}
+
+.add-directory {
+  background-color: #16d977;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  position: relative;
+  cursor: pointer;
+  margin-right: 16px;
+}
+
+.gor-line {
+  width: 60%;
+  height: 4px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 1px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.ver-line {
+  width: 4px;
+  height: 60%;
+  background-color: rgb(255, 255, 255);
+  border-radius: 1px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

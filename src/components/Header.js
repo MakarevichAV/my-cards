@@ -15,9 +15,13 @@ const Header = ({ onAddDirectory }) => {
       <div className="page-title">Directories</div>
 
       {/* Кнопка добавления новой директории */}
-      <div className="add-directory" onClick={onAddDirectory}>
-        <div className="gor-line"></div>
-        <div className="ver-line"></div>
+      <div style={{display: 'flex'}}>
+        <div className="add-directory" onClick={onAddDirectory}>
+          <div className="gor-line"></div>
+          <div className="ver-line"></div>
+        </div>
+        <div className="delimiter"></div>
+        <div className="logout"></div>
       </div>
     </header>
   );
