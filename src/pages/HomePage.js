@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import DirectoryTile from '../components/DirectoryTile';
-import Footer from '../components/Footer';
 import { getDirectories } from '../redux/actions/directoryActions';
 import '../styles/HomePage.css';
 
@@ -43,8 +42,6 @@ const HomePage = ({ directories, onGetDirectories }) => {
           editedImage=""
         />
       )}
-
-      <Footer />
     </div>
   );
 };

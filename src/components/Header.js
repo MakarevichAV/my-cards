@@ -7,9 +7,7 @@ const Header = ({ onAddDirectory }) => {
   return (
     <header>
       {/* Меню */}
-      <nav className="menu">
-        {/* Здесь добавьте пункты меню */}
-      </nav>
+      <div className="logo"></div>
 
       {/* Название текущей страницы */}
       <div className="page-title">Directories</div>
