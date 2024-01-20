@@ -29,3 +29,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.btn-type1 {
+  height: 34px;
+  background-color: #16d977;
+  padding: 0 25px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border-radius: 6px;
+  margin-right: 15px;
+  font-weight: 700;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  cursor: pointer;
+}
+
+.btn-type1:hover {
+  background-color: #30e389;
+}

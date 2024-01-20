@@ -25,9 +25,16 @@ const HomePage = ({ directories, onGetDirectories }) => {
       <Header />
 
       <div className="content">
-        {reversedDirectories.map((directory) => (
-          <DirectoryTile key={directory._id} {...directory} />
-        ))}
+        {reversedDirectories.length > 0 ? (
+          reversedDirectories.map((directory) => (
+            <DirectoryTile key={directory._id} {...directory} />
+          ))
+        ) : (
+          <div className="page-description">
+            {/* Ваш блок с описанием */}
+            <p>Your directories will be here</p>
+          </div>
+        )}
       </div>
 
       {isAddingDirectory && (

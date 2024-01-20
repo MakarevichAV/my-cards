@@ -29,10 +29,10 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
         backgroundImage: `url(${localEditedImage || defaultImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-        width: '50px',
-        height: '50px',
+        width: '80px',
+        height: '80px',
         marginRight: '15px',
-        borderRadius: '50%'
+        borderRadius: '8px'
     };
 
     // BLL functions //
@@ -83,6 +83,7 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
             {isEditing ? (
                 <div className="directory-info">
                     <input
+                        className="directory-input"
                         type="text"
                         value={localEditedName}
                         onChange={(e) => setLocalEditedName(e.target.value)}
@@ -102,7 +103,10 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
                     <div className="delete-directory btns" onClick={handleDelete}></div>
                 </>
             ) : (
-                <div className="edit-directory btns" onClick={handleEdit}></div>
+                <>
+                    <div className="btn-type1">&rArr; to sets</div>
+                    <div className="edit-directory btns" onClick={handleEdit}></div>
+                </>
             )}
         </div>
     );
