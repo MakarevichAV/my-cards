@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { editDirectory, saveDirectory, deleteDirectory } from '../redux/actions/directoryActions';
 import SearchPopup from './SearchPopup';
+import { useNavigate } from 'react-router-dom';
 
 const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, onSave, onDelete }) => {
     const [isSearching, setIsSearching] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [localEditedName, setLocalEditedName] = useState(editedName || '');
     const [localEditedImage, setLocalEditedImage] = useState(image || '');
-    const [selectedImage, setSelectedImage] = useState(''); // Новое состояние для хранения выбранного изображения
+    const [selectedImage, setSelectedImage] = useState('');
     const defaultImage = process.env.PUBLIC_URL + '/images/folder.png';
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (isEditing) {
@@ -18,7 +20,6 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
     }, [isEditing, editedName, editedImage, name, image]);
 
     useEffect(() => {
-        // Обновление локального изображения при выборе из SearchPopup
         if (selectedImage) {
             setLocalEditedImage(selectedImage);
             setSelectedImage('');
@@ -65,6 +66,11 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
     };
     // --- //
 
+    //обработчик для перехода на SetsPage
+    const handleToSetsClick = () => {
+        navigate(`/sets/${_id}`);
+    };
+
     return (
         <div className="directory-tile">
             <div className="directory-image" style={imageStyle}></div>
@@ -101,7 +107,7 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
                 </>
             ) : (
                 <>
-                    <div className="btn-type1">&rArr; to sets</div>
+                    <div className="btn-type1" onClick={handleToSetsClick}>&rArr; to sets</div>
                     <div className="edit-directory btns" onClick={handleEdit}></div>
                 </>
             )}

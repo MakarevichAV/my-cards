@@ -9,7 +9,6 @@ const HomePage = ({ directories, onGetDirectories }) => {
   const [isAddingDirectory, setIsAddingDirectory] = useState(false);
 
   useEffect(() => {
-    // Вызываем getDirectories при монтировании компонента
     onGetDirectories();
   }, [onGetDirectories]);
 
@@ -17,7 +16,6 @@ const HomePage = ({ directories, onGetDirectories }) => {
     setIsAddingDirectory(true);
   };
 
-  // const reversedDirectories = [...directories].reverse();
   const reversedDirectories = Array.isArray(directories) ? [...directories].reverse() : [];
 
   return (
@@ -31,7 +29,6 @@ const HomePage = ({ directories, onGetDirectories }) => {
           ))
         ) : (
           <div className="page-description">
-            {/* Ваш блок с описанием */}
             <p>Your directories will be here</p>
           </div>
         )}
@@ -53,7 +50,6 @@ const HomePage = ({ directories, onGetDirectories }) => {
   );
 };
 
-// Используем mapStateToProps для передачи данных из Redux store в компонент
 const mapStateToProps = (state) => {
   return {
     directories: state.directory,

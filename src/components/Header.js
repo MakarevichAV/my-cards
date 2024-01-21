@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { addDirectory } from '../redux/actions/directoryActions';
 import { logout } from '../redux/actions/authActions';
 import Confirm from './Confirm';
+import { Link } from 'react-router-dom';
 import '../styles/Header.css';
 
-const Header = ({ onAddDirectory, onLogout }) => {
-
+const Header = ({ onAddDirectory, onLogout, showAddDirectory = true }) => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   const handleExitClick = () => {
@@ -28,15 +28,21 @@ const Header = ({ onAddDirectory, onLogout }) => {
       <div className="logo"></div>
 
       {/* Название текущей страницы */}
-      <div className="page-title">Directories</div>
+        {showAddDirectory && <div className="page-title">Directories</div>}
 
       {/* Кнопка добавления новой директории */}
-      <div style={{ display: 'flex' }}>
-        <div className="add-directory" onClick={onAddDirectory}>
-          <div className="gor-line"></div>
-          <div className="ver-line"></div>
+      {showAddDirectory && (
+        <div style={{ display: 'flex' }}>
+          <div className="add-directory" onClick={onAddDirectory}>
+            <div className="gor-line"></div>
+            <div className="ver-line"></div>
+          </div>
+          <div className="delimiter"></div>
         </div>
-        <div className="delimiter"></div>
+      )}
+
+      {/* Кнопка выхода и Confirm для выхода */}
+      <div style={{ display: 'flex' }}>
         <div className="logout" onClick={handleExitClick}></div>
         {isConfirmOpen && (
           <Confirm
