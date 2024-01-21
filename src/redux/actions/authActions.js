@@ -4,9 +4,7 @@ const serverUrl = 'http://localhost:3001';
 
 export const login = ({ username, password }) => async (dispatch) => {
   try {
-    // Make the API call to your backend /login endpoint
     const response = await axios.post(`${serverUrl}/login`, { username, password });
-    // console.log(response.data.user);
     // Dispatch an action for successful login
     dispatch({ type: 'LOGIN_SUCCESS', payload: response.data });
     const user = {
@@ -28,4 +26,9 @@ export const register = ({ username, password }) => async (dispatch) => {
   } catch (error) {
     dispatch({ type: 'REGISTER_FAILURE', payload: error.message });
   }
+};
+
+export const logout = () => (dispatch) => {
+  localStorage.removeItem('user');
+  dispatch({ type: 'LOGOUT' });
 };
