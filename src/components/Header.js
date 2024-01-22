@@ -28,29 +28,28 @@ const Header = ({ onAddDirectory, onLogout, showAddDirectory = true }) => {
       <div className="logo"></div>
 
       {/* Название текущей страницы */}
-        {showAddDirectory && <div className="page-title">Directories</div>}
+      {showAddDirectory && <div className="page-title">Directories</div>}
 
       {/* Кнопка добавления новой директории */}
-      {showAddDirectory && (
-        <div style={{ display: 'flex' }}>
+      {/* {showAddDirectory && ( */}
+      <div style={{ display: 'flex' }}>
+        {showAddDirectory && (<>
           <div className="add-directory" onClick={onAddDirectory}>
             <div className="gor-line"></div>
             <div className="ver-line"></div>
           </div>
           <div className="delimiter"></div>
+        </>)}
+        <div style={{ display: 'flex' }}>
+          <div className="logout" onClick={handleExitClick}></div>
+          {isConfirmOpen && (
+            <Confirm
+              message="Do you really want to exit your account?"
+              onCancel={handleCancelConfirm}
+              onConfirm={handleConfirmExit}
+            />
+          )}
         </div>
-      )}
-
-      {/* Кнопка выхода и Confirm для выхода */}
-      <div style={{ display: 'flex' }}>
-        <div className="logout" onClick={handleExitClick}></div>
-        {isConfirmOpen && (
-          <Confirm
-            message="Do you really want to exit your account?"
-            onCancel={handleCancelConfirm}
-            onConfirm={handleConfirmExit}
-          />
-        )}
       </div>
     </header>
   );

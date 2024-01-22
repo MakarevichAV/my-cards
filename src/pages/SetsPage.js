@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../components/Header';
+import '../styles/SetsPage.css';
 
 const SetsPage = () => {
   const { directoryId } = useParams();
@@ -12,7 +13,7 @@ const SetsPage = () => {
   // const setsData = ... // получение данных о наборах для directoryId
 
   return (
-    <div>
+    <div className='sets-page'>
       <Header showAddDirectory={false} />
       <h2>SetsPage</h2>
       <p>Directory ID: {directoryId}</p>
