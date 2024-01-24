@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import { addDirectory } from '../redux/actions/directoryActions';
 import { logout } from '../redux/actions/authActions';
 import Confirm from './Confirm';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import '../styles/Header.css';
 
-const Header = ({ onAddDirectory, onLogout, showAddDirectory = true }) => {
+const Header = ({ onAddDirectory, onLogout, showAddDirectory, showGoToBack }) => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleExitClick = () => {
     setIsConfirmOpen(true);
@@ -22,24 +24,27 @@ const Header = ({ onAddDirectory, onLogout, showAddDirectory = true }) => {
     setIsConfirmOpen(false);
   };
 
+  const handleToDirsClick = () => {
+    navigate(`/home`);
+  };
+
   return (
     <header>
-      {/* Меню */}
-      <div className="logo"></div>
+      <div className="logo" onClick={handleToDirsClick}></div>
 
-      {/* Название текущей страницы */}
       {showAddDirectory && <div className="page-title">Directories</div>}
 
-      {/* Кнопка добавления новой директории */}
-      {/* {showAddDirectory && ( */}
       <div style={{ display: 'flex' }}>
         {showAddDirectory && (<>
           <div className="add-directory" onClick={onAddDirectory}>
             <div className="gor-line"></div>
             <div className="ver-line"></div>
           </div>
-          <div className="delimiter"></div>
         </>)}
+        {showGoToBack && (<>
+          <div className="go-to-back" onClick={handleToDirsClick}></div>
+        </>)}
+        <div className="delimiter"></div>
         <div style={{ display: 'flex' }}>
           <div className="logout" onClick={handleExitClick}></div>
           {isConfirmOpen && (

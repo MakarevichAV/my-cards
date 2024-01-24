@@ -20,7 +20,7 @@ const HomePage = ({ directories, onGetDirectories }) => {
 
   return (
     <div className="home-page page">
-      <Header />
+      <Header showAddDirectory={true} showGoToBack={false}/>
 
       <div className="content">
         {reversedDirectories.length > 0 ? (

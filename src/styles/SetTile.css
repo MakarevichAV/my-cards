@@ -1,22 +1,16 @@
-.home-page {
-    margin: 0 auto;
-    max-width: 1200px;
-}
-
-.directory-tile {
+.set-tile {
     display: flex;
     justify-content: space-between;
     align-items: stretch;
     margin: 15px auto;
     margin-bottom: 20px;
     padding: 20px;
-    max-width: 580px;
     border-radius: 8px;
-    box-shadow: 0px 4px 11px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 2px 8px 2px rgba(0, 0, 0, 0.2);
     background-color: rgb(255, 255, 255);
 }
 
-.directory-info {
+.set-info {
     flex: 1;
 }
 
@@ -25,13 +19,13 @@
     color: #C2C2C2;
 }
 
-.directory-name {
+.set-name {
     font-size: 20px;
     font-weight: 700;
     color: #525266;
 }
 
-.edit-directory {
+.edit-set {
     background-color: #f5f5fa;
     background-image: url('../images/icon/edit.png');
     background-repeat: no-repeat;
@@ -39,11 +33,11 @@
     background-position: center;
 }
 
-.edit-directory:hover {
+.edit-set:hover {
     background-color: #e9e9f2;
 }
 
-.delete-directory {
+.delete-set {
     background-color: #f5f5fa;
     background-image: url('../images/icon/delete.png');
     background-repeat: no-repeat;
@@ -51,11 +45,11 @@
     background-position: center;
 }
 
-.delete-directory:hover {
+.delete-set:hover {
     background-color: #e9e9f2;
 }
 
-.save-directory {
+.save-set {
     background-color: #f5f5fa;
     background-image: url('../images/icon/save.png');
     background-repeat: no-repeat;
@@ -63,37 +57,11 @@
     background-position: center;
     margin-right: 15px;
 }
-.save-directory:hover {
+.save-set:hover {
     background-color: #e9e9f2;
 }
 
-/* .load-image {
-    height: 100%;
-    width: 100%;
-    background-image: url('../images/icon/download.png');
-    background-size: 130%;
-    background-position: center;
-    opacity: 0.4;
-    border-radius: 50%;
-    cursor: pointer;
-} */
-
-.page-description {
-    max-width: 600px;
-    margin: auto;
-    height: 500px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.page-description p {
-    font-size: 26px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: rgb(217, 217, 255);
-}
-
-.directory-input {
+.set-input {
     padding: 4px 8px;
     font-size: 20px;
     color: #8d8da6;
@@ -102,7 +70,7 @@
     margin-bottom: 15px;
 }
 
-.directory-input:focus {
+.set-input:focus {
     border-color: #525266 !important;
 }
 

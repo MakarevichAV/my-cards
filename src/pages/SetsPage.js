@@ -1,25 +1,25 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../components/Header';
+import SetTile from '../components/SetTile';
 import '../styles/SetsPage.css';
 
 const SetsPage = () => {
-  const { directoryId } = useParams();
 
-  // Возможно, вам нужно получить данные о наборах для указанной директории
-  // и использовать их для отображения содержимого страницы
+    const { directoryId } = useParams();
 
-  // Например:
-  // const setsData = ... // получение данных о наборах для directoryId
-
-  return (
-    <div className='sets-page'>
-      <Header showAddDirectory={false} />
-      <h2>SetsPage</h2>
-      <p>Directory ID: {directoryId}</p>
-      {/* Ваши компоненты для отображения наборов */}
-    </div>
-  );
+    return (
+        <div className='sets-page page'>
+            <Header showAddDirectory={false} showGoToBack={true} />
+            <div className="content">
+                <div className="sets-container">
+                    <h2 className="sets-title">English</h2>
+                    <SetTile />
+                    <SetTile />
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default SetsPage;
