@@ -17,6 +17,26 @@
 .sets-title {
     font-size: 20px;
     font-weight: 700;
-    margin-top: 0;
+    margin: 0 15px 0 0;
     color: #525266;
+}
+
+.content-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.add-set {
+    background-color: #16d977;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    position: relative;
+    cursor: pointer;
+    background-image: url(../images/icon/add-button.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 60%;
 }

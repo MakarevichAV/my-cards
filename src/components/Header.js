@@ -37,8 +37,8 @@ const Header = ({ onAddDirectory, onLogout, showAddDirectory, showGoToBack }) =>
       <div style={{ display: 'flex' }}>
         {showAddDirectory && (<>
           <div className="add-directory" onClick={onAddDirectory}>
-            <div className="gor-line"></div>
-            <div className="ver-line"></div>
+            {/* <div className="gor-line"></div>
+            <div className="ver-line"></div> */}
           </div>
         </>)}
         {showGoToBack && (<>

@@ -9,11 +9,14 @@ const SetsPage = () => {
     const { directoryId } = useParams();
 
     return (
-        <div className='sets-page page'>
+        <div className="sets-page page">
             <Header showAddDirectory={false} showGoToBack={true} />
             <div className="content">
                 <div className="sets-container">
-                    <h2 className="sets-title">English</h2>
+                    <div className="content-header">
+                        <h2 className="sets-title">English</h2>
+                        <div className="add-set"></div>
+                    </div>
                     <SetTile />
                     <SetTile />
                 </div>

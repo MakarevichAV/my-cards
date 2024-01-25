@@ -31,7 +31,8 @@ header {
   width: 1px;
 }
 
-.add-directory, .go-to-back {
+.add-directory,
+.go-to-back {
   background-color: #16d977;
   width: 32px;
   height: 32px;
@@ -41,6 +42,13 @@ header {
   margin-right: 16px;
 }
 
+.add-directory {
+  background-image: url(../images/icon/add-button.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 60%;
+}
+
 .go-to-back {
   background-image: url(../images/icon/left-arrow.png);
   background-position: center;
@@ -48,7 +56,7 @@ header {
   background-size: 65%;
 }
 
-.gor-line {
+/* .gor-line {
   width: 60%;
   height: 4px;
   background-color: rgb(255, 255, 255);
@@ -68,7 +76,7 @@ header {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-}
+} */
 
 .logo {
   height: 50px;
