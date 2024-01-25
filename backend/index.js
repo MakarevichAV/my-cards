@@ -4,6 +4,7 @@ const passport = require('passport');
 const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('./models/User');
+const Set = require('./models/Set');
 const Directory = require('./models/Directory');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
@@ -83,15 +84,6 @@ app.post('/login', passport.authenticate('local'), (req, res) => {
 });
 
 app.post('/addDirectory', async (req, res) => {
-    // try {
-    //     const { name, image, setsCount } = req.body;
-    //     const owner = req.user.id;
-    //     const newDirectory = new Directory({ name, image, setsCount, owner });
-    //     await newDirectory.save();
-    //     res.status(200).json(newDirectory);
-    // } catch (err) {
-    //     res.status(500).send(err.message);
-    // }
     try {
         const { name, image, setsCount, userId } = req.body;
 
@@ -169,6 +161,24 @@ app.delete('/deleteDirectory/:id', async (req, res) => {
         }
 
         res.status(200).json({ message: 'Directory deleted successfully' });
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
+
+app.post('/addSet', async (req, res) => {
+    try {
+        const { name, image, cardsCount, directoryId } = req.body;
+
+        // Проверка наличия directoryId в запросе
+        if (!directoryId) {
+            return res.status(400).json({ message: 'Directory ID is required.' });
+        }
+
+        const newSet = new Set({ name, image, cardsCount, directoryId });
+        await newSet.save();
+
+        res.status(200).json(newSet);
     } catch (err) {
         res.status(500).send(err.message);
     }
