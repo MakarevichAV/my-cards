@@ -106,3 +106,18 @@ code {
   cursor: pointer;
   border-radius: 6px;
 }
+
+.page-description {
+  max-width: 600px;
+  margin: auto;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-description p {
+  font-size: 26px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: rgb(217, 217, 255);
+}

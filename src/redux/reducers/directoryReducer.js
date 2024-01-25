@@ -28,10 +28,6 @@ const directoryReducer = (state = initialState, action) => {
                 },
             ];
         case 'GET_DIRECTORIES':
-            // return {
-            //     ...state,
-            //     directory: action.payload,
-            // };
             return action.payload;
         default:
             return state;

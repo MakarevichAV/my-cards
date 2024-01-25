@@ -12,18 +12,13 @@ export const addDirectory = () => {
                 setsCount: 0,
             };
 
-            // Получение информации о пользователе из состояния
             const storedUser = localStorage.getItem('user');
-                const user = JSON.parse(storedUser);
-                const userId = user.userId;
-            // Отправка запроса к серверу для сохранения данных в базе данных
+            const user = JSON.parse(storedUser);
+            const userId = user.userId;
+
             const response = await axios.post(`${serverUrl}/addDirectory`, {
                 ...newDirectory,
                 userId: userId,
-                // owner: {
-                //     userId: userId,
-                // },
-                // userId: id, // Передача ID пользователя в запросе
             });
 
             dispatch({
