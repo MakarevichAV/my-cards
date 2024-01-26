@@ -41,8 +41,7 @@ const SearchPopup = ({ onClose, onImageSelect }) => {
                             onClick={() => handleImageSelect(result.previewURL)}
                             style={{
                                 backgroundImage: `url(${result.previewURL})`,
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'center'
+                                backgroundSize: 'contain'
                             }}>
                         </div>
                     ))
