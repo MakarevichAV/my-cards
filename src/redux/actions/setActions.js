@@ -7,11 +7,11 @@ export const addSet = (directoryId) => {
     return async (dispatch, getState) => {
         try {
             const newSet = {
-                name: '',
+                name: 'New Set',
                 image: '',
                 cardsCount: 0,
             };
-            
+
             const response = await axios.post(`${serverUrl}/addSet`, {
                 ...newSet,
                 directoryId: directoryId,
@@ -27,6 +27,21 @@ export const addSet = (directoryId) => {
             console.error('Response status:', error.response?.status);
             console.error('Response headers:', error.response?.headers);
             throw error;
+        }
+    };
+};
+
+export const getSets = (directoryId) => {
+    return async (dispatch, getState) => {
+        try {
+            const response = await axios.get(`${serverUrl}/sets/${directoryId}`);
+            const sets = response.data;
+            dispatch({
+                type: actionTypes.GET_SETS,
+                payload: sets,
+            });
+        } catch (error) {
+            console.error('Error getting sets:', error);
         }
     };
 };

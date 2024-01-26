@@ -8,3 +8,4 @@ export const SAVE_DIRECTORY = 'SAVE_DIRECTORY';
 export const DELETE_DIRECTORY = 'DELETE_DIRECTORY';
 export const GET_DIRECTORIES = 'GET_DIRECTORIES';
 export const ADD_SET = 'ADD_SET';
+export const GET_SETS = 'GET_SETS';

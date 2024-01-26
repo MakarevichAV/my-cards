@@ -7,7 +7,7 @@ export const addDirectory = () => {
     return async (dispatch, getState) => {
         try {
             const newDirectory = {
-                name: '',
+                name: 'New Directory',
                 image: '',
                 setsCount: 0,
             };

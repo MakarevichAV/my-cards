@@ -30,6 +30,7 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
         backgroundImage: `url(${localEditedImage || defaultImage})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
         width: '80px',
         height: '80px',
         marginRight: '15px',

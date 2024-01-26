@@ -6,8 +6,9 @@ const setReducer = (state = initialState, action) => {
             return [
                 ...state,
                 {
-                    directoryId: action.payload.directoryId, // Используем возвращенный ID от сервера
-                    name: '',
+                    _id: action.payload._id,
+                    directoryId: action.payload.directoryId,
+                    name: 'New Set',
                     image: '',
                     cardsCount: 0,
                     isEditing: true,
@@ -15,6 +16,8 @@ const setReducer = (state = initialState, action) => {
                     editedImage: '',
                 }
             ];
+        case 'GET_SETS':
+            return action.payload;
         default:
             return state;
     }

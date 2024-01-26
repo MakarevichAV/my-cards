@@ -19,7 +19,7 @@ const directoryReducer = (state = initialState, action) => {
                 ...state,
                 {
                     _id: action.payload._id, // Используем возвращенный ID от сервера
-                    name: '',
+                    name: 'New Directory',
                     image: '',
                     setsCount: 0,
                     isEditing: true,

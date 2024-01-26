@@ -26,6 +26,7 @@
 }
 
 .directory-name {
+    margin-bottom: 6px;
     font-size: 20px;
     font-weight: 700;
     color: #525266;
@@ -66,17 +67,6 @@
 .save-directory:hover {
     background-color: #e9e9f2;
 }
-
-/* .load-image {
-    height: 100%;
-    width: 100%;
-    background-image: url('../images/icon/download.png');
-    background-size: 130%;
-    background-position: center;
-    opacity: 0.4;
-    border-radius: 50%;
-    cursor: pointer;
-} */
 
 .directory-input {
     padding: 4px 8px;

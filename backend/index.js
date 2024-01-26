@@ -184,6 +184,16 @@ app.post('/addSet', async (req, res) => {
     }
 });
 
+app.get('/sets/:directoryId', async (req, res) => {
+    try {
+        const directoryId = req.params.directoryId;
+        const sets = await Set.find({ directoryId: directoryId });
+        res.status(200).json(sets);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
+
 // Запуск сервера
 app.listen(port, () => {
     console.log(`Сервер запущен на порту ${port}`);

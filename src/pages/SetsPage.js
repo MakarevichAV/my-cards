@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { addSet } from '../redux/actions/setActions';
 import { useParams } from 'react-router-dom';
+import { getSets } from '../redux/actions/setActions';
+
 import Header from '../components/Header';
 import SetTile from '../components/SetTile';
 import '../styles/SetsPage.css';
 
-const SetsPage = ({ sets, onAddSet }) => {
+const SetsPage = ({ sets, onAddSet, onGetSets }) => {
 
     const { directoryId } = useParams();
-    // console.log(directoryId);
-    const reversedSets = Array.isArray(sets) ? [...sets].reverse() : [];
 
+    const reversedSets = Array.isArray(sets) ? [...sets].reverse() : [];
+    
+    useEffect(() => {
+        onGetSets(directoryId);
+    }, [onGetSets, directoryId]);
+    
+    console.log(sets);
 
     return (
         <div className="sets-page page">
@@ -41,12 +48,13 @@ const SetsPage = ({ sets, onAddSet }) => {
 
 const mapStateToProps = (state) => {
     return {
-        sets: state.sets,
+        sets: state.set,
     };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
+        onGetSets: (directoryId) => dispatch(getSets(directoryId)),
         onAddSet: (directoryId) => dispatch(addSet(directoryId)),
     };
 };

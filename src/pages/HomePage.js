@@ -6,6 +6,7 @@ import { getDirectories } from '../redux/actions/directoryActions';
 import '../styles/HomePage.css';
 
 const HomePage = ({ directories, onGetDirectories }) => {
+  console.log(directories);
   const [isAddingDirectory, setIsAddingDirectory] = useState(false);
 
   useEffect(() => {

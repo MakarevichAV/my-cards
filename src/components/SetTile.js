@@ -83,8 +83,8 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
                 </div>
             ) : (
                 <div className="set-info">
-                    <div className="set-name">Name of set</div>
-                    <div className="cards-count">0 sets</div>
+                    <div className="set-name">{name}</div>
+                    <div className="cards-count">{cardsCount} cards</div>
                 </div>
             )}
 
