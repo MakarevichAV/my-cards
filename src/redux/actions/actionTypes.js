@@ -2,10 +2,15 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAILURE = 'REGISTER_FAILURE';
+
 export const ADD_DIRECTORY = 'ADD_DIRECTORY';
 export const EDIT_DIRECTORY = 'EDIT_DIRECTORY';
 export const SAVE_DIRECTORY = 'SAVE_DIRECTORY';
 export const DELETE_DIRECTORY = 'DELETE_DIRECTORY';
 export const GET_DIRECTORIES = 'GET_DIRECTORIES';
+
 export const ADD_SET = 'ADD_SET';
+export const EDIT_SET = 'EDIT_SET';
+export const SAVE_SET = 'SAVE_SET';
+export const DELETE_SET = 'DELETE_SET';
 export const GET_SETS = 'GET_SETS';

@@ -2,6 +2,17 @@ const initialState = [];
 
 const setReducer = (state = initialState, action) => {
     switch (action.type) {
+        case 'SAVE_SET':
+            const updatedState = state.map((set) =>
+                set._id === action.payload.id
+                    ? { ...set, isEditing: false, name: action.payload.editedName, image: action.payload.editedImage }
+                    : set
+            );
+            return updatedState;
+
+        case 'DELETE_SET':
+            return state.filter((set) => set._id !== action.payload.id);
+
         case 'ADD_SET':
             return [
                 ...state,

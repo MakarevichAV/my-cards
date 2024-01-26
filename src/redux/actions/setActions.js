@@ -31,6 +31,46 @@ export const addSet = (directoryId) => {
     };
 };
 
+export const editSet = (id, editedName, editedImage) => {
+    return {
+        type: actionTypes.EDIT_SET,
+        payload: { id, editedName, editedImage },
+    };
+};
+
+export const saveSet = (id, editedName, editedImage, directoryId) => {
+    return async (dispatch, getState) => {
+        console.log(id, editedName, editedImage, directoryId);
+        try {
+            // Отправка запроса к серверу для сохранения отредактированных данных в базе данных
+            await axios.put(`${serverUrl}/editSet/${id}`, { editedName, editedImage, directoryId });
+
+            dispatch({
+                type: actionTypes.SAVE_SET,
+                payload: { id, editedName, editedImage },
+            });
+        } catch (error) {
+            console.error('Ошибка при сохранении набора:', error);
+        }
+    };
+};
+
+export const deleteSet = (id, directoryId) => {
+    return async (dispatch, getState) => {
+        try {
+            // Отправка запроса к серверу для удаления данных из базы данных
+            await axios.delete(`${serverUrl}/deleteSet/${id}?directoryId=${directoryId}`);
+
+            dispatch({
+                type: actionTypes.DELETE_SET,
+                payload: { id },
+            });
+        } catch (error) {
+            console.error('Ошибка при удалении набора:', error);
+        }
+    };
+};
+
 export const getSets = (directoryId) => {
     return async (dispatch, getState) => {
         try {

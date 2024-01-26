@@ -17,8 +17,6 @@ const SetsPage = ({ sets, onAddSet, onGetSets }) => {
     useEffect(() => {
         onGetSets(directoryId);
     }, [onGetSets, directoryId]);
-    
-    console.log(sets);
 
     return (
         <div className="sets-page page">

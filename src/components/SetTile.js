@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import { editSet, saveSet, deleteSet } from '../redux/actions/setActions';
 import SearchPopup from './SearchPopup';
 import { useNavigate } from 'react-router-dom';
 import '../styles/SetTile.css';
 
 
-const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave, onDelete }) => {
+const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave, onDelete, directoryId }) => {
     const [isSearching, setIsSearching] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [localEditedName, setLocalEditedName] = useState(editedName || '');
@@ -13,9 +15,22 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
     const defaultImage = process.env.PUBLIC_URL + '/images/cards.png';
     const navigate = useNavigate();
 
+    useEffect(() => {
+        if (isEditing) {
+            setLocalEditedName(name || '');
+        }
+    }, [isEditing, editedName, editedImage, name, image]);
+
+    useEffect(() => {
+        if (selectedImage) {
+            setLocalEditedImage(selectedImage);
+            setSelectedImage('');
+        }
+    }, [selectedImage]);
+
     const imageStyle = {
-        backgroundImage: `url(${defaultImage})`,
-        backgroundSize: 'contain',
+        backgroundImage: `url(${localEditedImage || defaultImage})`,
+        backgroundSize: `${localEditedImage ? 'cover' : 'contain'}`,
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         width: '80px',
@@ -26,12 +41,12 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
 
     // BLL functions //
     const handleSave = () => {
-        onSave(_id, localEditedName, localEditedImage);
+        onSave(_id, localEditedName, localEditedImage, directoryId);
         setIsEditing(false);
     };
 
     const handleDelete = () => {
-        onDelete(_id);
+        onDelete(_id, directoryId);
     };
 
     const handleEdit = () => {
@@ -54,7 +69,7 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
     };
     // --- //
 
-    //обработчик для перехода на SetsPage
+    //обработчик перехода к редактору карт
     const handleToCreatorClick = () => {
         navigate(`/creator/${_id}`);
     };
@@ -106,4 +121,23 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
     );
 };
 
-export default SetTile;
+const mapStateToProps = (state, ownProps) => {
+    const set = state.set.find((set) => set.id === ownProps.id);
+    return {
+        isEditing: ownProps.isEditing || false,
+        editedName: ownProps.editedName || '',
+        editedImage: ownProps.editedImage || '',
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onEdit: (id) => dispatch(editSet(id)),
+        onSave: (id, editedName, editedImage, directoryId) => {
+            dispatch(saveSet(id, editedName, editedImage, directoryId));
+        },
+        onDelete: (id, directoryId) => dispatch(deleteSet(id, directoryId)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SetTile);

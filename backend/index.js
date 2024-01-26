@@ -184,11 +184,66 @@ app.post('/addSet', async (req, res) => {
     }
 });
 
+app.put('/editSet/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { editedName, editedImage, directoryId } = req.body;
+        // Преобразование строки id в ObjectId
+        const objectId = new mongoose.Types.ObjectId(id);
+        // Проверка директории перед редактированием
+        const set = await Set.findOne({ _id: objectId, directoryId: directoryId });
+        
+        if (!set) {
+            return res.status(403).json({ message: 'You do not have permission to edit this set' });
+        }
+
+        const updatedSet = await Set.findByIdAndUpdate(
+            objectId,
+            { name: editedName, image: editedImage },
+            { new: true }
+        );
+
+        if (!updatedSet) {
+            return res.status(404).json({ message: 'Set not found' });
+        }
+
+        res.status(200).json(updatedSet);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
+
 app.get('/sets/:directoryId', async (req, res) => {
     try {
         const directoryId = req.params.directoryId;
         const sets = await Set.find({ directoryId: directoryId });
         res.status(200).json(sets);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
+
+app.delete('/deleteSet/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { directoryId } = req.query;
+        // Преобразование строки id в ObjectId
+        const objectId = new mongoose.Types.ObjectId(id);
+
+        // Проверка владельца перед удалением
+        const set = await Set.findOne({ _id: objectId, directoryId: directoryId });
+        if (!set) {
+            return res.status(403).json({ message: 'You do not have permission to delete this set' });
+        }
+
+        // Удаление директории по id
+        const deletedSet = await Set.findByIdAndDelete(objectId);
+
+        if (!deletedSet) {
+            return res.status(404).json({ message: 'Set not found' });
+        }
+
+        res.status(200).json({ message: 'Set deleted successfully' });
     } catch (err) {
         res.status(500).send(err.message);
     }
