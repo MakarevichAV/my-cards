@@ -55,32 +55,10 @@ header {
   background-size: 65%;
 }
 
-/* .gor-line {
-  width: 60%;
-  height: 4px;
-  background-color: rgb(255, 255, 255);
-  border-radius: 1px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.ver-line {
-  width: 4px;
-  height: 60%;
-  background-color: rgb(255, 255, 255);
-  border-radius: 1px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-} */
-
 .logo {
   height: 50px;
   width: 120px;
-  background-image: url(../images/icon/max-logo.svg);
+  background-image: url(../images/max-logo.svg);
   background-repeat: no-repeat;
   background-size: contain;
 }

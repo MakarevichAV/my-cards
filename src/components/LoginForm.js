@@ -23,7 +23,7 @@ const LoginForm = ({ onSubmit }) => {
         Пароль:
         <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
       </label>
-      <button onClick={handleLogin}>Войти</button>
+      <button className='btn-type1' onClick={handleLogin}>Войти</button>
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );

@@ -36,7 +36,7 @@ const LoginPage = () => {
   return (
     <div>
       <div className="logo-container">
-        <img src="/logo.svg" alt="Logo" />
+        <img src="/max-logo.svg" alt="Logo" />
       </div>
       <div className="login-container">
         {successMessage && (

@@ -49,7 +49,7 @@ const RegisterForm = ({ onSubmit }) => {
         Confirm Password:
         <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
       </label>
-      <button onClick={handleRegister}>Register</button>
+      <button className="btn-type1" onClick={handleRegister}>Register</button>
       {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
