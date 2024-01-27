@@ -2,14 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
 import DirectoryTile from '../components/DirectoryTile';
+import Loader from '../components/Loader';
 import { getDirectories } from '../redux/actions/directoryActions';
 import '../styles/HomePage.css';
 
 const HomePage = ({ directories, onGetDirectories }) => {
   const [isAddingDirectory, setIsAddingDirectory] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    onGetDirectories();
+    const fetchData = async () => {
+      try {
+        setIsLoading(true); // Устанавливаем isLoading в true при начале загрузки
+        const result = await onGetDirectories();
+        setIsLoading(false); // Устанавливаем isLoading в false после завершения загрузки
+      } catch (error) {
+        setError(error.message); // Устанавливаем error, если произошла ошибка
+        setIsLoading(false); // Устанавливаем isLoading в false в случае ошибки
+      }
+    };
+
+    fetchData();
   }, [onGetDirectories]);
 
   const handleAddDirectory = () => {
@@ -23,7 +37,13 @@ const HomePage = ({ directories, onGetDirectories }) => {
       <Header showAddDirectory={true} showGoToBack={false}/>
 
       <div className="content">
-        {reversedDirectories.length > 0 ? (
+        {isLoading ? (
+          <Loader />
+        ) : error ? (
+          <div className="error-message">
+            <p>{error}</p>
+          </div>
+        ) : reversedDirectories.length > 0 ? (
           reversedDirectories.map((directory) => (
             <DirectoryTile key={directory._id} {...directory} />
           ))

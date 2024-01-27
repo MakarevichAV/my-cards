@@ -4,18 +4,32 @@ import { addSet } from '../redux/actions/setActions';
 import { useParams } from 'react-router-dom';
 import { getSets } from '../redux/actions/setActions';
 
+import Loader from '../components/Loader';
 import Header from '../components/Header';
 import SetTile from '../components/SetTile';
 import '../styles/SetsPage.css';
 
 const SetsPage = ({ sets, onAddSet, onGetSets }) => {
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const { directoryId } = useParams();
 
     const reversedSets = Array.isArray(sets) ? [...sets].reverse() : [];
-    
+
     useEffect(() => {
-        onGetSets(directoryId);
+        const fetchData = async () => {
+            try {
+                setIsLoading(true); // Устанавливаем isLoading в true при начале загрузки
+                const result = await onGetSets(directoryId);
+                setIsLoading(false); // Устанавливаем isLoading в false после завершения загрузки
+            } catch (error) {
+                setError(error.message); // Устанавливаем error, если произошла ошибка
+                setIsLoading(false); // Устанавливаем isLoading в false в случае ошибки
+            }
+        };
+
+        fetchData();
     }, [onGetSets, directoryId]);
 
     return (
@@ -28,7 +42,14 @@ const SetsPage = ({ sets, onAddSet, onGetSets }) => {
                         <div className="add-set" onClick={() => onAddSet(directoryId)}></div>
                     </div>
                     <div className="container-content">
-                        {reversedSets.length > 0 ? (
+
+                        {isLoading ? (
+                            <Loader />
+                        ) : error ? (
+                            <div className="error-message">
+                                <p>{error}</p>
+                            </div>
+                        ) : reversedSets.length > 0 ? (
                             reversedSets.map((set) => (
                                 <SetTile key={set._id} {...set} />
                             ))
@@ -37,6 +58,7 @@ const SetsPage = ({ sets, onAddSet, onGetSets }) => {
                                 <p>Your sets will be here</p>
                             </div>
                         )}
+
                     </div>
                 </div>
             </div>
