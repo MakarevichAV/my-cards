@@ -21,12 +21,30 @@ export const addSet = (directoryId) => {
                 type: actionTypes.ADD_SET,
                 payload: response.data,
             });
+
+            dispatch(updateDirectorySetsCount(directoryId));
         } catch (error) {
             console.error('Error of adding set:', error);
             console.error('Response data:', error.response?.data);
             console.error('Response status:', error.response?.status);
             console.error('Response headers:', error.response?.headers);
             throw error;
+        }
+    };
+};
+
+export const updateDirectorySetsCount = (directoryId) => {
+    return async (dispatch, getState) => {
+        try {
+            const response = await axios.get(`${serverUrl}/directories/${directoryId}`);
+            const directory = response.data[0];
+
+            dispatch({
+                type: actionTypes.UPDATE_DIRECTORY_SETS_COUNT,
+                payload: directory,
+            });
+        } catch (error) {
+            console.error('Error updating directory sets count:', error);
         }
     };
 };

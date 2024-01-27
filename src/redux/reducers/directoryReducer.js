@@ -29,6 +29,12 @@ const directoryReducer = (state = initialState, action) => {
             ];
         case 'GET_DIRECTORIES':
             return action.payload;
+        case 'UPDATE_DIRECTORY_SETS_COUNT':
+            return state.map((directory) =>
+                directory._id === action.payload.id
+                    ? { ...directory, setsCount: action.payload.setsCount }
+                    : directory
+            );
         default:
             return state;
     }

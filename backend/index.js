@@ -109,7 +109,7 @@ app.put('/editDirectory/:id', async (req, res) => {
         const objectId = new mongoose.Types.ObjectId(id);
         // Проверка владельца перед редактированием
         const directory = await Directory.findOne({ _id: objectId, userId: userId });
-        
+
         if (!directory) {
             return res.status(403).json({ message: 'You do not have permission to edit this directory' });
         }
@@ -178,6 +178,9 @@ app.post('/addSet', async (req, res) => {
         const newSet = new Set({ name, image, cardsCount, directoryId });
         await newSet.save();
 
+        // Обновление setsCount в соответствующей директории 
+        await Directory.findByIdAndUpdate(directoryId, { $inc: { setsCount: 1 } });
+
         res.status(200).json(newSet);
     } catch (err) {
         res.status(500).send(err.message);
@@ -192,7 +195,7 @@ app.put('/editSet/:id', async (req, res) => {
         const objectId = new mongoose.Types.ObjectId(id);
         // Проверка директории перед редактированием
         const set = await Set.findOne({ _id: objectId, directoryId: directoryId });
-        
+
         if (!set) {
             return res.status(403).json({ message: 'You do not have permission to edit this set' });
         }

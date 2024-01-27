@@ -14,3 +14,5 @@ export const EDIT_SET = 'EDIT_SET';
 export const SAVE_SET = 'SAVE_SET';
 export const DELETE_SET = 'DELETE_SET';
 export const GET_SETS = 'GET_SETS';
+
+export const UPDATE_DIRECTORY_SETS_COUNT = 'UPDATE_DIRECTORY_SETS_COUNT';
