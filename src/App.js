@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import SetsPage from './pages/SetsPage';
+import Creator from './pages/Creator';
 import './App.css';
 
 const App = () => {
@@ -16,7 +17,13 @@ const App = () => {
           path="/home"
           element={isUserAuthenticated ? <HomePage /> : <Navigate to="/" replace />}
         />
-        <Route path="/sets/:directoryId" element={<SetsPage />} />
+        <Route
+          path="/sets/:directoryId"
+          element={isUserAuthenticated ? <SetsPage /> : <Navigate to="/" replace />} />
+        <Route
+          path="/creator/:directoryId/:setId"
+          element={isUserAuthenticated ? <Creator /> : <Navigate to="/" replace />}
+        />
         <Route path="/" element={<LoginPage />} />
       </Routes>
     </Router>

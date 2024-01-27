@@ -1,15 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { editSet, saveSet, deleteSet } from '../redux/actions/setActions';
+import { editCard, saveCard, deleteCard } from '../redux/actions/cardActions';
 import SearchPopup from './SearchPopup';
 import { useNavigate } from 'react-router-dom';
-import '../styles/SetTile.css';
+import '../styles/Card.css';
 
 
-const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave, onDelete, directoryId }) => {
+const Card = ({
+    _id,
+    phrase,
+    image,
+    transcription,
+    example,
+    translation,
+    translatExample,
+    editedPhrase,
+    editedImage,
+    onSave,
+    onDelete,
+    directoryId,
+    setId
+}) => {
     const [isSearching, setIsSearching] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
-    const [localEditedName, setLocalEditedName] = useState(editedName || '');
+    const [localEditedPhrase, setLocalEditedPhrase] = useState(editedPhrase || '');
     const [localEditedImage, setLocalEditedImage] = useState(image || '');
     const [selectedImage, setSelectedImage] = useState('');
     const defaultImage = process.env.PUBLIC_URL + '/images/cards.png';
@@ -17,9 +31,9 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
 
     useEffect(() => {
         if (isEditing) {
-            setLocalEditedName(name || '');
+            setLocalEditedPhrase(phrase || '');
         }
-    }, [isEditing, editedName, editedImage, name, image]);
+    }, [isEditing, editedPhrase, editedImage, phrase, image]);
 
     useEffect(() => {
         if (selectedImage) {
@@ -41,12 +55,12 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
 
     // BLL functions //
     const handleSave = () => {
-        onSave(_id, localEditedName, localEditedImage, directoryId);
+        onSave(_id, localEditedPhrase, localEditedImage, directoryId, setId);
         setIsEditing(false);
     };
 
     const handleDelete = () => {
-        onDelete(_id, directoryId);
+        onDelete(_id, setId);
     };
 
     const handleEdit = () => {
@@ -69,14 +83,14 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
     };
     // --- //
 
-    //обработчик перехода к редактору карт
-    const handleToCreatorClick = () => {
-        navigate(`/creator/${directoryId}/${_id}`);
-    };
+    // //обработчик перехода к редактору карт
+    // const handleToCreatorClick = () => {
+    //     navigate(`/creator/${_id}`);
+    // };
 
     return (
-        <div className="set-tile">
-            <div className="set-image" style={imageStyle}></div>
+        <div className="card-tile">
+            <div className="card-image" style={imageStyle}></div>
 
             {isSearching && (
                 <SearchPopup
@@ -86,35 +100,34 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
             )}
 
             {isEditing ? (
-                <div className="set-info">
+                <div className="card-info">
                     <input
-                        className="set-input"
+                        className="card-input"
                         type="text"
-                        value={localEditedName}
-                        onChange={(e) => setLocalEditedName(e.target.value)}
-                        placeholder="Название директории"
+                        value={localEditedPhrase}
+                        onChange={(e) => setLocalEditedPhrase(e.target.value)}
+                        placeholder="Word or phrase"
                     />
                     <div className="btn-type2" onClick={handleSearchClick}><div className="camera"></div>picture</div>
                 </div>
             ) : (
-                <div className="set-info">
-                    <div className="set-name">{name}</div>
-                    <div className="cards-count">{cardsCount} cards</div>
+                <div className="card-info">
+                    <div className="card-phrase">{phrase}</div>
                 </div>
             )}
 
             {isEditing ? (
                 <>
-                    <div className="save-set btns" onClick={handleSave}></div>
-                    <div className="delete-set btns" onClick={handleDelete}></div>
+                    <div className="save-card btns" onClick={handleSave}></div>
+                    <div className="delete-card btns" onClick={handleDelete}></div>
                 </>
             ) : (
                 <>
-                    <div>
+                    {/* <div>
                         <div className="btn-type3" onClick={handleToCreatorClick}>creat</div>
                         <div className="btn-type1" onClick={handleToCreatorClick}>view</div>
-                    </div>
-                    <div className="edit-set btns" onClick={handleEdit}></div>
+                    </div> */}
+                    <div className="edit-card btns" onClick={handleEdit}></div>
                 </>
             )}
         </div>
@@ -122,22 +135,22 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
 };
 
 const mapStateToProps = (state, ownProps) => {
-    const set = state.set.find((set) => set.id === ownProps.id);
+    const card = state.card.find((card) => card.id === ownProps.id);
     return {
         isEditing: ownProps.isEditing || false,
-        editedName: ownProps.editedName || '',
+        editedPhrase: ownProps.editedPhrase || '',
         editedImage: ownProps.editedImage || '',
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onEdit: (id) => dispatch(editSet(id)),
-        onSave: (id, editedName, editedImage, directoryId) => {
-            dispatch(saveSet(id, editedName, editedImage, directoryId));
+        onEdit: (id) => dispatch(editCard(id)),
+        onSave: (id, editedPhrase, editedImage, directoryId, setId) => {
+            dispatch(saveCard(id, editedPhrase, editedImage, directoryId, setId));
         },
-        onDelete: (id, directoryId) => dispatch(deleteSet(id, directoryId)),
+        onDelete: (id, setId) => dispatch(deleteCard(id, setId)),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SetTile);
+export default connect(mapStateToProps, mapDispatchToProps)(Card);

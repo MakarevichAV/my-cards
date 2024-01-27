@@ -51,7 +51,6 @@ export const editSet = (id, editedName, editedImage) => {
 
 export const saveSet = (id, editedName, editedImage, directoryId) => {
     return async (dispatch, getState) => {
-        console.log(id, editedName, editedImage, directoryId);
         try {
             // Отправка запроса к серверу для сохранения отредактированных данных в базе данных
             await axios.put(`${serverUrl}/editSet/${id}`, { editedName, editedImage, directoryId });

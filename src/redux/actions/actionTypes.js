@@ -16,3 +16,11 @@ export const DELETE_SET = 'DELETE_SET';
 export const GET_SETS = 'GET_SETS';
 
 export const UPDATE_DIRECTORY_SETS_COUNT = 'UPDATE_DIRECTORY_SETS_COUNT';
+
+export const ADD_CARD = 'ADD_CARD';
+export const EDIT_CARD = 'EDIT_CARD';
+export const SAVE_CARD = 'SAVE_CARD';
+export const DELETE_CARD = 'DELETE_CARD';
+export const GET_CARDS = 'GET_CARDS';
+
+export const UPDATE_SET_CARDS_COUNT = 'UPDATE_SET_CARDS_COUNT';
