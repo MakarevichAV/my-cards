@@ -22,7 +22,9 @@ export const addSet = (directoryId) => {
                 payload: response.data,
             });
 
-            dispatch(updateDirectorySetsCount(directoryId));
+            const updatedSetsCount = getState().set.length;
+            dispatch(updateDirectorySetsCount(directoryId, updatedSetsCount));
+
         } catch (error) {
             console.error('Error of adding set:', error);
             console.error('Response data:', error.response?.data);
@@ -33,19 +35,10 @@ export const addSet = (directoryId) => {
     };
 };
 
-export const updateDirectorySetsCount = (directoryId) => {
-    return async (dispatch, getState) => {
-        try {
-            const response = await axios.get(`${serverUrl}/directories/${directoryId}`);
-            const directory = response.data[0];
-
-            dispatch({
-                type: actionTypes.UPDATE_DIRECTORY_SETS_COUNT,
-                payload: directory,
-            });
-        } catch (error) {
-            console.error('Error updating directory sets count:', error);
-        }
+export const updateDirectorySetsCount = (id, setsCount) => {
+    return {
+        type: actionTypes.UPDATE_DIRECTORY_SETS_COUNT,
+        payload: { id, setsCount },
     };
 };
 
@@ -84,7 +77,8 @@ export const deleteSet = (id, directoryId) => {
                 payload: { id },
             });
 
-            dispatch(updateDirectorySetsCount(directoryId));
+            const updatedSetsCount = getState().set.length;
+            dispatch(updateDirectorySetsCount(directoryId, updatedSetsCount));
 
         } catch (error) {
             console.error('Ошибка при удалении набора:', error);
