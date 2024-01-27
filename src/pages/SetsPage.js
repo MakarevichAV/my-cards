@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { addSet } from '../redux/actions/setActions';
 import { useParams } from 'react-router-dom';
 import { getSets } from '../redux/actions/setActions';
+import { useLocation } from 'react-router-dom';
 
 import Loader from '../components/Loader';
 import Header from '../components/Header';
@@ -10,6 +11,10 @@ import SetTile from '../components/SetTile';
 import '../styles/SetsPage.css';
 
 const SetsPage = ({ sets, onAddSet, onGetSets }) => {
+
+    const location = useLocation();
+    const directoryName = location.state?.directoryName || 'Directory';
+
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -38,7 +43,7 @@ const SetsPage = ({ sets, onAddSet, onGetSets }) => {
             <div className="content">
                 <div className="sets-container">
                     <div className="content-header">
-                        <h2 className="sets-title">English</h2>
+                        <h2 className="sets-title">{directoryName}</h2>
                         <div className="add-set" onClick={() => onAddSet(directoryId)}></div>
                     </div>
                     <div className="container-content">

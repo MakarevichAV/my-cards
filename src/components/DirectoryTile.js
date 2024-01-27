@@ -69,7 +69,7 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
 
     //обработчик для перехода на SetsPage
     const handleToSetsClick = () => {
-        navigate(`/sets/${_id}`);
+        navigate(`/sets/${_id}`, { state: { directoryName: name } });
     };
 
     return (
