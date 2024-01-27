@@ -83,6 +83,9 @@ export const deleteSet = (id, directoryId) => {
                 type: actionTypes.DELETE_SET,
                 payload: { id },
             });
+
+            dispatch(updateDirectorySetsCount(directoryId));
+
         } catch (error) {
             console.error('Ошибка при удалении набора:', error);
         }

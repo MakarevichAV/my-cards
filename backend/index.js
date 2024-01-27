@@ -246,6 +246,8 @@ app.delete('/deleteSet/:id', async (req, res) => {
             return res.status(404).json({ message: 'Set not found' });
         }
 
+        await Directory.findByIdAndUpdate(directoryId, { $inc: { setsCount: -1 } });
+
         res.status(200).json({ message: 'Set deleted successfully' });
     } catch (err) {
         res.status(500).send(err.message);
