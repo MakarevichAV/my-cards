@@ -5,6 +5,7 @@ const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('./models/User');
 const Set = require('./models/Set');
+const Card = require('./models/Card');
 const Directory = require('./models/Directory');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
@@ -249,6 +250,95 @@ app.delete('/deleteSet/:id', async (req, res) => {
         await Directory.findByIdAndUpdate(directoryId, { $inc: { setsCount: -1 } });
 
         res.status(200).json({ message: 'Set deleted successfully' });
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
+
+// Обработчики для карточек
+app.post('/addCard', async (req, res) => {
+    try {
+        const { phrase, image, setId, directoryId } = req.body;
+
+        // Проверка наличия directoryId в запросе
+        if (!setId || !directoryId) {
+            return res.status(400).json({ message: 'Set ID and Directory ID are required.' });
+        }
+
+        const newCard = new Card({ phrase, image, setId, directoryId });
+        await newCard.save();
+
+        // Обновление setsCount в соответствующей директории 
+        await Set.findByIdAndUpdate(setId, { $inc: { setsCount: 1 } });
+
+        res.status(200).json(newCard);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
+
+app.put('/editCard/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { editedPhrase, editedImage, setId } = req.body;
+        // Преобразование строки id в ObjectId
+        const objectId = new mongoose.Types.ObjectId(id);
+        // Проверка директории перед редактированием
+        const card = await Card.findOne({ _id: objectId, setId: setId });
+
+        if (!card) {
+            return res.status(403).json({ message: 'You do not have permission to edit this card' });
+        }
+
+        const updatedCard = await Card.findByIdAndUpdate(
+            objectId,
+            { phrase: editedPhrase, image: editedImage },
+            { new: true }
+        );
+
+        if (!updatedCard) {
+            return res.status(404).json({ message: 'Card not found' });
+        }
+
+        res.status(200).json(updatedCard);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
+
+app.get('/cards/:setId', async (req, res) => {
+    try {
+        const setId = req.params.setId;
+        const cards = await Card.find({ setId: setId });
+        res.status(200).json(cards);
+    } catch (err) {
+        res.status(500).send(err.message);
+    }
+});
+
+app.delete('/deleteCard/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { setId } = req.query;
+        // Преобразование строки id в ObjectId
+        const objectId = new mongoose.Types.ObjectId(id);
+
+        // Проверка владельца перед удалением
+        const card = await Card.findOne({ _id: objectId, setId: setId });
+        if (!card) {
+            return res.status(403).json({ message: 'You do not have permission to delete this card' });
+        }
+
+        // Удаление директории по id
+        const deletedCard = await Card.findByIdAndDelete(objectId);
+
+        if (!deletedCard) {
+            return res.status(404).json({ message: 'Card not found' });
+        }
+
+        await Set.findByIdAndUpdate(setId, { $inc: { setsCount: -1 } });
+
+        res.status(200).json({ message: 'Card deleted successfully' });
     } catch (err) {
         res.status(500).send(err.message);
     }

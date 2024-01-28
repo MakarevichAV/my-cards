@@ -80,13 +80,3 @@
 .directory-input:focus {
     border-color: #525266 !important;
 }
-
-.camera {
-    background-image: url(../images/icon/camera.png);
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position: center;
-    width: 20px;
-    height: 34px;
-    margin-right: 8px;
-}

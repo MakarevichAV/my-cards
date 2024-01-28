@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { addSet } from '../redux/actions/setActions';
+import { addCard } from '../redux/actions/cardActions';
 import { useParams } from 'react-router-dom';
-import { getSets } from '../redux/actions/setActions';
+import { getCards } from '../redux/actions/cardActions';
 import { useLocation } from 'react-router-dom';
 
 import Loader from '../components/Loader';
@@ -20,7 +20,31 @@ const Creator = ({ cards, onAddSet, onGetCards }) => {
 
     const { directoryId, setId } = useParams();
 
-    const reversedCards = Array.isArray(cards) ? [...cards].reverse() : [];
+    // const reversedCards = Array.isArray(cards) ? [...cards].reverse() : [];
+    const reversedCards = [
+        {
+            _id: 1,
+            image: "",
+            phrase: "",
+            transcription: "",
+            note: "",
+            example1: "",
+
+            translation: "",
+            example2: ""
+        },
+        {
+            _id: 2,
+            image: "",
+            phrase: "Phrase 2",
+            transcription: "Transcription 2",
+            note: "Additional information 2",
+            example1: "Example of using this phrase",
+
+            translation: "Фраза 2",
+            example2: "Пример использования переведенный"
+        }
+    ];
 
     useEffect(() => {
         const fetchData = async () => {
@@ -42,7 +66,7 @@ const Creator = ({ cards, onAddSet, onGetCards }) => {
             <Header showAddDirectory={false} showGoToBack={true} />
             <div className="content">
                 <div className="creator-container">
-                    <div className="content-header">
+                    <div className="creator-content-header">
                         <h2 className="content-title">{setName}</h2>
                         <div className="add-card" onClick={() => onAddSet(directoryId)}></div>
                     </div>
@@ -79,8 +103,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        onGetCards: (setId) => dispatch(getSets(setId)),
-        onAddCard: (setId) => dispatch(addSet(setId)),
+        onGetCards: (setId) => dispatch(getCards(setId)),
+        onAddCard: (setId) => dispatch(addCard(setId)),
     };
 };
 

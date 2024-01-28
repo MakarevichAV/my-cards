@@ -42,7 +42,7 @@ const SetsPage = ({ sets, onAddSet, onGetSets }) => {
             <Header showAddDirectory={false} showGoToBack={true} />
             <div className="content">
                 <div className="sets-container">
-                    <div className="content-header">
+                    <div className="sets-content-header">
                         <h2 className="sets-title">{directoryName}</h2>
                         <div className="add-set" onClick={() => onAddSet(directoryId)}></div>
                     </div>

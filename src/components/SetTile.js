@@ -71,7 +71,7 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
 
     //обработчик перехода к редактору карт
     const handleToCreatorClick = () => {
-        navigate(`/creator/${directoryId}/${_id}`);
+        navigate(`/creator/${directoryId}/${_id}`, { state: { setName: name } });
     };
 
     return (

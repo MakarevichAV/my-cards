@@ -52,7 +52,7 @@ code {
   background-color: #30e389;
 }
 
-.btn-type2 {
+.btn-type2, .btn-type2-short {
   height: 34px;
   background-color: #f5f5fa;
   padding: 0 25px;
@@ -70,7 +70,26 @@ code {
   max-width: 120px;
 }
 
-.btn-type2:hover {
+.camera {
+  background-image: url(./images/icon/camera.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 20px;
+  height: 34px;
+  margin-right: 8px;
+}
+
+.btn-type2-short {
+  padding: 0 10px;
+  margin-bottom: 0;
+}
+
+.btn-type2-short .camera {
+  margin-right: 0px;
+}
+
+.btn-type2:hover, .btn-type2-short:hover {
   background-color: #e9e9f2;
 }
 
