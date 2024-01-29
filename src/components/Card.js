@@ -8,20 +8,20 @@ import '../styles/Card.css';
 
 const Card = ({
     _id,
-    phrase,
     image,
+    phrase,
     transcription,
     note,
     example1,
     translation,
     example2,
+    editedImage,
     editedPhrase,
     editedTranscription,
-    editedTranslation,
     editedNote,
     editedExample1,
+    editedTranslation,
     editedExample2,
-    editedImage,
     onSave,
     onDelete,
     directoryId,
@@ -30,13 +30,15 @@ const Card = ({
 }) => {
     const [isSearching, setIsSearching] = useState(false);
     const [isEditing, setIsEditing] = useState(creating);
+    
+    const [localEditedImage, setLocalEditedImage] = useState(image || '');
     const [localEditedPhrase, setLocalEditedPhrase] = useState(editedPhrase || '');
     const [localEditedTranscription, setLocalEditedTranscription] = useState(editedTranscription || '');
-    const [localEditedTranslation, setLocalEditedTranslation] = useState(editedTranslation || '');
     const [localEditedNote, setLocalEditedNote] = useState(editedNote || '');
     const [localEditedExample1, setLocalEditedExample1] = useState(editedExample1 || '');
+    const [localEditedTranslation, setLocalEditedTranslation] = useState(editedTranslation || '');
     const [localEditedExample2, setLocalEditedExample2] = useState(editedExample2 || '');
-    const [localEditedImage, setLocalEditedImage] = useState(image || '');
+    
     const [selectedImage, setSelectedImage] = useState('');
     const defaultImage = process.env.PUBLIC_URL + '/images/cards.png';
     const navigate = useNavigate();
@@ -50,7 +52,11 @@ const Card = ({
             setLocalEditedTranslation(translation || '');
             setLocalEditedExample2(example2 || '');
         }
-    }, [isEditing, editedPhrase, editedImage, phrase, image]);
+    }, [isEditing, editedImage, editedPhrase,
+        editedTranscription, editedNote, editedExample1,
+        editedTranslation, editedExample2,
+        image, phrase, transcription, note,
+        example1, translation, example2]);
 
     useEffect(() => {
         if (selectedImage) {
@@ -72,8 +78,16 @@ const Card = ({
 
     // BLL functions //
     const handleSave = () => {
-        onSave(_id, localEditedPhrase, localEditedImage, directoryId, setId);
-        setIsEditing(false);
+        onSave(_id,
+            localEditedImage,
+            localEditedPhrase,
+            localEditedTranscription,
+            localEditedNote,
+            localEditedExample1,
+            localEditedTranslation,
+            localEditedExample2,
+            directoryId, setId);
+        // setIsEditing(false);
     };
 
     const handleDelete = () => {
@@ -118,7 +132,7 @@ const Card = ({
                         </div>
                         <input
                             className="card-input"
-                            maxlength="30"
+                            maxLength="30"
                             type="text"
                             value={localEditedPhrase}
                             onChange={(e) => setLocalEditedPhrase(e.target.value)}
@@ -126,7 +140,7 @@ const Card = ({
                         />
                         <input
                             className="card-input"
-                            maxlength="30"
+                            maxLength="30"
                             type="text"
                             value={localEditedTranscription}
                             onChange={(e) => setLocalEditedTranscription(e.target.value)}
@@ -134,7 +148,7 @@ const Card = ({
                         />
                         <input
                             className="card-input"
-                            maxlength="30"
+                            maxLength="30"
                             type="text"
                             value={localEditedNote}
                             onChange={(e) => setLocalEditedNote(e.target.value)}
@@ -142,7 +156,7 @@ const Card = ({
                         />
                         <textarea
                             className="card-input"
-                            maxlength="60"
+                            maxLength="60"
                             type="text"
                             value={localEditedExample1}
                             onChange={(e) => setLocalEditedExample1(e.target.value)}
@@ -152,7 +166,7 @@ const Card = ({
                     <div className="card-side2">
                         <input
                             className="card-input"
-                            maxlength="30"
+                            maxLength="30"
                             type="text"
                             value={localEditedTranslation}
                             onChange={(e) => setLocalEditedTranslation(e.target.value)}
@@ -160,7 +174,7 @@ const Card = ({
                         />
                         <textarea
                             className="card-input"
-                            maxlength="60"
+                            maxLength="60"
                             type="text"
                             value={localEditedExample2}
                             onChange={(e) => setLocalEditedExample2(e.target.value)}
@@ -209,16 +223,27 @@ const mapStateToProps = (state, ownProps) => {
     const card = state.card.find((card) => card.id === ownProps.id);
     return {
         isEditing: ownProps.isEditing || false,
-        editedPhrase: ownProps.editedPhrase || '',
         editedImage: ownProps.editedImage || '',
+        editedPhrase: ownProps.editedPhrase || '',
+        editedTranscription:ownProps.editedTranscription || '',
+        editedNote:ownProps.editedNote || '',
+        editedExample1:ownProps.editedExample1 || '',
+        editedTranslation:ownProps.editedTranslation || '',
+        editedExample2:ownProps.editedExample2 || '',
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onEdit: (id) => dispatch(editCard(id)),
-        onSave: (id, editedPhrase, editedImage, directoryId, setId) => {
-            dispatch(saveCard(id, editedPhrase, editedImage, directoryId, setId));
+        onSave: (id, editedImage, editedPhrase,
+            editedTranscription, editedNote, editedExample1,
+            editedTranslation, editedExample2,
+            directoryId, setId) => {
+            dispatch(saveCard(id, editedImage, editedPhrase,
+                editedTranscription, editedNote, editedExample1,
+                editedTranslation, editedExample2,
+                directoryId, setId));
         },
         onDelete: (id, setId) => dispatch(deleteCard(id, setId)),
     };

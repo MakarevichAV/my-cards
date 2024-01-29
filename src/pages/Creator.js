@@ -10,7 +10,7 @@ import Header from '../components/Header';
 import Card from '../components/Card';
 import '../styles/Creator.css';
 
-const Creator = ({ cards, onAddSet, onGetCards }) => {
+const Creator = ({ cards, onAddCard, onGetCards }) => {
 
     const location = useLocation();
     const setName = location.state?.setName || 'Set';
@@ -20,31 +20,31 @@ const Creator = ({ cards, onAddSet, onGetCards }) => {
 
     const { directoryId, setId } = useParams();
 
-    // const reversedCards = Array.isArray(cards) ? [...cards].reverse() : [];
-    const reversedCards = [
-        {
-            _id: 1,
-            image: "",
-            phrase: "",
-            transcription: "",
-            note: "",
-            example1: "",
+    const reversedCards = Array.isArray(cards) ? [...cards].reverse() : [];
+    // const reversedCards = [
+    //     {
+    //         _id: 1,
+    //         image: "",
+    //         phrase: "",
+    //         transcription: "",
+    //         note: "",
+    //         example1: "",
 
-            translation: "",
-            example2: ""
-        },
-        {
-            _id: 2,
-            image: "",
-            phrase: "Phrase 2",
-            transcription: "Transcription 2",
-            note: "Additional information 2",
-            example1: "Example of using this phrase",
+    //         translation: "",
+    //         example2: ""
+    //     },
+    //     {
+    //         _id: 2,
+    //         image: "",
+    //         phrase: "Phrase 2",
+    //         transcription: "Transcription 2",
+    //         note: "Additional information 2",
+    //         example1: "Example of using this phrase",
 
-            translation: "Фраза 2",
-            example2: "Пример использования переведенный"
-        }
-    ];
+    //         translation: "Фраза 2",
+    //         example2: "Пример использования переведенный"
+    //     }
+    // ];
 
     useEffect(() => {
         const fetchData = async () => {
@@ -68,7 +68,7 @@ const Creator = ({ cards, onAddSet, onGetCards }) => {
                 <div className="creator-container">
                     <div className="creator-content-header">
                         <h2 className="content-title">{setName}</h2>
-                        <div className="add-card" onClick={() => onAddSet(directoryId)}></div>
+                        <div className="add-card" onClick={() => onAddCard(directoryId, setId)}></div>
                     </div>
                     <div className="container-content">
 
@@ -104,7 +104,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         onGetCards: (setId) => dispatch(getCards(setId)),
-        onAddCard: (setId) => dispatch(addCard(setId)),
+        onAddCard: ( directoryId, setId) => dispatch(addCard(directoryId, setId)),
     };
 };
 

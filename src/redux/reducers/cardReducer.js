@@ -5,7 +5,17 @@ const cardReducer = (state = initialState, action) => {
         case 'SAVE_CARD':
             const updatedState = state.map((card) =>
                 card._id === action.payload.id
-                    ? { ...card, isEditing: false, phrase: action.payload.editedPhrase, image: action.payload.editedImage }
+                    ? {
+                        ...card,
+                        // isEditing: false, 
+                        image: action.payload.editedImage,
+                        phrase: action.payload.editedPhrase,
+                        transcription: action.payload.editedTranscription,
+                        note: action.payload.editedNote,
+                        example1: action.payload.editedExample1,
+                        translation: action.payload.editedTranslation,
+                        example2: action.payload.editedExample2,
+                    }
                     : card
             );
             return updatedState;
@@ -20,11 +30,21 @@ const cardReducer = (state = initialState, action) => {
                     _id: action.payload._id,
                     setId: action.payload.setId,
                     directoryId: action.payload.directoryId,
-                    phrase: 'New Phrase',
-                    image: '',
-                    isEditing: true,
-                    editedPhrase: '',
+                    image: "",
+                    phrase: "",
+                    transcription: "",
+                    note: "",
+                    example1: "",
+                    translation: "",
+                    example2: "",
                     editedImage: '',
+                    editedPhrase: '',
+                    editedTranscription: "",
+                    editedNote: "",
+                    editedExample1: "",
+                    editedTranslation: "",
+                    editedExample2: "",
+                    isEditing: true,
                 }
             ];
         case 'GET_CARDS':

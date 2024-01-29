@@ -7,8 +7,13 @@ export const addCard = (directoryId, setId) => {
     return async (dispatch, getState) => {
         try {
             const newCard = {
-                name: 'New Card',
-                image: '',
+                image: "",
+                phrase: "",
+                transcription: "",
+                note: "",
+                example1: "",
+                translation: "",
+                example2: ""
             };
 
             const response = await axios.post(`${serverUrl}/addCard`, {
@@ -49,15 +54,15 @@ export const editCard = (id, editedPhrase, editedImage) => {
     };
 };
 
-export const saveCard = (id, editedPhrase, editedImage, directoryId, setId) => {
+export const saveCard = (id, editedImage, editedPhrase, editedTranscription, editedNote, editedExample1, editedTranslation, editedExample2, directoryId, setId) => {
     return async (dispatch, getState) => {
         try {
             // Отправка запроса к серверу для сохранения отредактированных данных в базе данных
-            await axios.put(`${serverUrl}/editCard/${id}`, { editedPhrase, editedImage, directoryId, setId });
+            await axios.put(`${serverUrl}/editCard/${id}`, { editedImage, editedPhrase, editedTranscription, editedNote, editedExample1, editedTranslation, editedExample2, directoryId, setId });
 
             dispatch({
                 type: actionTypes.SAVE_CARD,
-                payload: { id, editedPhrase, editedImage },
+                payload: { id, editedImage, editedPhrase, editedTranscription, editedNote, editedExample1, editedTranslation, editedExample2 },
             });
         } catch (error) {
             console.error('Ошибка при сохранении карточки:', error);

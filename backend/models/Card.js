@@ -1,8 +1,13 @@
 const mongoose = require('mongoose');
 
 const cardSchema = new mongoose.Schema({
-    phrase: String,
     image: String,
+    phrase: String,
+    transcription: String,
+    note: String,
+    example1: String,
+    translation: String,
+    example2: String,
     setId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,

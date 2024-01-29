@@ -258,14 +258,14 @@ app.delete('/deleteSet/:id', async (req, res) => {
 // Обработчики для карточек
 app.post('/addCard', async (req, res) => {
     try {
-        const { phrase, image, setId, directoryId } = req.body;
+        const { image, phrase, transcription, note, example1, translation, example2, setId, directoryId } = req.body;
 
         // Проверка наличия directoryId в запросе
         if (!setId || !directoryId) {
             return res.status(400).json({ message: 'Set ID and Directory ID are required.' });
         }
 
-        const newCard = new Card({ phrase, image, setId, directoryId });
+        const newCard = new Card({ image, phrase, transcription, note, example1, translation, example2, setId, directoryId });
         await newCard.save();
 
         // Обновление setsCount в соответствующей директории 
@@ -280,7 +280,7 @@ app.post('/addCard', async (req, res) => {
 app.put('/editCard/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const { editedPhrase, editedImage, setId } = req.body;
+        const { editedImage, editedPhrase, editedTranscription, editedNote, editedExample1, editedTranslation, editedExample2, setId } = req.body;
         // Преобразование строки id в ObjectId
         const objectId = new mongoose.Types.ObjectId(id);
         // Проверка директории перед редактированием
@@ -292,7 +292,15 @@ app.put('/editCard/:id', async (req, res) => {
 
         const updatedCard = await Card.findByIdAndUpdate(
             objectId,
-            { phrase: editedPhrase, image: editedImage },
+            {
+                image: editedImage,
+                phrase: editedPhrase,
+                transcription: editedTranscription,
+                note: editedNote,
+                example1: editedExample1,
+                translation: editedTranslation,
+                example2: editedExample2,
+            },
             { new: true }
         );
 
