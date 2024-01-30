@@ -101,6 +101,15 @@
 .save-card:hover {
     background-color: #e9e9f2;
 }
+.save-card-disact {
+    background-color: #f5f5fa;
+    background-image: url('../images/icon/save-disact.png');
+    background-repeat: no-repeat;
+    background-size: 60%;
+    background-position: center;
+    margin-right: 15px;
+    cursor: default !important;
+}
 
 .card-input {
     padding: 4px;

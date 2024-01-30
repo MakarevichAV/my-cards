@@ -30,7 +30,9 @@ const Card = ({
 }) => {
     const [isSearching, setIsSearching] = useState(false);
     const [isEditing, setIsEditing] = useState(creating);
-    
+
+    const [isChanged, setIsChanged] = useState(false);
+
     const [localEditedImage, setLocalEditedImage] = useState(image || '');
     const [localEditedPhrase, setLocalEditedPhrase] = useState(editedPhrase || '');
     const [localEditedTranscription, setLocalEditedTranscription] = useState(editedTranscription || '');
@@ -38,7 +40,7 @@ const Card = ({
     const [localEditedExample1, setLocalEditedExample1] = useState(editedExample1 || '');
     const [localEditedTranslation, setLocalEditedTranslation] = useState(editedTranslation || '');
     const [localEditedExample2, setLocalEditedExample2] = useState(editedExample2 || '');
-    
+
     const [selectedImage, setSelectedImage] = useState('');
     const defaultImage = process.env.PUBLIC_URL + '/images/cards.png';
     const navigate = useNavigate();
@@ -67,7 +69,7 @@ const Card = ({
 
     const imageStyle = {
         backgroundImage: `url(${localEditedImage || defaultImage})`,
-        backgroundSize: `${localEditedImage ? 'cover' : 'contain'}`,
+        backgroundSize: 'contain',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         width: '70px',
@@ -76,18 +78,17 @@ const Card = ({
         borderRadius: '8px'
     };
 
+    const handleInputChange = (valueSetter, e) => {
+        valueSetter(e.target.value);
+        setIsChanged(true);
+    };
+
     // BLL functions //
     const handleSave = () => {
-        onSave(_id,
-            localEditedImage,
-            localEditedPhrase,
-            localEditedTranscription,
-            localEditedNote,
-            localEditedExample1,
-            localEditedTranslation,
-            localEditedExample2,
-            directoryId, setId);
-        // setIsEditing(false);
+        if (isChanged) {
+            onSave(_id, localEditedImage, localEditedPhrase, localEditedTranscription, localEditedNote, localEditedExample1, localEditedTranslation, localEditedExample2, directoryId, setId);
+            setIsChanged(false); // Сбросить флаг после сохранения
+        }
     };
 
     const handleDelete = () => {
@@ -127,7 +128,12 @@ const Card = ({
                         <div className='card-image-container card-row'>
                             <div className="card-image" style={imageStyle}></div>
                             <div className="btn-type2-short" onClick={handleSearchClick}><div className="camera"></div></div>
-                            <div className="save-card btns" onClick={handleSave}></div>
+                            {isChanged &&
+                                (<div className="save-card btns" onClick={handleSave}></div>)
+                            }
+                            {!isChanged &&
+                                (<div className="save-card-disact btns" onClick={handleSave}></div>)
+                            }
                             <div className="delete-card btns" onClick={handleDelete}></div>
                         </div>
                         <input
@@ -135,7 +141,7 @@ const Card = ({
                             maxLength="30"
                             type="text"
                             value={localEditedPhrase}
-                            onChange={(e) => setLocalEditedPhrase(e.target.value)}
+                            onChange={(e) => handleInputChange(setLocalEditedPhrase, e)}
                             placeholder="Word or phrase"
                         />
                         <input
@@ -143,7 +149,8 @@ const Card = ({
                             maxLength="30"
                             type="text"
                             value={localEditedTranscription}
-                            onChange={(e) => setLocalEditedTranscription(e.target.value)}
+                            onChange={(e) => handleInputChange(setLocalEditedTranscription, e)}
+                            // onChange={(e) => setLocalEditedTranscription(e.target.value)}
                             placeholder="Transcription"
                         />
                         <input
@@ -151,7 +158,8 @@ const Card = ({
                             maxLength="30"
                             type="text"
                             value={localEditedNote}
-                            onChange={(e) => setLocalEditedNote(e.target.value)}
+                            onChange={(e) => handleInputChange(setLocalEditedNote, e)}
+                            // onChange={(e) => setLocalEditedNote(e.target.value)}
                             placeholder="Additional information"
                         />
                         <textarea
@@ -159,7 +167,8 @@ const Card = ({
                             maxLength="60"
                             type="text"
                             value={localEditedExample1}
-                            onChange={(e) => setLocalEditedExample1(e.target.value)}
+                            onChange={(e) => handleInputChange(setLocalEditedExample1, e)}
+                            // onChange={(e) => setLocalEditedExample1(e.target.value)}
                             placeholder="Example of using this phrase"
                         />
                     </div>
@@ -169,7 +178,8 @@ const Card = ({
                             maxLength="30"
                             type="text"
                             value={localEditedTranslation}
-                            onChange={(e) => setLocalEditedTranslation(e.target.value)}
+                            onChange={(e) => handleInputChange(setLocalEditedTranslation, e)}
+                            // onChange={(e) => setLocalEditedTranslation(e.target.value)}
                             placeholder="Translation"
                         />
                         <textarea
@@ -177,7 +187,8 @@ const Card = ({
                             maxLength="60"
                             type="text"
                             value={localEditedExample2}
-                            onChange={(e) => setLocalEditedExample2(e.target.value)}
+                            onChange={(e) => handleInputChange(setLocalEditedExample2, e)}
+                            // onChange={(e) => setLocalEditedExample2(e.target.value)}
                             placeholder="Additional information"
                         />
                     </div>
@@ -190,31 +201,6 @@ const Card = ({
                     onImageSelect={handleImageSelect}
                 />
             )}
-
-            {isEditing ? (
-                <div className="card-info">
-
-                </div>
-            ) : (
-                <div className="card-info">
-                    <div className="card-phrase">{phrase}</div>
-                </div>
-            )}
-
-            {isEditing ? (
-                <>
-                    {/* <div className="save-card btns" onClick={handleSave}></div>
-                    <div className="delete-card btns" onClick={handleDelete}></div> */}
-                </>
-            ) : (
-                <>
-                    {/* <div>
-                        <div className="btn-type3" onClick={handleToCreatorClick}>creat</div>
-                        <div className="btn-type1" onClick={handleToCreatorClick}>view</div>
-                    </div> */}
-                    <div className="edit-card btns" onClick={handleEdit}></div>
-                </>
-            )}
         </div>
     );
 };
@@ -225,11 +211,11 @@ const mapStateToProps = (state, ownProps) => {
         isEditing: ownProps.isEditing || false,
         editedImage: ownProps.editedImage || '',
         editedPhrase: ownProps.editedPhrase || '',
-        editedTranscription:ownProps.editedTranscription || '',
-        editedNote:ownProps.editedNote || '',
-        editedExample1:ownProps.editedExample1 || '',
-        editedTranslation:ownProps.editedTranslation || '',
-        editedExample2:ownProps.editedExample2 || '',
+        editedTranscription: ownProps.editedTranscription || '',
+        editedNote: ownProps.editedNote || '',
+        editedExample1: ownProps.editedExample1 || '',
+        editedTranslation: ownProps.editedTranslation || '',
+        editedExample2: ownProps.editedExample2 || '',
     };
 };
 
