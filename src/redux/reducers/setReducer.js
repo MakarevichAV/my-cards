@@ -29,6 +29,12 @@ const setReducer = (state = initialState, action) => {
             ];
         case 'GET_SETS':
             return action.payload;
+        case 'UPDATE_SET_CARDS_COUNT':
+            return state.map((set) =>
+                set._id === action.payload.id
+                    ? { ...set, cardsCount: action.payload.cardsCount }
+                    : set
+            );
         default:
             return state;
     }

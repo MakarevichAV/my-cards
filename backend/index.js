@@ -269,7 +269,7 @@ app.post('/addCard', async (req, res) => {
         await newCard.save();
 
         // Обновление setsCount в соответствующей директории 
-        await Set.findByIdAndUpdate(setId, { $inc: { setsCount: 1 } });
+        await Set.findByIdAndUpdate(setId, { $inc: { cardsCount: 1 } });
 
         res.status(200).json(newCard);
     } catch (err) {
@@ -344,7 +344,7 @@ app.delete('/deleteCard/:id', async (req, res) => {
             return res.status(404).json({ message: 'Card not found' });
         }
 
-        await Set.findByIdAndUpdate(setId, { $inc: { setsCount: -1 } });
+        await Set.findByIdAndUpdate(setId, { $inc: { cardsCount: -1 } });
 
         res.status(200).json({ message: 'Card deleted successfully' });
     } catch (err) {
