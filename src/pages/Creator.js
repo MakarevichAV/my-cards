@@ -21,30 +21,6 @@ const Creator = ({ cards, onAddCard, onGetCards }) => {
     const { directoryId, setId } = useParams();
 
     const reversedCards = Array.isArray(cards) ? [...cards].reverse() : [];
-    // const reversedCards = [
-    //     {
-    //         _id: 1,
-    //         image: "",
-    //         phrase: "",
-    //         transcription: "",
-    //         note: "",
-    //         example1: "",
-
-    //         translation: "",
-    //         example2: ""
-    //     },
-    //     {
-    //         _id: 2,
-    //         image: "",
-    //         phrase: "Phrase 2",
-    //         transcription: "Transcription 2",
-    //         note: "Additional information 2",
-    //         example1: "Example of using this phrase",
-
-    //         translation: "Фраза 2",
-    //         example2: "Пример использования переведенный"
-    //     }
-    // ];
 
     useEffect(() => {
         const fetchData = async () => {
