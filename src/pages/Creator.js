@@ -4,6 +4,7 @@ import { addCard } from '../redux/actions/cardActions';
 import { useParams } from 'react-router-dom';
 import { getCards } from '../redux/actions/cardActions';
 import { useLocation } from 'react-router-dom';
+import SwipeableViews from 'react-swipeable-views';
 
 import Loader from '../components/Loader';
 import Header from '../components/Header';
@@ -17,6 +18,8 @@ const Creator = ({ cards, onAddCard, onGetCards }) => {
 
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    const [activeCardIndex, setActiveCardIndex] = useState(0); // Состояние для отслеживания текущей активной карточки
 
     const { directoryId, setId } = useParams();
 
@@ -37,6 +40,10 @@ const Creator = ({ cards, onAddCard, onGetCards }) => {
         fetchData();
     }, [onGetCards, setId]);
 
+    const handleSwipeChange = (index) => {
+        setActiveCardIndex(index);
+    };
+
     return (
         <div className="creator-page page">
             <Header showAddDirectory={false} showGoToBack={true} />
@@ -55,9 +62,25 @@ const Creator = ({ cards, onAddCard, onGetCards }) => {
                                 <p>{error}</p>
                             </div>
                         ) : reversedCards.length > 0 ? (
-                            reversedCards.map((card) => (
-                                <Card creating={true} viewing={false} key={card._id} {...card} />
-                            ))
+                            <SwipeableViews
+                                index={activeCardIndex}
+                                onChangeIndex={handleSwipeChange}
+                                enableMouseEvents
+                            >
+                                {reversedCards.map((card, index) => (
+                                    <Card
+                                        creating={true}
+                                        viewing={false}
+                                        key={card._id}
+                                        {...card}
+                                        style={{
+                                            position: 'absolute',
+                                            top: index === index ? 0 : '100%', // Первая карточка вверху, остальные внизу
+                                            transition: 'top 0.5s ease-in-out',
+                                        }}
+                                    />
+                                ))}
+                            </SwipeableViews>
                         ) : (
                             <div className="page-description">
                                 <p>Your sets will be here</p>
@@ -80,7 +103,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         onGetCards: (setId) => dispatch(getCards(setId)),
-        onAddCard: ( directoryId, setId) => dispatch(addCard(directoryId, setId)),
+        onAddCard: (directoryId, setId) => dispatch(addCard(directoryId, setId)),
     };
 };
 

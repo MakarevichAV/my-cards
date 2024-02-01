@@ -45,6 +45,8 @@ const Card = ({
     const defaultImage = process.env.PUBLIC_URL + '/images/cards.png';
     const navigate = useNavigate();
 
+    const [stacked, setStacked] = useState(false);
+
     useEffect(() => {
         if (isEditing) {
             setLocalEditedPhrase(phrase || '');
@@ -121,7 +123,7 @@ const Card = ({
     // };
 
     return (
-        <div className="card-tile">
+        <div className={`card-tile ${stacked ? 'stacked' : ''}`}>
             {isEditing && (
                 <>
                     <div className="card-side1">
