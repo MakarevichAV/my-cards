@@ -26,7 +26,9 @@ const Card = ({
     onDelete,
     directoryId,
     setId,
-    creating
+    creating,
+    isActive,
+    onSwipe
 }) => {
     const [isSearching, setIsSearching] = useState(false);
     const [isEditing, setIsEditing] = useState(creating);
@@ -120,8 +122,49 @@ const Card = ({
     //     navigate(`/creator/${_id}`);
     // };
 
+    const [startX, setStartX] = useState(0);
+
+    const handleSwipeStart = (e) => {
+        setStartX(e.touches[0].clientX);
+    };
+
+    const handleSwipeMove = (e) => {
+        const deltaX = e.touches[0].clientX - startX;
+        const card = document.getElementById(`card-${_id}`);
+
+        if (card) {
+            card.style.transition = 'none';
+            card.style.transform = `translateX(${deltaX}px)`;
+        }
+    };
+
+    const handleSwipeEnd = (e) => {
+        const deltaX = e.changedTouches[0].clientX - startX;
+        const card = document.getElementById(`card-${_id}`);
+
+        if (card) {
+            card.style.transition = 'transform 0.3s ease-out';
+
+            if (deltaX > 50) {
+                card.style.transform = 'translateX(100%)';
+                onSwipe('right');
+            } else if (deltaX < -50) {
+                card.style.transform = 'translateX(-100%)';
+                onSwipe('left');
+            } else {
+                card.style.transform = 'translateX(0)';
+            }
+        }
+    };
+
     return (
-        <div className="card-tile">
+        <div
+            id={`card-${_id}`}
+            className={`card-tile ${isActive ? 'active' : ''}`}
+            onTouchStart={(e) => handleSwipeStart(e)}
+            onTouchMove={(e) => handleSwipeMove(e)}
+            onTouchEnd={(e) => handleSwipeEnd(e)}
+        >
             {isEditing && (
                 <>
                     <div className="card-side1">

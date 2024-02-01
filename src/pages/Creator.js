@@ -15,12 +15,23 @@ const Creator = ({ cards, onAddCard, onGetCards }) => {
     const location = useLocation();
     const setName = location.state?.setName || 'Set';
 
+    const [activeCard, setActiveCard] = useState(0);
+
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
     const { directoryId, setId } = useParams();
 
     const reversedCards = Array.isArray(cards) ? [...cards].reverse() : [];
+
+    const handleSwipe = (direction) => {
+        if (direction === 'left' && activeCard > 0) {
+            setActiveCard(activeCard - 1);
+        }
+        if (direction === 'right' && activeCard < reversedCards.length - 1) {
+            setActiveCard(activeCard + 1);
+        }
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -55,8 +66,15 @@ const Creator = ({ cards, onAddCard, onGetCards }) => {
                                 <p>{error}</p>
                             </div>
                         ) : reversedCards.length > 0 ? (
-                            reversedCards.map((card) => (
-                                <Card creating={true} viewing={false} key={card._id} {...card} />
+                            reversedCards.map((card, index) => (
+                                <Card
+                                    creating={true}
+                                    viewing={false}
+                                    key={card._id}
+                                    {...card}
+                                    isActive={index === activeCard}
+                                    onSwipe={handleSwipe}
+                                />
                             ))
                         ) : (
                             <div className="page-description">
@@ -80,7 +98,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         onGetCards: (setId) => dispatch(getCards(setId)),
-        onAddCard: ( directoryId, setId) => dispatch(addCard(directoryId, setId)),
+        onAddCard: (directoryId, setId) => dispatch(addCard(directoryId, setId)),
     };
 };
 
