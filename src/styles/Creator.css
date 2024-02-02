@@ -49,34 +49,43 @@
 
 .carousel-control-prev,
 .carousel-control-next {
-  width: 140px;
-  font-size: 4rem; /* Размер шрифта кнопок */
-  color: #fff;
-  /* background-color: rgba(0, 0, 0, 0.5); Цвет фона кнопок */
-  border-radius: 5px; /* Скругленные углы */
+    width: 140px;
+    /* background-color: #16d977; */
 }
 
-/* Измените цвет стрелок на белый при наведении */
-.carousel-control-prev:hover,
-.carousel-control-next:hover {
-  /* color: #483737; */
-  /* background-color: rgba(0, 0, 0, 0.8); */
-}
-
-/* Измените размер и цвет иконок стрелок */
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-    /* color: #16d977; */
-  width: 40px; /* Ширина иконок */
-  height: 40px; /* Высота иконок */
-  /* background-color: #4f4747; Цвет иконок */
-  /* border-radius: 50%; Круглые иконки */
-  opacity: 0.5;
+    width: 30px;
+    height: 30px;
+    opacity: 0.2;
 }
 
 .carousel-control-prev-icon {
     background-image: url(../images/icon/left-swipe.png);
 }
+
 .carousel-control-next-icon {
     background-image: url(../images/icon/right-swipe.png);
+}
+
+/* адаптивность */
+@media (max-width: 600px) {
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 90px;
+    }
+}
+
+@media (max-width: 500px) {
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 35px;
+    }
+}
+
+@media (max-width: 400px) {
+    .carousel-control-prev,
+    .carousel-control-next {
+        display: none;
+    }
 }

@@ -11,6 +11,10 @@ body {
   line-height: 1;
 }
 
+input:focus, textarea:focus {
+  outline: none;
+}
+
 .page {
   min-height: 100vh;
   display: flex;
