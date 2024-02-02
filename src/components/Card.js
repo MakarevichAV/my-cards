@@ -112,6 +112,7 @@ const Card = ({
     const handleImageSelect = (selectedImage) => {
         // Обработка выбора изображения из SearchPopup
         setLocalEditedImage(selectedImage);
+        setIsChanged(true);
     };
     // --- //
 
@@ -132,7 +133,7 @@ const Card = ({
                                 (<div className="save-card btns" onClick={handleSave}></div>)
                             }
                             {!isChanged &&
-                                (<div className="save-card-disact btns" onClick={handleSave}></div>)
+                                (<div className="save-card-disact btns"></div>)
                             }
                             <div className="delete-card btns" onClick={handleDelete}></div>
                         </div>
