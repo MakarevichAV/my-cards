@@ -4,10 +4,12 @@ import { addCard } from '../redux/actions/cardActions';
 import { useParams } from 'react-router-dom';
 import { getCards } from '../redux/actions/cardActions';
 import { useLocation } from 'react-router-dom';
+import { Carousel } from 'react-bootstrap';
 
 import Loader from '../components/Loader';
 import Header from '../components/Header';
 import Card from '../components/Card';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/Creator.css';
 
 const Creator = ({ cards, onAddCard, onGetCards }) => {
@@ -55,9 +57,13 @@ const Creator = ({ cards, onAddCard, onGetCards }) => {
                                 <p>{error}</p>
                             </div>
                         ) : reversedCards.length > 0 ? (
-                            reversedCards.map((card) => (
-                                <Card creating={true} viewing={false} key={card._id} {...card} />
-                            ))
+                            <Carousel interval={null}>
+                                {reversedCards.map((card) => (
+                                    <Carousel.Item key={card._id}>
+                                        <Card creating={true} viewing={false} {...card} />
+                                    </Carousel.Item>
+                                ))}
+                            </Carousel>
                         ) : (
                             <div className="page-description">
                                 <p>Your sets will be here</p>
@@ -80,7 +86,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         onGetCards: (setId) => dispatch(getCards(setId)),
-        onAddCard: ( directoryId, setId) => dispatch(addCard(directoryId, setId)),
+        onAddCard: (directoryId, setId) => dispatch(addCard(directoryId, setId)),
     };
 };
 
