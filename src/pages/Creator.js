@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { addCard } from '../redux/actions/cardActions';
 import { useParams } from 'react-router-dom';
@@ -21,6 +21,7 @@ const Creator = ({ cards, onAddCard, onGetCards }) => {
     const [error, setError] = useState(null);
 
     const { directoryId, setId } = useParams();
+    const [activeIndex, setActiveIndex] = useState(0);
 
     const reversedCards = Array.isArray(cards) ? [...cards].reverse() : [];
 
@@ -39,6 +40,12 @@ const Creator = ({ cards, onAddCard, onGetCards }) => {
         fetchData();
     }, [onGetCards, setId]);
 
+    const handleAddCard = () => {
+        onAddCard(directoryId, setId);
+        // После добавления новой карточки пролистываем карусель на первую карточку
+        setActiveIndex(0);
+    };
+
     return (
         <div className="creator-page page">
             <Header showAddDirectory={false} showGoToBack={true} />
@@ -46,7 +53,7 @@ const Creator = ({ cards, onAddCard, onGetCards }) => {
                 <div className="creator-container">
                     <div className="creator-content-header">
                         <h2 className="content-title">{setName}</h2>
-                        <div className="add-card" onClick={() => onAddCard(directoryId, setId)}></div>
+                        <div className="add-card" onClick={handleAddCard}></div>
                     </div>
                     <div className="container-content">
 
@@ -57,7 +64,7 @@ const Creator = ({ cards, onAddCard, onGetCards }) => {
                                 <p>{error}</p>
                             </div>
                         ) : reversedCards.length > 0 ? (
-                            <Carousel interval={null}>
+                            <Carousel interval={null} activeIndex={activeIndex} onSelect={(index) => setActiveIndex(index)}>
                                 {reversedCards.map((card) => (
                                     <Carousel.Item key={card._id}>
                                         <Card creating={true} viewing={false} {...card} />
