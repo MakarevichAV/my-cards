@@ -44,6 +44,14 @@ const Creator = ({ cards, onAddCard, onGetCards }) => {
         setActiveCardIndex(index);
     };
 
+    const handlePrevCard = () => {
+        setActiveCardIndex((prevIndex) => Math.max(prevIndex - 1, 0));
+    };
+
+    const handleNextCard = () => {
+        setActiveCardIndex((prevIndex) => Math.min(prevIndex + 1, reversedCards.length - 1));
+    };
+
     return (
         <div className="creator-page page">
             <Header showAddDirectory={false} showGoToBack={true} />
@@ -86,6 +94,11 @@ const Creator = ({ cards, onAddCard, onGetCards }) => {
                                 <p>Your sets will be here</p>
                             </div>
                         )}
+
+                        <div className="card-navigation">
+                            <button onClick={handlePrevCard}>Prev</button>
+                            <button onClick={handleNextCard}>Next</button>
+                        </div>
 
                     </div>
                 </div>
