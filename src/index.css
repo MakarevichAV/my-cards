@@ -11,7 +11,8 @@ body {
   line-height: 1;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   outline: none;
 }
 
@@ -56,10 +57,10 @@ code {
   background-color: #30e389;
 }
 
-.btn-type2, .btn-type2-short {
+.btn-type2,
+.btn-type2-short {
   height: 34px;
   background-color: #f5f5fa;
-  padding: 0 25px;
   margin-bottom: 10px;
   text-align: center;
   display: flex;
@@ -79,8 +80,8 @@ code {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-  width: 20px;
-  height: 34px;
+  width: 18px;
+  height: 18px;
   margin-right: 8px;
 }
 
@@ -93,7 +94,8 @@ code {
   margin-right: 0px;
 }
 
-.btn-type2:hover, .btn-type2-short:hover {
+.btn-type2:hover,
+.btn-type2-short:hover {
   background-color: #e9e9f2;
 }
 
@@ -101,7 +103,6 @@ code {
   height: 34px;
   background-color: #d9b216;
   margin-bottom: 10px;
-  padding: 0 25px;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -114,6 +115,7 @@ code {
   cursor: pointer;
   max-width: 120px;
 }
+
 .btn-type3:hover {
   background-color: #dfc24e;
 }
@@ -143,4 +145,14 @@ code {
   font-size: 26px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: rgb(217, 217, 255);
+}
+
+@media (max-width: 550px) {
+
+  .btn-type1,
+  .btn-type2,
+  .btn-type3 {
+    padding: 0;
+    width: 100px;
+  }
 }

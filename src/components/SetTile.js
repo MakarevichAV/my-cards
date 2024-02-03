@@ -4,6 +4,7 @@ import { editSet, saveSet, deleteSet } from '../redux/actions/setActions';
 import SearchPopup from './SearchPopup';
 import { useNavigate } from 'react-router-dom';
 import '../styles/SetTile.css';
+import { BOLD_WEIGHT } from 'jest-matcher-utils';
 
 
 const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave, onDelete, directoryId }) => {
@@ -31,12 +32,13 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
     const imageStyle = {
         backgroundImage: `url(${localEditedImage || defaultImage})`,
         backgroundSize: `${localEditedImage ? 'cover' : 'contain'}`,
-        backgroundPosition: 'center',
+        backgroundPosition: 'top center',
         backgroundRepeat: 'no-repeat',
         width: '80px',
         height: '80px',
         marginRight: '15px',
-        borderRadius: '8px'
+        borderRadius: '8px',
+        minWidth: '60px'
     };
 
     // BLL functions //
@@ -98,7 +100,11 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
                         onChange={(e) => setLocalEditedName(e.target.value)}
                         placeholder="Название директории"
                     />
-                    <div className="btn-type2" onClick={handleSearchClick}><div className="camera"></div>picture</div>
+                    <div className="set-edit-buttons">
+                        <div className="btn-type2" onClick={handleSearchClick}><div className="camera"></div><span className="btn-text">picture</span></div>
+                        <div className="save-set btns mobile" onClick={handleSave}></div>
+                        <div className="delete-set btns mobile" onClick={handleDelete}></div>
+                    </div>
                 </div>
             ) : (
                 <div className="set-info">
@@ -109,14 +115,14 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
 
             {isEditing ? (
                 <>
-                    <div className="save-set btns" onClick={handleSave}></div>
-                    <div className="delete-set btns" onClick={handleDelete}></div>
+                    <div className="save-set btns desctop" onClick={handleSave}></div>
+                    <div className="delete-set btns desctop" onClick={handleDelete}></div>
                 </>
             ) : (
                 <>
                     <div>
-                        <div className="btn-type3" onClick={handleToCreatorClick}><div className='set-tile-btn-icon-creat'></div>creat</div>
-                        <div className="btn-type1 btn-view" onClick={handleToViewerClick}><div className='set-tile-btn-icon-view'></div>view</div>
+                        <div className="btn-type3 btn-creat" onClick={handleToCreatorClick}><div className='set-tile-btn-icon-creat'></div><span className="btn-text">creat</span></div>
+                        <div className="btn-type1 btn-view" onClick={handleToViewerClick}><div className='set-tile-btn-icon-view'></div><span className="btn-text">view</span></div>
                     </div>
                     <div className="edit-set btns" onClick={handleEdit}></div>
                 </>
