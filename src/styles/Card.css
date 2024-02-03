@@ -1,21 +1,64 @@
 .card-tile {
-    /* display: flex; */
     justify-content: space-between;
     align-items: stretch;
     margin: 15px auto;
     margin-bottom: 20px;
-    /* padding: 20px; */
     border-radius: 8px;
     box-shadow: 0px 2px 8px 2px rgba(0, 0, 0, 0.2);
     background-color: rgb(255, 255, 255);
     width: 250px;
     height: 370px;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-popup {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #ffffff;
+    z-index: 9;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-confirm-text {
+    color: #525266;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card-popup-icon {
+    width: 60px;
+    height: 60px;
+    background: url(../images/icon/exclamation-mark.png) no-repeat center / contain;
+    margin-bottom: 20px;
+}
+
+.card-popup-crose {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    background: url(../images/icon/close2.png) no-repeat center / contain;
+    cursor: pointer;
 }
 
 .card-side1 {
     padding: 10px 20px 0 20px;
     border-bottom: 1px solid #7b7b8c;
     position: relative;
+}
+
+.card-confirm-btn {
+    margin: 5px !important;
 }
 
 .card-side1:before {
@@ -98,9 +141,11 @@
     background-position: center;
     margin-right: 15px;
 }
+
 .save-card:hover {
     background-color: #e9e9f2;
 }
+
 .save-card-disact {
     background-color: #f5f5fa;
     background-image: url('../images/icon/save-disact.png');

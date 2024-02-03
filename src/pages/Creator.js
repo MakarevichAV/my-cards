@@ -40,10 +40,18 @@ const Creator = ({ cards, onAddCard, onGetCards }) => {
         fetchData();
     }, [onGetCards, setId]);
 
-    const handleAddCard = () => {
-        onAddCard(directoryId, setId);
-        // После добавления новой карточки пролистываем карусель на первую карточку
-        setActiveIndex(0);
+    const [addingCard, setAddingCard] = useState(false);
+
+    const handleAddCard = async () => {
+        setAddingCard(true); // Устанавливаем флаг загрузки в true
+        try {
+            await onAddCard(directoryId, setId); // Выполняем onAddCard
+            setActiveIndex(0);
+        } catch (error) {
+            console.error("Error adding card:", error);
+        } finally {
+            setAddingCard(false); // Вне зависимости от результата, устанавливаем флаг загрузки в false
+        }
     };
 
     return (
@@ -57,7 +65,7 @@ const Creator = ({ cards, onAddCard, onGetCards }) => {
                     </div>
                     <div className="container-content">
 
-                        {isLoading ? (
+                        {isLoading || addingCard ? (
                             <Loader />
                         ) : error ? (
                             <div className="error-message">

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { editCard, saveCard, deleteCard } from '../redux/actions/cardActions';
 import SearchPopup from './SearchPopup';
 import { useNavigate } from 'react-router-dom';
+import Loader from './Loader';
 import '../styles/Card.css';
 
 
@@ -30,7 +31,7 @@ const Card = ({
 }) => {
     const [isSearching, setIsSearching] = useState(false);
     const [isEditing, setIsEditing] = useState(creating);
-
+    const [isLoading, setIsLoading] = useState(false);
     const [isChanged, setIsChanged] = useState(false);
 
     const [localEditedImage, setLocalEditedImage] = useState(image || '');
@@ -87,12 +88,25 @@ const Card = ({
     const handleSave = () => {
         if (isChanged) {
             onSave(_id, localEditedImage, localEditedPhrase, localEditedTranscription, localEditedNote, localEditedExample1, localEditedTranslation, localEditedExample2, directoryId, setId);
-            setIsChanged(false); // Сбросить флаг после сохранения
+            setIsChanged(false);
         }
     };
 
-    const handleDelete = () => {
-        onDelete(_id, setId);
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+
+    const handleDeleteClick = () => {
+        setIsConfirmOpen(true);
+    }
+    const handleCancelConfirm = () => {
+        setIsConfirmOpen(false);
+    };
+    const handleDelete = async () => {
+        setIsLoading(true);
+        try {
+            await onDelete(_id, setId);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const handleEdit = () => {
@@ -100,7 +114,7 @@ const Card = ({
     };
     // --- //
 
-    // PopUp functions //
+    // Search PopUp functions //
     const handleSearchClick = () => {
         setIsSearching(true);
     };
@@ -110,21 +124,29 @@ const Card = ({
     };
 
     const handleImageSelect = (selectedImage) => {
-        // Обработка выбора изображения из SearchPopup
         setLocalEditedImage(selectedImage);
         setIsChanged(true);
     };
     // --- //
 
-    // //обработчик перехода к редактору карт
-    // const handleToCreatorClick = () => {
-    //     navigate(`/creator/${_id}`);
-    // };
-
     return (
         <div className="card-tile">
             {isEditing && (
                 <>
+                    {isConfirmOpen && (
+                        <div className="card-popup">
+                            {isLoading && <Loader />}
+                            {!isLoading && (
+                                <>
+                                    <div className="card-popup-crose" onClick={handleCancelConfirm}></div>
+                                    <div className="card-popup-icon"></div>
+                                    <p className="card-confirm-text">Delete the card?</p>
+                                    <div className='btn-type1 card-confirm-btn' onClick={handleCancelConfirm}>canсel</div>
+                                    <div className='btn-type2 card-confirm-btn' onClick={handleDelete}>delete</div>
+                                </>
+                            )}
+                        </div>
+                    )}
                     <div className="card-side1">
                         <div className='card-image-container card-row'>
                             <div className="card-image" style={imageStyle}></div>
@@ -135,7 +157,7 @@ const Card = ({
                             {!isChanged &&
                                 (<div className="save-card-disact btns"></div>)
                             }
-                            <div className="delete-card btns" onClick={handleDelete}></div>
+                            <div className="delete-card btns" onClick={handleDeleteClick}></div>
                         </div>
                         <input
                             className="card-input"
