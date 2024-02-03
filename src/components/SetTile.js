@@ -73,6 +73,9 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
     const handleToCreatorClick = () => {
         navigate(`/creator/${directoryId}/${_id}`, { state: { setName: name } });
     };
+    const handleToViewerClick = () => {
+        navigate(`/viewer/${directoryId}/${_id}`, { state: { setName: name } });
+    };
 
     return (
         <div className="set-tile">
@@ -89,6 +92,7 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
                 <div className="set-info">
                     <input
                         className="set-input"
+                        maxLength="25"
                         type="text"
                         value={localEditedName}
                         onChange={(e) => setLocalEditedName(e.target.value)}
@@ -111,8 +115,8 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
             ) : (
                 <>
                     <div>
-                        <div className="btn-type3" onClick={handleToCreatorClick}>creat</div>
-                        <div className="btn-type1" onClick={handleToCreatorClick}>view</div>
+                        <div className="btn-type3" onClick={handleToCreatorClick}><div className='set-tile-btn-icon-creat'></div>creat</div>
+                        <div className="btn-type1 btn-view" onClick={handleToViewerClick}><div className='set-tile-btn-icon-view'></div>view</div>
                     </div>
                     <div className="edit-set btns" onClick={handleEdit}></div>
                 </>

@@ -13,12 +13,12 @@ import Card from '../components/Card';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/CardsPage.css';
 
-const Creator = ({ cards, onAddCard, onGetCards }) => {
+const Viewer = ({ cards, onGetCards }) => {
     
     const cardsContentHeaderStyle = {
-        backgroundColor: '#d9b216'
+        backgroundColor: '#525266'
     };
-
+    
     const navigate = useNavigate();
     const location = useLocation();
     const setName = location.state?.setName || 'Set';
@@ -43,22 +43,8 @@ const Creator = ({ cards, onAddCard, onGetCards }) => {
         fetchData();
     }, [onGetCards, setId]);
 
-    const [addingCard, setAddingCard] = useState(false);
-
-    const handleAddCard = async () => {
-        setAddingCard(true);
-        try {
-            await onAddCard(directoryId, setId);
-            setActiveIndex(0);
-        } catch (error) {
-            console.error("Error adding card:", error);
-        } finally {
-            setAddingCard(false);
-        }
-    };
-
-    const handleToViewerClick = () => {
-        navigate(`/viewer/${directoryId}/${setId}`, { state: { setName: setName } });
+    const handleToCreatorClick = () => {
+        navigate(`/creator/${directoryId}/${setId}`, { state: { setName: setName } });
     };
 
     return (
@@ -69,13 +55,12 @@ const Creator = ({ cards, onAddCard, onGetCards }) => {
                     <div className="cards-content-header" style={cardsContentHeaderStyle}>
                         <h2 className="content-title">{setName}</h2>
                         <div className="cards-header-nav">
-                            <div className="go-to-view" onClick={handleToViewerClick}></div>
-                            <div className="add-card" onClick={handleAddCard}></div>
+                            <div className="go-to-creat" onClick={handleToCreatorClick}></div>
                         </div>
                     </div>
                     <div className="container-content">
 
-                        {isLoading || addingCard ? (
+                        {isLoading ? (
                             <Loader />
                         ) : error ? (
                             <div className="error-message">
@@ -85,7 +70,7 @@ const Creator = ({ cards, onAddCard, onGetCards }) => {
                             <Carousel interval={null} activeIndex={activeIndex} onSelect={(index) => setActiveIndex(index)}>
                                 {reversedCards.map((card) => (
                                     <Carousel.Item key={card._id}>
-                                        <Card creating={true} viewing={false} {...card} />
+                                        <Card creating={false} viewing={true} {...card} />
                                     </Carousel.Item>
                                 ))}
                             </Carousel>
@@ -111,8 +96,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         onGetCards: (setId) => dispatch(getCards(setId)),
-        onAddCard: (directoryId, setId) => dispatch(addCard(directoryId, setId)),
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Creator);
+export default connect(mapStateToProps, mapDispatchToProps)(Viewer);

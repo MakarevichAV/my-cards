@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import SetsPage from './pages/SetsPage';
 import Creator from './pages/Creator';
+import Viewer from './pages/Viewer';
 import './App.css';
 
 const App = () => {
@@ -23,6 +24,10 @@ const App = () => {
         <Route
           path="/creator/:directoryId/:setId"
           element={isUserAuthenticated ? <Creator /> : <Navigate to="/" replace />}
+        />
+        <Route
+          path="/viewer/:directoryId/:setId"
+          element={isUserAuthenticated ? <Viewer /> : <Navigate to="/" replace />}
         />
         <Route path="/" element={<LoginPage />} />
       </Routes>

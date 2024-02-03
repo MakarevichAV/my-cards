@@ -12,6 +12,7 @@
 
 .set-info {
     flex: 1;
+    margin-right: 15px;
 }
 
 .sets-count {
@@ -83,4 +84,20 @@
     width: 20px;
     height: 34px;
     margin-right: 8px;
+}
+
+.btn-view {
+    background-color: #525266 !important;
+}
+
+.set-tile-btn-icon-view, .set-tile-btn-icon-creat {
+    width: 30px;
+    height: 30px;
+    margin-right: 8px;
+}
+.set-tile-btn-icon-creat {
+    background: url(../images/icon/creat.png) no-repeat center / 90%;
+}
+.set-tile-btn-icon-view {
+    background: url(../images/icon/view.png) no-repeat center / 90%;
 }
