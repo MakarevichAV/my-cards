@@ -73,6 +73,7 @@ code {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   cursor: pointer;
   max-width: 120px;
+  padding: 0 15px;
 }
 
 .camera {

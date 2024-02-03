@@ -4,7 +4,6 @@ import { editSet, saveSet, deleteSet } from '../redux/actions/setActions';
 import SearchPopup from './SearchPopup';
 import { useNavigate } from 'react-router-dom';
 import '../styles/SetTile.css';
-import { BOLD_WEIGHT } from 'jest-matcher-utils';
 
 
 const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave, onDelete, directoryId }) => {
@@ -38,7 +37,6 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
         height: '80px',
         marginRight: '15px',
         borderRadius: '8px',
-        minWidth: '60px'
     };
 
     // BLL functions //

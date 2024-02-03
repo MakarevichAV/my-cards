@@ -133,7 +133,8 @@
     }
 
     .set-tile-btn-icon-view,
-    .set-tile-btn-icon-creat {
+    .set-tile-btn-icon-creat,
+    .set-tile .camera {
         margin-right: 0;
     }
 
@@ -150,5 +151,10 @@
 
     .set-tile .desctop {
         display: none;
+    }
+
+    .set-tile .btn-type2 {
+        width: auto;
+        padding: 0 14px;
     }
 }
