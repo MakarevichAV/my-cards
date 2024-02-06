@@ -44,7 +44,12 @@ const CardViewMode = ({
                 )}
             </div>
             <div className="card-side2_view">
-                это вторая сторона карточки
+                {translation && (
+                    <p className="card-translation_view">{translation}</p>
+                )}
+                {example2 && (
+                    <p className="card-example_view">{example2}</p>
+                )}
             </div>
         </div>
     )

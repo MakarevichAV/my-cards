@@ -3,16 +3,12 @@
     background-color: none;
     overflow: visible;
 }
-.card-tile.flipped {
-    /* transform: rotateY(180deg); */
-    /* transition: transform 0.5s ease; Добавьте анимацию с использованием трансформации */
-}
 
-
-.card-side1_view, .card-side2_view {
+.card-side1_view,
+.card-side2_view {
     overflow: hidden;
     backface-visibility: hidden;
-    transition: transform .5s linear;
+    transition: transform .3s linear;
     border-radius: 8px;
     position: absolute;
     height: 100%;
@@ -20,15 +16,9 @@
     box-shadow: 0px 2px 8px 2px rgba(0, 0, 0, 0.2);
     background-color: rgb(255, 255, 255);
 }
-.card-tile .card-side1_view {
-    transform: perspective(600px) rotateY(0deg);
-}
 
-.card-tile .card-side2_view {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: perspective(600px) rotateY(180deg);
+.card-side1_view {
+    transform: perspective(600px) rotateY(0deg);
 }
 
 .card-tile.flipped .card-side1_view {
@@ -39,17 +29,19 @@
     transform: perspective(600px) rotateY(0deg);
 }
 
-/* .card-side2_view {
-    transform: rotateY(180deg);
-} */
-
-.card-side1_view {
+.card-side1_view,
+.card-side2_view {
     flex: 1;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+}
+
+.card-side2_view {
+    transform: perspective(600px) rotateY(180deg);
+    justify-content: center;
 }
 
 .card-image_view {
@@ -59,13 +51,18 @@
     margin-bottom: 15px;
 }
 
-.card-phrase_view {
+.card-phrase_view,
+.card-translation_view {
     font-size: 20px;
     font-weight: 700;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #525266;
+    color: #3F2108;
     text-align: center;
     margin-bottom: 10px;
+}
+
+.card-translation_view {
+    margin-bottom: 20px;
 }
 
 .card-transcription_view {
