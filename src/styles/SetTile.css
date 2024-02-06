@@ -15,10 +15,10 @@
     margin-right: 15px;
 }
 
-.sets-count {
+/* .sets-count {
     font-size: 14px;
     color: #C2C2C2;
-}
+} */
 
 .set-name {
     font-size: 20px;
@@ -112,30 +112,21 @@
     display: block;
 }
 
-.set-btns_mobile {
+.btns_mobile {
     display: none;
 }
 
-.set-btns_mobile div {
+.btns_mobile div {
     margin-bottom: 0;
 }
 
 .cards-count {
     font-size: 14px;
     color: #C2C2C2;
-    margin-bottom: 15px;
+    margin-bottom: 11px;
 }
 
 @media (max-width: 550px) {
-    .set-btns_mobile {
-        display: flex;
-        align-items: center;
-    }
-
-    .set-btns_desctop {
-        display: none;
-    }
-
     .set-name {
         font-size: 18px;
         font-weight: 700;
@@ -161,8 +152,7 @@
     }
 
     .set-tile-btn-icon-view,
-    .set-tile-btn-icon-creat,
-    .set-tile .camera {
+    .set-tile-btn-icon-creat {
         margin-right: 0;
     }
 

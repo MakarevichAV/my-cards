@@ -92,24 +92,32 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
                         onChange={(e) => setLocalEditedName(e.target.value)}
                         placeholder="Название директории"
                     />
-                    <div className="btn-type2" onClick={handleSearchClick}><div className="camera"></div>picture</div>
+                    <div className="directory-edit-buttons">
+                        <div className="btn-type2 btn-choose-img" onClick={handleSearchClick}><div className="camera"></div><span className="btn-text">picture</span></div>
+                        <div className="save-directory btns mobile" onClick={handleSave}></div>
+                        <div className="delete-directory btns mobile" onClick={handleDelete}></div>
+                    </div>
                 </div>
             ) : (
                 <div className="directory-info">
                     <div className="directory-name">{name}</div>
                     <div className="sets-count">{setsCount} sets</div>
+                    <div className='directory-btns btns_mobile'>
+                        <div className="btn-type1" onClick={handleToSetsClick}>&rArr; to sets</div>
+                        <div className="edit-directory btns" onClick={handleEdit}></div>
+                    </div>
                 </div>
             )}
 
             {isEditing ? (
                 <>
-                    <div className="save-directory btns" onClick={handleSave}></div>
-                    <div className="delete-directory btns" onClick={handleDelete}></div>
+                    <div className="save-directory btns desctop" onClick={handleSave}></div>
+                    <div className="delete-directory btns desctop" onClick={handleDelete}></div>
                 </>
             ) : (
                 <>
-                    <div className="btn-type1" onClick={handleToSetsClick}>&rArr; to sets</div>
-                    <div className="edit-directory btns" onClick={handleEdit}></div>
+                    <div className="btn-type1 btns_desctop" onClick={handleToSetsClick}>&rArr; to sets</div>
+                    <div className="edit-directory btns btns_desctop" onClick={handleEdit}></div>
                 </>
             )}
         </div>

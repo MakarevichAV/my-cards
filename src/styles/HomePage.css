@@ -23,6 +23,7 @@
 .sets-count {
     font-size: 14px;
     color: #C2C2C2;
+    margin-bottom: 11px;
 }
 
 .directory-name {
@@ -76,7 +77,78 @@
     border-radius: 4px;
     margin-bottom: 15px;
 }
+.directory-input:focus {
+    border-color: #525266 !important;
+}
 
 .directory-input:focus {
     border-color: #525266 !important;
+}
+
+.directory-edit-buttons {
+    display: flex;
+}
+.directory-tile .mobile {
+    display: none;
+}
+
+.directory-tile .desctop {
+    display: block;
+}
+@media (max-width: 550px) {
+    .directory-input {
+        padding: 3px 6px;
+        font-size: 18px;
+        color: #8d8da6;
+        border: 1px solid #8d8da6;
+        border-radius: 4px;
+        margin-bottom: 15px;
+        width: 100%;
+    }
+    .directory-info {
+        margin-right: 15px;
+    }
+    .directory-name {
+        margin-bottom: 6px;
+        font-size: 18px;
+    }
+
+    .directory-tile .mobile {
+        display: block;
+    }
+
+    .directory-tile .desctop {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-text {
+        display: none;
+    }
+
+    /* .set-tile-btn-icon-view,
+    .set-tile-btn-icon-creat,
+    .set-tile .camera {
+        margin-right: 0;
+    } */
+
+    .directory-info .btn-choose-img {
+        width: auto;
+        padding: 0 14px;
+        height: 34px;
+    }
+
+    .directory-tile .mobile {
+        display: block;
+    }
+
+    .directory-tile .desctop {
+        display: none;
+    }
+
+    .set-tile .btn-type2 {
+        width: auto;
+        padding: 0 14px;
+    }
 }

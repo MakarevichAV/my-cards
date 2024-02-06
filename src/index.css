@@ -156,4 +156,24 @@ code {
     padding: 0;
     width: 100px;
   }
+
+  .btns_mobile {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .btns_mobile div {
+    height: 30px;
+  }
+
+  .btns_desctop {
+    display: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .camera {
+    margin: 0;
+  }
 }
