@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import '../styles/Header.css';
 
-const Header = ({ onAddDirectory, onLogout, showAddDirectory, showGoToBack }) => {
+const Header = ({ onAddDirectory, onLogout, showAddDirectory, showGoToBack, showGoToSets, directoryId }) => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -27,6 +27,9 @@ const Header = ({ onAddDirectory, onLogout, showAddDirectory, showGoToBack }) =>
   const handleToDirsClick = () => {
     navigate(`/home`);
   };
+  const handleToSetsClick = () => {
+    navigate(`/sets/${directoryId}`);
+  };
 
   return (
     <header>
@@ -40,6 +43,9 @@ const Header = ({ onAddDirectory, onLogout, showAddDirectory, showGoToBack }) =>
         </>)}
         {showGoToBack && (<>
           <div className="go-to-back" onClick={handleToDirsClick}></div>
+        </>)}
+        {showGoToSets && (<>
+          <div className="go-to-back" onClick={handleToSetsClick}></div>
         </>)}
         <div className="delimiter"></div>
         <div style={{ display: 'flex' }}>

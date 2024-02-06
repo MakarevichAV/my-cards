@@ -49,7 +49,7 @@ const Viewer = ({ cards, onGetCards }) => {
 
     return (
         <div className="cards-page page">
-            <Header showAddDirectory={false} showGoToBack={true} />
+            <Header showAddDirectory={false} showGoToBack={false} showGoToSets={true} directoryId={directoryId} />
             <div className="content">
                 <div className="cards-container">
                     <div className="cards-content-header" style={cardsContentHeaderStyle}>

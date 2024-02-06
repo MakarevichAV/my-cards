@@ -33,7 +33,7 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
         backgroundSize: `${localEditedImage ? 'cover' : 'contain'}`,
         backgroundPosition: 'top center',
         backgroundRepeat: 'no-repeat',
-        width: '80px',
+        minWidth: '80px',
         height: '80px',
         marginRight: '15px',
         borderRadius: '8px',
@@ -108,6 +108,11 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
                 <div className="set-info">
                     <div className="set-name">{name}</div>
                     <div className="cards-count">{cardsCount} cards</div>
+                    <div className='set-btns_mobile'>
+                        <div className="btn-type3 btn-creat" onClick={handleToCreatorClick}><div className='set-tile-btn-icon-creat'></div><span className="btn-text">creat</span></div>
+                        <div className="btn-type1 btn-view" onClick={handleToViewerClick}><div className='set-tile-btn-icon-view'></div><span className="btn-text">view</span></div>
+                        <div className="edit-set btns" onClick={handleEdit}></div>
+                    </div>
                 </div>
             )}
 
@@ -118,11 +123,11 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
                 </>
             ) : (
                 <>
-                    <div>
+                    <div className='set-btns_desctop'>
                         <div className="btn-type3 btn-creat" onClick={handleToCreatorClick}><div className='set-tile-btn-icon-creat'></div><span className="btn-text">creat</span></div>
                         <div className="btn-type1 btn-view" onClick={handleToViewerClick}><div className='set-tile-btn-icon-view'></div><span className="btn-text">view</span></div>
                     </div>
-                    <div className="edit-set btns" onClick={handleEdit}></div>
+                    <div className="edit-set btns set-btns_desctop" onClick={handleEdit}></div>
                 </>
             )}
         </div>

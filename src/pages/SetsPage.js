@@ -39,7 +39,7 @@ const SetsPage = ({ sets, onAddSet, onGetSets }) => {
 
     return (
         <div className="sets-page page">
-            <Header showAddDirectory={false} showGoToBack={true} />
+            <Header showAddDirectory={false} showGoToBack={true} showGoToSets={false} />
             <div className="content">
                 <div className="sets-container">
                     <div className="sets-content-header">
