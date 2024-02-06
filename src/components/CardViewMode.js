@@ -27,7 +27,7 @@ const CardViewMode = ({
 
     return (
         <div
-            className={`card-tile ${isFlipped ? 'flipped' : ''}`}
+            className={`card-tile view-mode ${isFlipped ? 'flipped' : ''}`}
             onClick={handleFlip}
         >
             <div className="card-side1_view">
