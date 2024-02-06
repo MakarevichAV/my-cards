@@ -9,7 +9,7 @@ const SearchPopup = ({ onClose, onImageSelect }) => {
     const handleSearch = async () => {
         try {
             const response = await axios.get(
-                `https://pixabay.com/api/?key=33256265-9311bbeda59bd85787262c6fb&q=${encodeURIComponent(searchQuery)}&image_type=vector`
+                `https://pixabay.com/api/?key=33256265-9311bbeda59bd85787262c6fb&q=${encodeURIComponent(searchQuery)}&image_type=all&per_page=50`
             );
 
             setSearchResults(response.data.hits);
@@ -31,7 +31,7 @@ const SearchPopup = ({ onClose, onImageSelect }) => {
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Searching image"
                 />
-                <div className="search-button" onClick={handleSearch}><p>SEARCH</p></div>
+                <div className="search-button" onClick={handleSearch}>SEARCH</div>
                 <div className="close-icon" onClick={onClose}></div>
             </div>
             <div className="search-results">

@@ -76,7 +76,7 @@ const Viewer = ({ cards, onGetCards }) => {
                             </Carousel>
                         ) : (
                             <div className="page-description">
-                                <p>Your sets will be here</p>
+                                <p>Your cards will be here</p>
                             </div>
                         )}
 
