@@ -9,7 +9,7 @@ const CardEditMode = ({
     localEditedExample1, setLocalEditedExample1, localEditedTranslation, setLocalEditedTranslation,
     localEditedExample2, setLocalEditedExample2,
 }) => (
-    <>
+    <div className="card-tile">
         {isConfirmOpen && (
             <div className="card-popup">
                 {isLoading && <Loader />}
@@ -89,7 +89,7 @@ const CardEditMode = ({
                 placeholder="Additional information"
             />
         </div>
-    </>
+    </div>
 );
 
 export default CardEditMode;

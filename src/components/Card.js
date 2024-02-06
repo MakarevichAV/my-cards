@@ -131,9 +131,8 @@ const Card = ({
     // --- //
 
     return (
-        <div className="card-tile">
-
-            {isEditing ? (
+        <>
+        {isEditing ? (
                 <CardEditMode
                     {...{
                         isConfirmOpen, isLoading, handleCancelConfirm, handleDelete,
@@ -172,7 +171,7 @@ const Card = ({
                     onImageSelect={handleImageSelect}
                 />
             )}
-        </div>
+        </>
     );
 };
 

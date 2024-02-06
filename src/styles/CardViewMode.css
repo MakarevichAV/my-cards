@@ -1,3 +1,36 @@
+.card-tile.flipped {
+    transform: rotateY(180deg);
+    /* transition: transform 0.5s ease; Добавьте анимацию с использованием трансформации */
+}
+
+
+.card-side1_view, .card-side2_view {
+    overflow: hidden;
+    backface-visibility: hidden;
+    transition: transform .5s linear;
+}
+.card-tile .card-side1_view {
+    /* display: flex; */
+    transform: perspective(600px) rotateY(0deg);
+}
+
+.card-tile .card-side2_view {
+    /* display: none; */
+    transform: perspective(600px) rotateY(180deg);
+}
+
+.card-tile.flipped .card-side1_view {
+    transform: perspective(600px) rotateY(-180deg);
+}
+
+.card-tile.flipped .card-side2_view {
+    transform: perspective(600px) rotateY(0deg);
+}
+
+/* .card-side2_view {
+    transform: rotateY(180deg);
+} */
+
 .card-side1_view {
     flex: 1;
     padding: 20px;
@@ -30,7 +63,8 @@
     text-align: center;
 }
 
-.card-note_view, .card-example_view {
+.card-note_view,
+.card-example_view {
     font-size: 16px;
     font-weight: 600;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

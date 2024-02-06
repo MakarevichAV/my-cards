@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/CardViewMode.css';
 
 const CardViewMode = ({
@@ -12,6 +12,8 @@ const CardViewMode = ({
     example2,
 }) => {
 
+    const [isFlipped, setIsFlipped] = useState(false);
+
     const imageStyle = {
         backgroundImage: `url(${image || defaultImage})`,
         backgroundSize: 'contain',
@@ -19,8 +21,15 @@ const CardViewMode = ({
         backgroundRepeat: 'no-repeat',
     };
 
+    const handleFlip = () => {
+        setIsFlipped(!isFlipped);
+    };
+
     return (
-        <>
+        <div
+            className={`card-tile ${isFlipped ? 'flipped' : ''}`}
+            onClick={handleFlip}
+        >
             <div className="card-side1_view">
                 <div className="card-image_view" style={imageStyle}></div>
                 <p className="card-phrase_view">{phrase}</p>
@@ -34,10 +43,10 @@ const CardViewMode = ({
                     <p className="card-example_view">{example1}</p>
                 )}
             </div>
-            {/* <div className="card-side2_view">
+            <div className="card-side2_view">
                 это вторая сторона карточки
-            </div> */}
-        </>
+            </div>
+        </div>
     )
 };
 
