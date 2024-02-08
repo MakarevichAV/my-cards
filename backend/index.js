@@ -154,12 +154,20 @@ app.delete('/deleteDirectory/:id', async (req, res) => {
             return res.status(403).json({ message: 'You do not have permission to delete this directory' });
         }
 
-        // Удаление директории по id
-        const deletedDirectory = await Directory.findByIdAndDelete(objectId);
-
-        if (!deletedDirectory) {
-            return res.status(404).json({ message: 'Directory not found' });
+        // Находим и удаляем все наборы карточек в удаленной директории
+        const deletedSets = await Set.find({ directoryId: objectId });
+        if (deletedSets.length > 0) {
+            for (const set of deletedSets) {
+                // Находим и удаляем все карточки в текущем наборе
+                await Card.deleteMany({ setId: set._id });
+            }
         }
+
+        // Удаляем все наборы карточек в удаленной директории
+        await Set.deleteMany({ directoryId: objectId });
+
+        // Удаляем саму директорию
+        await Directory.findByIdAndDelete(objectId);
 
         res.status(200).json({ message: 'Directory deleted successfully' });
     } catch (err) {
@@ -234,13 +242,16 @@ app.delete('/deleteSet/:id', async (req, res) => {
         // Преобразование строки id в ObjectId
         const objectId = new mongoose.Types.ObjectId(id);
 
-        // Проверка владельца перед удалением
-        const set = await Set.findOne({ _id: objectId, directoryId: directoryId });
-        if (!set) {
-            return res.status(403).json({ message: 'You do not have permission to delete this set' });
-        }
+        // Проверка директории перед удалением
+        // const set = await Set.findOne({ _id: objectId, directoryId: directoryId });
+        // if (!set) {
+        //     return res.status(403).json({ message: 'You do not have permission to delete this set' });
+        // }
 
-        // Удаление директории по id
+        // Удаление всех карточек связанных с этим набором
+        await Card.deleteMany({ setId: objectId });
+
+        // Удаление набора по id
         const deletedSet = await Set.findByIdAndDelete(objectId);
 
         if (!deletedSet) {

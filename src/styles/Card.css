@@ -16,6 +16,10 @@
      
 }
 
+.card-tile.view-mode {
+    cursor: pointer;
+}
+
 .card-popup {
     position: absolute;
     top: 0;

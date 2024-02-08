@@ -9,7 +9,7 @@ const SearchPopup = ({ onClose, onImageSelect }) => {
     const handleSearch = async () => {
         try {
             const response = await axios.get(
-                `https://pixabay.com/api/?key=33256265-9311bbeda59bd85787262c6fb&q=${encodeURIComponent(searchQuery)}&image_type=all&per_page=50`
+                `https://pixabay.com/api/?key=33256265-9311bbeda59bd85787262c6fb&q=${encodeURIComponent(searchQuery)}&image_type=illustration&per_page=50`
             );
 
             setSearchResults(response.data.hits);
@@ -26,12 +26,19 @@ const SearchPopup = ({ onClose, onImageSelect }) => {
     return (
         <div className="search-popup">
             <div className="search-header">
-                <input
-                    type="text"
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Searching image"
-                />
-                <div className="search-button" onClick={handleSearch}>SEARCH</div>
+                <div className='search-input-wrap'>
+                    <input
+                        type="text"
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                handleSearch();
+                            }
+                        }}
+                        placeholder="Searching image"
+                    />
+                    <div className='loupe' onClick={handleSearch}></div>
+                </div>
                 <div className="close-icon" onClick={onClose}></div>
             </div>
             <div className="search-results">
@@ -46,7 +53,7 @@ const SearchPopup = ({ onClose, onImageSelect }) => {
                         </div>
                     ))
                 ) : (
-                    <p>Нет результатов поиска</p>
+                    <p className="search-result-note">No search results. Try changing your search query.</p>
                 )}
             </div>
         </div>
