@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { editDirectory, saveDirectory, deleteDirectory } from '../redux/actions/directoryActions';
 import SearchPopup from './SearchPopup';
+import Loader from './Loader';
 import { useNavigate } from 'react-router-dom';
 
 const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, onSave, onDelete }) => {
     const [isSearching, setIsSearching] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [localEditedName, setLocalEditedName] = useState(editedName || '');
     const [localEditedImage, setLocalEditedImage] = useState(image || '');
     const [selectedImage, setSelectedImage] = useState('');
@@ -43,8 +45,20 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
         setIsEditing(false);
     };
 
-    const handleDelete = () => {
-        onDelete(_id);
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+const handleDeleteClick = () => {
+        setIsConfirmOpen(true);
+    }
+    const handleCancelConfirm = () => {
+        setIsConfirmOpen(false);
+    };
+    const handleDelete = async () => {
+        setIsLoading(true);
+        try {
+            await onDelete(_id);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const handleEdit = () => {
@@ -74,6 +88,22 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
 
     return (
         <div className="directory-tile">
+            {isConfirmOpen && (
+                <div className="directory-popup">
+                    {isLoading && <Loader />}
+                    {!isLoading && (
+                        <>
+                            <div className="directory-popup-crose" onClick={handleCancelConfirm}></div>
+                            <p className="directory-confirm-text"><div className="set-popup-icon"></div>Delete the directory?</p>
+                            <div style={{display: 'flex'}}>
+                                <div className='btn-type1 directory-confirm-btn' onClick={handleCancelConfirm}>canсel</div>
+                                <div className='btn-type2 directory-confirm-btn' onClick={handleDelete}>delete</div>
+                            </div>
+                        </>
+                    )}
+                </div>
+            )}
+            
             <div className="directory-image" style={imageStyle}></div>
 
             {isSearching && (
@@ -95,7 +125,7 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
                     <div className="directory-edit-buttons">
                         <div className="btn-type2 btn-choose-img" onClick={handleSearchClick}><div className="camera"></div><span className="btn-text">picture</span></div>
                         <div className="save-directory btns mobile" onClick={handleSave}></div>
-                        <div className="delete-directory btns mobile" onClick={handleDelete}></div>
+                        <div className="delete-directory btns mobile" onClick={handleDeleteClick}></div>
                     </div>
                 </div>
             ) : (
@@ -112,7 +142,7 @@ const DirectoryTile = ({ _id, name, image, setsCount, editedName, editedImage, o
             {isEditing ? (
                 <>
                     <div className="save-directory btns desctop" onClick={handleSave}></div>
-                    <div className="delete-directory btns desctop" onClick={handleDelete}></div>
+                    <div className="delete-directory btns desctop" onClick={handleDeleteClick}></div>
                 </>
             ) : (
                 <>

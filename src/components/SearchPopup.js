@@ -1,20 +1,24 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/Popup.css';
+import Loader from './Loader';
 
 const SearchPopup = ({ onClose, onImageSelect }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSearch = async () => {
         try {
+            setIsLoading(true);
             const response = await axios.get(
                 `https://pixabay.com/api/?key=33256265-9311bbeda59bd85787262c6fb&q=${encodeURIComponent(searchQuery)}&image_type=illustration&per_page=50`
             );
-
             setSearchResults(response.data.hits);
         } catch (error) {
             console.error('Error searching images:', error);
+        } finally {
+            setIsLoading(false); // Устанавливаем isLoading в false после завершения загрузки
         }
     };
 
@@ -42,18 +46,22 @@ const SearchPopup = ({ onClose, onImageSelect }) => {
                 <div className="close-icon" onClick={onClose}></div>
             </div>
             <div className="search-results">
-                {searchResults.length > 0 ? (
-                    searchResults.map((result) => (
-                        <div className="search-item" key={result.id}
-                            onClick={() => handleImageSelect(result.previewURL)}
-                            style={{
-                                backgroundImage: `url(${result.previewURL})`,
-                                backgroundSize: 'contain'
-                            }}>
-                        </div>
-                    ))
+                {isLoading ? (
+                    <div className="loader-wrap"><Loader /></div>
                 ) : (
-                    <p className="search-result-note">No search results. Try changing your search query.</p>
+                    searchResults.length > 0 ? (
+                        searchResults.map((result) => (
+                            <div className="search-item" key={result.id}
+                                onClick={() => handleImageSelect(result.previewURL)}
+                                style={{
+                                    backgroundImage: `url(${result.previewURL})`,
+                                    backgroundSize: 'contain'
+                                }}>
+                            </div>
+                        ))
+                    ) : (
+                        <p className="search-result-note">No search results. Try changing your search query.</p>
+                    )
                 )}
             </div>
         </div>

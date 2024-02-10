@@ -110,3 +110,8 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.loader-wrap {
+  margin: auto;
+  margin-top: 15px
+}

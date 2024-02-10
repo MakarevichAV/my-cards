@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { editSet, saveSet, deleteSet } from '../redux/actions/setActions';
 import SearchPopup from './SearchPopup';
+import Loader from './Loader';
 import { useNavigate } from 'react-router-dom';
 import '../styles/SetTile.css';
 
@@ -9,6 +10,7 @@ import '../styles/SetTile.css';
 const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave, onDelete, directoryId }) => {
     const [isSearching, setIsSearching] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [localEditedName, setLocalEditedName] = useState(editedName || '');
     const [localEditedImage, setLocalEditedImage] = useState(image || '');
     const [selectedImage, setSelectedImage] = useState('');
@@ -44,9 +46,20 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
         onSave(_id, localEditedName, localEditedImage, directoryId);
         setIsEditing(false);
     };
-
-    const handleDelete = () => {
-        onDelete(_id, directoryId);
+    const [isConfirmOpen, setIsConfirmOpen] = useState(false);
+    const handleDeleteClick = () => {
+        setIsConfirmOpen(true);
+    }
+    const handleCancelConfirm = () => {
+        setIsConfirmOpen(false);
+    };
+    const handleDelete = async () => {
+        setIsLoading(true);
+        try {
+            await onDelete(_id, directoryId);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const handleEdit = () => {
@@ -79,6 +92,21 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
 
     return (
         <div className="set-tile">
+            {isConfirmOpen && (
+                <div className="set-popup">
+                    {isLoading && <Loader />}
+                    {!isLoading && (
+                        <>
+                            <div className="set-popup-crose" onClick={handleCancelConfirm}></div>
+                            <p className="set-confirm-text"><div className="set-popup-icon"></div>Delete the set?</p>
+                            <div style={{display: 'flex'}}>
+                                <div className='btn-type1 set-confirm-btn' onClick={handleCancelConfirm}>canсel</div>
+                                <div className='btn-type2 set-confirm-btn' onClick={handleDelete}>delete</div>
+                            </div>
+                        </>
+                    )}
+                </div>
+            )}
             <div className="set-image" style={imageStyle}></div>
 
             {isSearching && (
@@ -101,7 +129,7 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
                     <div className="set-edit-buttons">
                         <div className="btn-type2" onClick={handleSearchClick}><div className="camera"></div><span className="btn-text">picture</span></div>
                         <div className="save-set btns mobile" onClick={handleSave}></div>
-                        <div className="delete-set btns mobile" onClick={handleDelete}></div>
+                        <div className="delete-set btns mobile" onClick={handleDeleteClick}></div>
                     </div>
                 </div>
             ) : (
@@ -119,7 +147,7 @@ const SetTile = ({ _id, name, image, cardsCount, editedName, editedImage, onSave
             {isEditing ? (
                 <>
                     <div className="save-set btns desctop" onClick={handleSave}></div>
-                    <div className="delete-set btns desctop" onClick={handleDelete}></div>
+                    <div className="delete-set btns desctop" onClick={handleDeleteClick}></div>
                 </>
             ) : (
                 <>
