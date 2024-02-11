@@ -174,11 +174,14 @@
         display: none;
     }
 
-    /* .set-tile-btn-icon-view,
-    .set-tile-btn-icon-creat,
-    .set-tile .camera {
-        margin-right: 0;
-    } */
+    .directory-confirm-text {
+        font-size: 20px;
+    }
+    
+    .directory-popup-icon {
+        width: 36px;
+        height: 36px;
+    }
 
     .directory-info .btn-choose-img {
         width: auto;
