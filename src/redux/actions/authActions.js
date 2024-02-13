@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const serverUrl = 'http://localhost:3001';
+const serverUrl = 'http://45.141.78.127/:3001';
 
 export const login = ({ username, password }) => async (dispatch) => {
   try {
