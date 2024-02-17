@@ -2,6 +2,7 @@ import * as actionTypes from './actionTypes';
 import axios from 'axios';
 
 const serverUrl = 'http://45.141.78.127:3001';
+// const serverUrl = 'http://localhost:3001';
 
 export const addDirectory = () => {
     return async (dispatch, getState) => {
