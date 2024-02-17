@@ -1,3 +1,2 @@
 [build]
-command = "npm run update-deps && npm install --legacy-peer-deps && npm run build"
-publish = "build"
+  publish = "build"
