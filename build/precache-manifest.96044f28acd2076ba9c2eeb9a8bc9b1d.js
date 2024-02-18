@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "656028e16c4b74b83f6a2578f1da603e",
+    "revision": "ece18c612614f8c2ac70450615a06c9d",
     "url": "/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/css/2.cc82f8aa.chunk.css"
   },
   {
-    "revision": "eff6cfc80f16fb18b3af",
-    "url": "/static/css/main.69342869.chunk.css"
+    "revision": "e0b6755cb350b8882fa6",
+    "url": "/static/css/main.256c9576.chunk.css"
   },
   {
     "revision": "055b201567d77b72462e",
@@ -20,7 +20,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/js/2.4e7ca2a7.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "eff6cfc80f16fb18b3af",
+    "revision": "e0b6755cb350b8882fa6",
     "url": "/static/js/main.379a99b8.chunk.js"
   },
   {
@@ -48,8 +48,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/static/media/left-arrow.36d86d98.png"
   },
   {
-    "revision": "6521bd74a7569ab419d2ed27956a4a09",
-    "url": "/static/media/max-logo.6521bd74.svg"
+    "revision": "37a285630b8508f640ad014c9a3bfe0d",
+    "url": "/static/media/max-logo.37a28563.png"
   },
   {
     "revision": "5f066b72d3f24aad30f433273360eb2e",

@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.69342869.chunk.css",
+    "main.css": "/static/css/main.256c9576.chunk.css",
     "main.js": "/static/js/main.379a99b8.chunk.js",
     "main.js.map": "/static/js/main.379a99b8.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.0fa6cbeb.js",
@@ -9,21 +9,21 @@
     "static/js/2.4e7ca2a7.chunk.js": "/static/js/2.4e7ca2a7.chunk.js",
     "static/js/2.4e7ca2a7.chunk.js.map": "/static/js/2.4e7ca2a7.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.0e03b2c9e8afdb8ddd9ab9f67e621b6c.js": "/precache-manifest.0e03b2c9e8afdb8ddd9ab9f67e621b6c.js",
+    "precache-manifest.96044f28acd2076ba9c2eeb9a8bc9b1d.js": "/precache-manifest.96044f28acd2076ba9c2eeb9a8bc9b1d.js",
     "service-worker.js": "/service-worker.js",
     "static/css/2.cc82f8aa.chunk.css.map": "/static/css/2.cc82f8aa.chunk.css.map",
-    "static/css/main.69342869.chunk.css.map": "/static/css/main.69342869.chunk.css.map",
+    "static/css/main.256c9576.chunk.css.map": "/static/css/main.256c9576.chunk.css.map",
     "static/js/2.4e7ca2a7.chunk.js.LICENSE.txt": "/static/js/2.4e7ca2a7.chunk.js.LICENSE.txt",
     "static/media/SetsPage.css": "/static/media/add-button.3f226a5e.png",
     "static/media/index.css": "/static/media/camera.e0c56af7.png",
     "static/media/Card.css": "/static/media/save.30ee5e4f.png",
-    "static/media/Header.css": "/static/media/max-logo.6521bd74.svg"
+    "static/media/Header.css": "/static/media/max-logo.37a28563.png"
   },
   "entrypoints": [
     "static/js/runtime-main.0fa6cbeb.js",
     "static/css/2.cc82f8aa.chunk.css",
     "static/js/2.4e7ca2a7.chunk.js",
-    "static/css/main.69342869.chunk.css",
+    "static/css/main.256c9576.chunk.css",
     "static/js/main.379a99b8.chunk.js"
   ]
 }
